@@ -50,7 +50,9 @@ public class TelaLogin extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("");
 		sl_contentPane.putConstraint(SpringLayout.NORTH, lblNewLabel, 10, SpringLayout.NORTH, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.EAST, lblNewLabel, -67, SpringLayout.EAST, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.WEST, lblNewLabel, 94, SpringLayout.WEST, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.SOUTH, lblNewLabel, -167, SpringLayout.SOUTH, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.EAST, lblNewLabel, -116, SpringLayout.EAST, contentPane);
 		lblNewLabel.setIcon(new ImageIcon(TelaLogin.class.getResource("/br/com/pizza/icons/pizza_256px.png")));
 		contentPane.add(lblNewLabel);
 	}
