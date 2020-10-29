@@ -37,16 +37,16 @@ public class TelaAdicionarCliente extends JPanel {
 		lblCadastroDeCliente.setFont(new Font("Tahoma", Font.PLAIN, 72));
 		add(lblCadastroDeCliente);
 		
-		JPanel panel = new JPanel();
-		panel.setBounds(7, 7, 985, 118);
-		panel.setBackground(Color.LIGHT_GRAY);
-		add(panel);
-		panel.setLayout(null);
+		JPanel panel_Titulo = new JPanel();
+		panel_Titulo.setBounds(7, 7, 985, 118);
+		panel_Titulo.setBackground(Color.LIGHT_GRAY);
+		add(panel_Titulo);
+		panel_Titulo.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(TelaAdicionarCliente.class.getResource("/br/com/pizza/icons/mulher (1).png")));
-		lblNewLabel.setBounds(141, -20, 124, 169);
-		panel.add(lblNewLabel);
+		JLabel lblImgTitulo = new JLabel("");
+		lblImgTitulo.setIcon(new ImageIcon(TelaAdicionarCliente.class.getResource("/br/com/pizza/icons/mulher (1).png")));
+		lblImgTitulo.setBounds(141, -20, 124, 169);
+		panel_Titulo.add(lblImgTitulo);
 		
 		JLabel lblNome = new JLabel("Nome: ");
 		lblNome.setBounds(5, 200, 72, 27);
@@ -79,13 +79,13 @@ public class TelaAdicionarCliente extends JPanel {
 		txtEndereco.setColumns(10);
 		add(txtEndereco);
 		
-		JButton btnNewButton = new JButton("Salvar");
-		btnNewButton.setBounds(204, 577, 140, 45);
-		add(btnNewButton);
+		JButton btnSalvarAdicionar = new JButton("Salvar");
+		btnSalvarAdicionar.setBounds(204, 577, 140, 45);
+		add(btnSalvarAdicionar);
 		
-		JButton btnLimpar = new JButton("Limpar");
-		btnLimpar.setBounds(583, 582, 140, 45);
-		add(btnLimpar);
+		JButton btnLimparAdicionar = new JButton("Limpar");
+		btnLimparAdicionar.setBounds(583, 582, 140, 45);
+		add(btnLimparAdicionar);
 		
 		JLabel lblSobrenome = new JLabel("Sobrenome: ");
 		lblSobrenome.setBounds(6, 272, 163, 27);
@@ -98,15 +98,15 @@ public class TelaAdicionarCliente extends JPanel {
 		txtSobrenome.setColumns(10);
 		add(txtSobrenome);
 		
-		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setBounds(616, 139, 273, 399);
-		lblNewLabel_1.setIcon(new ImageIcon(TelaAdicionarCliente.class.getResource("/br/com/pizza/icons/forno-de-pedra (2).png")));
-		add(lblNewLabel_1);
+		JLabel lblImgForno = new JLabel("");
+		lblImgForno.setBounds(616, 139, 273, 399);
+		lblImgForno.setIcon(new ImageIcon(TelaAdicionarCliente.class.getResource("/br/com/pizza/icons/forno-de-pedra (2).png")));
+		add(lblImgForno);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-		panel_1.setBounds(574, 192, 349, 311);
-		add(panel_1);
+		JPanel panel_BordaForno = new JPanel();
+		panel_BordaForno.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		panel_BordaForno.setBounds(574, 192, 349, 311);
+		add(panel_BordaForno);
 		
 
 	}
