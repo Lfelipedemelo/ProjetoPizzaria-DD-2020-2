@@ -15,6 +15,9 @@ public class ClienteVO {
 		this.endereco = endereco;
 	}
 
+	public ClienteVO() {
+	}
+
 	public int getIdCliente() {
 		return idCliente;
 	}

@@ -14,7 +14,8 @@ public class Banco {
 	private static final String URL_CONEXAO = "jdbc:mysql://localhost:3306/" + NOME_ESQUEMA + "?useTimezone=true&serverTimezone=UTC";
 	private static final String USUARIO = "root";
 	private static final String SENHA = "root";
-
+	public static final int CODIGO_RETORNO_SUCESSO = 1;
+	
 	/**
 	 * Estabelece a conexão JBDC considerando as configurações da classe Banco.
 	 * 

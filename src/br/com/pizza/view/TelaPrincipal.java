@@ -12,6 +12,7 @@ import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 import java.awt.Font;
 import javax.swing.JMenuItem;
+import java.awt.Dimension;
 
 public class TelaPrincipal extends JFrame {
 
