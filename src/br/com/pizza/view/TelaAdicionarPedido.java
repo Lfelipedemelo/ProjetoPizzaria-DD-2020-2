@@ -18,6 +18,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.JTextPane;
+import javax.swing.SwingConstants;
 
 public class TelaAdicionarPedido extends JPanel {
 	private JTextField txtTelCliente;
@@ -41,12 +42,6 @@ public class TelaAdicionarPedido extends JPanel {
 	 */
 	public TelaAdicionarPedido() {
 		setLayout(null);
-		
-		JLabel lblAdicionarPeedido = new JLabel("Adicionar Pedido");
-		lblAdicionarPeedido.setBounds(251, 11, 424, 128);
-		lblAdicionarPeedido.setFont(new Font("Tahoma", Font.PLAIN, 40));
-		lblAdicionarPeedido.setIcon(new ImageIcon(TelaAdicionarPedido.class.getResource("/br/com/pizza/icons/pizza.png")));
-		add(lblAdicionarPeedido);
 		
 		JPanel panelTamanho = new JPanel();
 		panelTamanho.setBounds(31, 174, 334, 78);
@@ -189,9 +184,15 @@ public class TelaAdicionarPedido extends JPanel {
 		add(cbTerceiroSabor);
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(10, 11, 980, 128);
+		panel_2.setBounds(10, 11, 980, 140);
 		panel_2.setBackground(Color.LIGHT_GRAY);
 		add(panel_2);
+		
+		JLabel lblAdicionarPeedido = new JLabel("Adicionar Pedido");
+		panel_2.add(lblAdicionarPeedido);
+		lblAdicionarPeedido.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAdicionarPeedido.setFont(new Font("Tahoma", Font.PLAIN, 72));
+		lblAdicionarPeedido.setIcon(new ImageIcon(TelaAdicionarPedido.class.getResource("/br/com/pizza/icons/pizza.png")));
 		
 		JLabel lblValorTotal = new JLabel("Valor Total: R$");
 		lblValorTotal.setFont(new Font("Tahoma", Font.PLAIN, 22));
@@ -226,10 +227,6 @@ public class TelaAdicionarPedido extends JPanel {
 		lblValorNumerico.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		lblValorNumerico.setBounds(183, 628, 90, 21);
 		add(lblValorNumerico);
-		
-		JPanel panel = new JPanel();
-		panel.setBounds(980, 679, -123, -49);
-		add(panel);
 		
 		JButton btnFazerPedido = new JButton("Confirmar Pedido");
 		btnFazerPedido.setFont(new Font("Tahoma", Font.PLAIN, 20));
