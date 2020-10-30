@@ -79,7 +79,7 @@ public class TelaExcluirCliente extends JPanel {
 		JLabel lblNomePesquisado = new JLabel("Insira um nome a ser pesquisado:");
 		lblNomePesquisado.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNomePesquisado.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		lblNomePesquisado.setBounds(7, 153, 376, 27);
+		lblNomePesquisado.setBounds(7, 153, 384, 27);
 		add(lblNomePesquisado);
 		
 		txtNomePesquisado = new JTextField();
