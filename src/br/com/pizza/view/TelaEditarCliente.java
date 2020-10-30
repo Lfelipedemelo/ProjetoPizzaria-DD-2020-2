@@ -18,6 +18,8 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.CompoundBorder;
 import java.awt.Dimension;
 import javax.swing.border.LineBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class TelaEditarCliente extends JPanel {
 	private JTextField txtNomeAtualizado;
@@ -86,6 +88,14 @@ public class TelaEditarCliente extends JPanel {
 		add(btnSalvarEditar);
 		
 		JButton btnLimparEditar = new JButton("Limpar");
+		btnLimparEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				txtEnderecoAtualizado.setText(null);
+				txtTelefoneAtualizado.setText(null);
+				txtNomeAtualizado.setText(null);
+				txtSobrenomeAtualizado.setText(null);
+			}
+		});
 		btnLimparEditar.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnLimparEditar.setBounds(583, 582, 140, 45);
 		add(btnLimparEditar);

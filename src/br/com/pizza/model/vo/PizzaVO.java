@@ -22,6 +22,10 @@ public class PizzaVO {
 	}
 
 
+	public PizzaVO() {
+	}
+
+
 	public int getIdPizza() {
 		return idPizza;
 	}

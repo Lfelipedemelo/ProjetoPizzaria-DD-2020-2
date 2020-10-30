@@ -21,6 +21,8 @@ import javax.swing.border.LineBorder;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.ListSelectionModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class TelaExcluirCliente extends JPanel {
 	private JTextField txtIdExcluir;
@@ -64,6 +66,12 @@ public class TelaExcluirCliente extends JPanel {
 		add(btnExcluir);
 		
 		JButton btnLimparExcluir = new JButton("Limpar");
+		btnLimparExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				txtNomePesquisado.setText(null);
+				txtIdExcluir.setText(null);
+			}
+		});
 		btnLimparExcluir.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnLimparExcluir.setBounds(583, 582, 140, 45);
 		add(btnLimparExcluir);

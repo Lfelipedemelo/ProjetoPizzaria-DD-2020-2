@@ -21,12 +21,14 @@ import javax.swing.border.LineBorder;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.ListSelectionModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class TelaConsultarCliente extends JPanel {
-	private JTextField txtIdExcluir;
+	private JTextField txtIdPesquisado;
 	private JTextField txtNomePesquisado;
 	private JTable tblClientes;
-	private JTextField textField;
+	private JTextField txtTelefonePesquisado;
 
 	/**
 	 * Create the panel.
@@ -54,12 +56,20 @@ public class TelaConsultarCliente extends JPanel {
 		lblIdPesquisado.setHorizontalAlignment(SwingConstants.LEFT);
 		add(lblIdPesquisado);
 		
-		txtIdExcluir = new JTextField();
-		txtIdExcluir.setBounds(7, 221, 501, 22);
-		add(txtIdExcluir);
-		txtIdExcluir.setColumns(10);
+		txtIdPesquisado = new JTextField();
+		txtIdPesquisado.setBounds(7, 221, 501, 22);
+		add(txtIdPesquisado);
+		txtIdPesquisado.setColumns(10);
 		
 		JButton btnLimparExcluir = new JButton("Limpar");
+		btnLimparExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				txtNomePesquisado.setText(null);
+				txtTelefonePesquisado.setText(null);
+				txtIdPesquisado.setText(null);
+			}
+		});
+		
 		btnLimparExcluir.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnLimparExcluir.setBounds(574, 610, 140, 45);
 		add(btnLimparExcluir);
@@ -114,10 +124,10 @@ public class TelaConsultarCliente extends JPanel {
 		lblPesquisarPorTelefone.setBounds(7, 248, 311, 27);
 		add(lblPesquisarPorTelefone);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(7, 281, 501, 22);
-		add(textField);
+		txtTelefonePesquisado = new JTextField();
+		txtTelefonePesquisado.setColumns(10);
+		txtTelefonePesquisado.setBounds(7, 281, 501, 22);
+		add(txtTelefonePesquisado);
 		
 
 	}
