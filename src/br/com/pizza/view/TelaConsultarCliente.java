@@ -22,15 +22,16 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.ListSelectionModel;
 
-public class TelaExcluirCliente extends JPanel {
+public class TelaConsultarCliente extends JPanel {
 	private JTextField txtIdExcluir;
 	private JTextField txtNomePesquisado;
 	private JTable tblClientes;
+	private JTextField textField;
 
 	/**
 	 * Create the panel.
 	 */
-	public TelaExcluirCliente() {
+	public TelaConsultarCliente() {
 		setBorder(UIManager.getBorder("Menu.border"));
 		setLayout(null);
 		
@@ -40,37 +41,32 @@ public class TelaExcluirCliente extends JPanel {
 		add(panel_CorTitulo);
 		panel_CorTitulo.setLayout(null);
 		
-		JLabel lblImgTitulo = new JLabel("Excluir Cliente");
+		JLabel lblImgTitulo = new JLabel("Consultar Cliente");
 		lblImgTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblImgTitulo.setFont(new Font("Tahoma", Font.PLAIN, 72));
-		lblImgTitulo.setIcon(new ImageIcon(TelaExcluirCliente.class.getResource("/br/com/pizza/icons/cliente-titulo.png")));
+		lblImgTitulo.setIcon(new ImageIcon(TelaConsultarCliente.class.getResource("/br/com/pizza/icons/cliente-titulo.png")));
 		lblImgTitulo.setBounds(0, 0, 985, 118);
 		panel_CorTitulo.add(lblImgTitulo);
 		
-		JLabel lblIdExcluir = new JLabel("Insira um Id a ser excluido:");
-		lblIdExcluir.setBounds(7, 491, 311, 27);
-		lblIdExcluir.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		lblIdExcluir.setHorizontalAlignment(SwingConstants.LEFT);
-		add(lblIdExcluir);
+		JLabel lblIdPesquisado = new JLabel("Pesquisar por ID: ");
+		lblIdPesquisado.setBounds(7, 188, 311, 27);
+		lblIdPesquisado.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		lblIdPesquisado.setHorizontalAlignment(SwingConstants.LEFT);
+		add(lblIdPesquisado);
 		
 		txtIdExcluir = new JTextField();
-		txtIdExcluir.setBounds(7, 522, 501, 31);
+		txtIdExcluir.setBounds(7, 221, 501, 22);
 		add(txtIdExcluir);
 		txtIdExcluir.setColumns(10);
 		
-		JButton btnExcluir = new JButton("Excluir");
-		btnExcluir.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnExcluir.setBounds(368, 582, 140, 45);
-		add(btnExcluir);
-		
 		JButton btnLimparExcluir = new JButton("Limpar");
 		btnLimparExcluir.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnLimparExcluir.setBounds(583, 582, 140, 45);
+		btnLimparExcluir.setBounds(574, 610, 140, 45);
 		add(btnLimparExcluir);
 		
 		JLabel lblImgForno = new JLabel("");
 		lblImgForno.setBounds(616, 139, 273, 399);
-		lblImgForno.setIcon(new ImageIcon(TelaExcluirCliente.class.getResource("/br/com/pizza/icons/forno-de-pedra (2).png")));
+		lblImgForno.setIcon(new ImageIcon(TelaConsultarCliente.class.getResource("/br/com/pizza/icons/forno-de-pedra (2).png")));
 		add(lblImgForno);
 		
 		JPanel panel_BordaForno = new JPanel();
@@ -78,15 +74,15 @@ public class TelaExcluirCliente extends JPanel {
 		panel_BordaForno.setBounds(574, 192, 349, 311);
 		add(panel_BordaForno);
 		
-		JLabel lblNomePesquisado = new JLabel("Insira um nome a ser pesquisado:");
+		JLabel lblNomePesquisado = new JLabel("Pesquisar por Nome: ");
 		lblNomePesquisado.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNomePesquisado.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		lblNomePesquisado.setBounds(7, 153, 384, 27);
+		lblNomePesquisado.setBounds(7, 132, 384, 27);
 		add(lblNomePesquisado);
 		
 		txtNomePesquisado = new JTextField();
 		txtNomePesquisado.setColumns(10);
-		txtNomePesquisado.setBounds(7, 184, 501, 31);
+		txtNomePesquisado.setBounds(7, 161, 501, 22);
 		add(txtNomePesquisado);
 		
 		tblClientes = new JTable();
@@ -104,13 +100,24 @@ public class TelaExcluirCliente extends JPanel {
 		tblClientes.getColumnModel().getColumn(2).setPreferredWidth(50);
 		tblClientes.getColumnModel().getColumn(3).setPreferredWidth(277);
 		tblClientes.setBorder(new LineBorder(new Color(0, 0, 0)));
-		tblClientes.setBounds(7, 226, 501, 266);
+		tblClientes.setBounds(7, 314, 501, 266);
 		add(tblClientes);
 		
 		JButton btnPesquisar = new JButton("Pesquisar");
 		btnPesquisar.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnPesquisar.setBounds(148, 582, 140, 45);
+		btnPesquisar.setBounds(332, 610, 140, 45);
 		add(btnPesquisar);
+		
+		JLabel lblPesquisarPorTelefone = new JLabel("Pesquisar por Telefone: ");
+		lblPesquisarPorTelefone.setHorizontalAlignment(SwingConstants.LEFT);
+		lblPesquisarPorTelefone.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		lblPesquisarPorTelefone.setBounds(7, 248, 311, 27);
+		add(lblPesquisarPorTelefone);
+		
+		textField = new JTextField();
+		textField.setColumns(10);
+		textField.setBounds(7, 281, 501, 22);
+		add(textField);
 		
 
 	}

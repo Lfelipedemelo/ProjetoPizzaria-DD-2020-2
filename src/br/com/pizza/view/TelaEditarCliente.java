@@ -81,10 +81,12 @@ public class TelaEditarCliente extends JPanel {
 		add(txtEnderecoAtualizado);
 		
 		JButton btnSalvarEditar = new JButton("Salvar");
+		btnSalvarEditar.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnSalvarEditar.setBounds(204, 577, 140, 45);
 		add(btnSalvarEditar);
 		
 		JButton btnLimparEditar = new JButton("Limpar");
+		btnLimparEditar.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnLimparEditar.setBounds(583, 582, 140, 45);
 		add(btnLimparEditar);
 		
