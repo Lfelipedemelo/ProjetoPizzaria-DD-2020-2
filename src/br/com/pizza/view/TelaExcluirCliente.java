@@ -70,7 +70,7 @@ public class TelaExcluirCliente extends JPanel {
 		
 		JLabel lblImgForno = new JLabel("");
 		lblImgForno.setBounds(616, 139, 273, 399);
-		lblImgForno.setIcon(new ImageIcon(TelaExcluirCliente.class.getResource("/br/com/pizza/icons/forno-de-pedra (2).png")));
+		lblImgForno.setIcon(new ImageIcon(TelaExcluirCliente.class.getResource("/br/com/pizza/icons/forno.png")));
 		add(lblImgForno);
 		
 		JPanel panel_BordaForno = new JPanel();
