@@ -40,16 +40,12 @@ public class TelaEditarCliente extends JPanel {
 		add(panel_CorTitulo);
 		panel_CorTitulo.setLayout(null);
 		
-		JLabel lblImgTitulo = new JLabel("");
-		lblImgTitulo.setIcon(new ImageIcon(TelaEditarCliente.class.getResource("/br/com/pizza/icons/mulher (1).png")));
-		lblImgTitulo.setBounds(215, -23, 124, 169);
+		JLabel lblImgTitulo = new JLabel("Editar Cliente");
+		lblImgTitulo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblImgTitulo.setFont(new Font("Tahoma", Font.PLAIN, 72));
+		lblImgTitulo.setIcon(new ImageIcon(TelaEditarCliente.class.getResource("/br/com/pizza/icons/cliente-titulo.png")));
+		lblImgTitulo.setBounds(0, 0, 985, 118);
 		panel_CorTitulo.add(lblImgTitulo);
-		
-		JLabel lblEditarCliente = new JLabel("Editar Cliente");
-		lblEditarCliente.setBounds(269, 11, 557, 87);
-		panel_CorTitulo.add(lblEditarCliente);
-		lblEditarCliente.setHorizontalAlignment(SwingConstants.CENTER);
-		lblEditarCliente.setFont(new Font("Tahoma", Font.PLAIN, 72));
 		
 		JLabel lblNomeAtualizado = new JLabel("Inserir nome atualizado: ");
 		lblNomeAtualizado.setBounds(5, 200, 273, 27);
