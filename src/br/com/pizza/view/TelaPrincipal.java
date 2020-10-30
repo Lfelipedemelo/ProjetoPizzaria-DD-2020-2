@@ -26,6 +26,7 @@ import java.awt.Window.Type;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
 
 public class TelaPrincipal extends JFrame {
 
@@ -66,6 +67,11 @@ public class TelaPrincipal extends JFrame {
 		menuBar.setBorderPainted(false);
 		setJMenuBar(menuBar);
 		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
+		lblNewLabel.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/br/com/pizza/icons/pizzaLogo64px.png")));
+		menuBar.add(lblNewLabel);
+		
 		JMenu mnPedidos = new JMenu("Pedidos");
 		mnPedidos.setFont(new Font("Segoe UI", Font.PLAIN, 30));
 		mnPedidos.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/br/com/pizza/icons/fazerPedido.png")));
@@ -86,7 +92,7 @@ public class TelaPrincipal extends JFrame {
 		JMenuItem mntmPedidosConsultar = new JMenuItem("Consultar");
 		mntmPedidosConsultar.setIconTextGap(25);
 		mntmPedidosConsultar.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		mntmPedidosConsultar.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/br/com/pizza/icons/loupe.png")));
+		mntmPedidosConsultar.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/br/com/pizza/icons/lupa.png")));
 		mnPedidos.add(mntmPedidosConsultar);
 		
 		JMenuItem mntmPedidosExcluir = new JMenuItem("Excluir");
@@ -101,6 +107,12 @@ public class TelaPrincipal extends JFrame {
 		menuBar.add(mnClientes);
 		
 		JMenuItem mntmClientesAdicionar = new JMenuItem("Adicionar");
+		mntmClientesAdicionar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaAdicionarCliente addCliente = new TelaAdicionarCliente();
+				setContentPane(addCliente);
+			}
+		});
 		mntmClientesAdicionar.setHorizontalAlignment(SwingConstants.LEFT);
 		mntmClientesAdicionar.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		mntmClientesAdicionar.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
@@ -113,7 +125,7 @@ public class TelaPrincipal extends JFrame {
 		mntmClientesConsultar.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		mntmClientesConsultar.setIconTextGap(25);
 		mntmClientesConsultar.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		mntmClientesConsultar.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/br/com/pizza/icons/loupe.png")));
+		mntmClientesConsultar.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/br/com/pizza/icons/lupa.png")));
 		mnClientes.add(mntmClientesConsultar);
 		
 		JMenuItem mntmClientesEditar = new JMenuItem("Editar");
