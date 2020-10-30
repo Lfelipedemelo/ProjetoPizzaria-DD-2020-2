@@ -92,7 +92,7 @@ public class TelaPrincipal extends JFrame {
 		JMenuItem mntmPedidosConsultar = new JMenuItem("Consultar");
 		mntmPedidosConsultar.setIconTextGap(25);
 		mntmPedidosConsultar.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		mntmPedidosConsultar.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/br/com/pizza/icons/loupe.png")));
+		mntmPedidosConsultar.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/br/com/pizza/icons/lupa.png")));
 		mnPedidos.add(mntmPedidosConsultar);
 		
 		JMenuItem mntmPedidosExcluir = new JMenuItem("Excluir");
@@ -125,7 +125,7 @@ public class TelaPrincipal extends JFrame {
 		mntmClientesConsultar.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		mntmClientesConsultar.setIconTextGap(25);
 		mntmClientesConsultar.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		mntmClientesConsultar.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/br/com/pizza/icons/loupe.png")));
+		mntmClientesConsultar.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/br/com/pizza/icons/lupa.png")));
 		mnClientes.add(mntmClientesConsultar);
 		
 		JMenuItem mntmClientesEditar = new JMenuItem("Editar");

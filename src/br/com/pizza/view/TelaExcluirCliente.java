@@ -43,7 +43,7 @@ public class TelaExcluirCliente extends JPanel {
 		JLabel lblImgTitulo = new JLabel("Excluir Cliente");
 		lblImgTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblImgTitulo.setFont(new Font("Tahoma", Font.PLAIN, 72));
-		lblImgTitulo.setIcon(new ImageIcon(TelaExcluirCliente.class.getResource("/br/com/pizza/icons/mulher (1).png")));
+		lblImgTitulo.setIcon(new ImageIcon(TelaExcluirCliente.class.getResource("/br/com/pizza/icons/Cliente.png")));
 		lblImgTitulo.setBounds(0, 0, 985, 118);
 		panel_CorTitulo.add(lblImgTitulo);
 		
@@ -68,7 +68,7 @@ public class TelaExcluirCliente extends JPanel {
 		
 		JLabel lblImgForno = new JLabel("");
 		lblImgForno.setBounds(616, 139, 273, 399);
-		lblImgForno.setIcon(new ImageIcon(TelaExcluirCliente.class.getResource("/br/com/pizza/icons/forno-de-pedra (2).png")));
+		lblImgForno.setIcon(new ImageIcon(TelaExcluirCliente.class.getResource("/br/com/pizza/icons/forno.png")));
 		add(lblImgForno);
 		
 		JPanel panel_BordaForno = new JPanel();
