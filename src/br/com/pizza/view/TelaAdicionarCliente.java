@@ -14,6 +14,10 @@ import javax.swing.SpringLayout;
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.border.MatteBorder;
+
+import br.com.pizza.controller.ClienteController;
+import br.com.pizza.model.vo.ClienteVO;
+
 import javax.swing.border.BevelBorder;
 import javax.swing.border.CompoundBorder;
 import java.awt.Dimension;
@@ -79,6 +83,18 @@ public class TelaAdicionarCliente extends JPanel {
 		add(txtEndereco);
 		
 		JButton btnSalvarAdicionar = new JButton("Salvar");
+		btnSalvarAdicionar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ClienteVO clienteVO = new ClienteVO();
+				
+				clienteVO.setNome(txtNome.getText() + txtSobrenome.getText());
+				clienteVO.setTelefone(txtTelefone.getText());
+				clienteVO.setEndereco(txtEndereco.getText());				
+				
+				ClienteController clienteController = new ClienteController();
+				clienteController.cadastrarCliente(clienteVO);
+			}
+		});
 		btnSalvarAdicionar.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnSalvarAdicionar.setBounds(204, 577, 140, 45);
 		add(btnSalvarAdicionar);
