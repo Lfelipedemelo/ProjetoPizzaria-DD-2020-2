@@ -11,7 +11,7 @@ import java.util.List;
 import br.com.pizza.Banco;
 import br.com.pizza.model.vo.ClienteVO;
 
-public class ClienteDAO {
+public class ClienteDAO implements BaseDAO<ClienteVO> {
 
 	DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -99,7 +99,7 @@ public class ClienteDAO {
 			ResultSet conjuntoResultante = consulta.executeQuery();
 			
 			if(conjuntoResultante.next()) {
-				clienteBuscado = construirClienteDoResultSet(conjuntoResultante);
+				clienteBuscado = construirDoResultSet(conjuntoResultante);
 			}
 		} catch (SQLException e) {
 			System.out.println("Erro ao consultar cliente por Id (id: " + idCliente + ") .\nCausa: " + e.getMessage());
@@ -108,7 +108,7 @@ public class ClienteDAO {
 		return clienteBuscado;
 	}
 	
-	private ClienteVO construirClienteDoResultSet(ResultSet conjuntoResultante) throws SQLException {
+	public ClienteVO construirDoResultSet(ResultSet conjuntoResultante) throws SQLException {
 		ClienteVO clienteBuscado = new ClienteVO();
 		clienteBuscado.setIdCliente(conjuntoResultante.getInt("IdCliente"));
 		clienteBuscado.setNome(conjuntoResultante.getString("Nome"));
@@ -130,7 +130,7 @@ public class ClienteDAO {
 		try {
 			ResultSet conjuntoResultante = consulta.executeQuery();
 			while(conjuntoResultante.next()) {
-				ClienteVO clienteBuscado = construirClienteDoResultSet(conjuntoResultante);
+				ClienteVO clienteBuscado = construirDoResultSet(conjuntoResultante);
 				clientesBuscados.add(clienteBuscado);
 			}
 		} catch (SQLException e) {
