@@ -249,5 +249,10 @@ public class TelaAdicionarPedido extends JPanel {
 		lblObservacoes.setBounds(31, 454, 138, 28);
 		add(lblObservacoes);
 		
+		JButton btnPesquisar = new JButton("Pesquisar");
+		btnPesquisar.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		btnPesquisar.setBounds(401, 368, 90, 34);
+		add(btnPesquisar);
+		
 	}
 }
