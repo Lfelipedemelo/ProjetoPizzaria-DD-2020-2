@@ -7,8 +7,11 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 public class TelaConsultarPedido extends JPanel {
+	private JTable table;
 
 	/**
 	 * Create the panel.
@@ -26,6 +29,18 @@ public class TelaConsultarPedido extends JPanel {
 		lblConsultarPedido.setHorizontalAlignment(SwingConstants.CENTER);
 		lblConsultarPedido.setFont(new Font("Tahoma", Font.PLAIN, 72));
 		panel_2.add(lblConsultarPedido);
+		
+		table = new JTable();
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+				{"n\u00BA Pedido", null, null, null, null},
+			},
+			new String[] {
+				"N\u00BA Pedido", "New column", "New column", "New column", "New column"
+			}
+		));
+		table.setBounds(10, 162, 980, 368);
+		add(table);
 
 	}
 }
