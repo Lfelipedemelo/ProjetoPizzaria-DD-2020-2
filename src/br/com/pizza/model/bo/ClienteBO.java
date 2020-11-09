@@ -22,6 +22,5 @@ public class ClienteBO {
 				return "Aluno cadastrado com sucesso!";
 			
 			}}
-		
 
 }
