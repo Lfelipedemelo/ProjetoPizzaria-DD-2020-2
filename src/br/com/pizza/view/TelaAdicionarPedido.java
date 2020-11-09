@@ -235,6 +235,10 @@ public class TelaAdicionarPedido extends JPanel {
 		add(btnFazerPedido);
 		
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnCancelar.setBounds(687, 616, 237, 54);
 		add(btnCancelar);

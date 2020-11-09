@@ -122,6 +122,12 @@ public class TelaPrincipal extends JFrame {
 		mnClientes.add(mntmClientesAdicionar);
 		
 		JMenuItem mntmClientesConsultar = new JMenuItem("Consultar");
+		mntmClientesConsultar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaConsultarCliente consultarCliente = new TelaConsultarCliente();
+				setContentPane(consultarCliente);
+			}
+		});
 		mntmClientesConsultar.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		mntmClientesConsultar.setIconTextGap(25);
 		mntmClientesConsultar.setFont(new Font("Segoe UI", Font.PLAIN, 20));
@@ -129,6 +135,12 @@ public class TelaPrincipal extends JFrame {
 		mnClientes.add(mntmClientesConsultar);
 		
 		JMenuItem mntmClientesEditar = new JMenuItem("Editar");
+		mntmClientesEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaEditarCliente editarCliente = new TelaEditarCliente();
+				setContentPane(editarCliente);
+			}
+		});
 		mntmClientesEditar.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		mntmClientesEditar.setIconTextGap(25);
 		mntmClientesEditar.setFont(new Font("Segoe UI", Font.PLAIN, 20));
@@ -136,6 +148,12 @@ public class TelaPrincipal extends JFrame {
 		mnClientes.add(mntmClientesEditar);
 		
 		JMenuItem mntmClientesExcluir = new JMenuItem("Excluir");
+		mntmClientesExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaExcluirCliente excluirCliente = new TelaExcluirCliente();
+				setContentPane(excluirCliente);
+			}
+		});
 		mntmClientesExcluir.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		mntmClientesExcluir.setIconTextGap(25);
 		mntmClientesExcluir.setFont(new Font("Segoe UI", Font.PLAIN, 20));

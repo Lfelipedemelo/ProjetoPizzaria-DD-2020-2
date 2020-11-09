@@ -130,8 +130,8 @@ public class ClienteDAO {
 		try {
 			ResultSet conjuntoResultante = consulta.executeQuery();
 			while(conjuntoResultante.next()) {
-				ClienteVO pesquisadorBuscado = construirClienteDoResultSet(conjuntoResultante);
-				clientesBuscados.add(pesquisadorBuscado);
+				ClienteVO clienteBuscado = construirClienteDoResultSet(conjuntoResultante);
+				clientesBuscados.add(clienteBuscado);
 			}
 		} catch (SQLException e) {
 			System.out.println("Erro ao consultar todos os clientes .\nCausa: " + e.getMessage());

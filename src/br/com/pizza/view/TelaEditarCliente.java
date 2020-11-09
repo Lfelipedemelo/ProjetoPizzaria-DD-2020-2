@@ -18,6 +18,8 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.CompoundBorder;
 import java.awt.Dimension;
 import javax.swing.border.LineBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class TelaEditarCliente extends JPanel {
 	private JTextField txtNomeAtualizado;
@@ -38,16 +40,12 @@ public class TelaEditarCliente extends JPanel {
 		add(panel_CorTitulo);
 		panel_CorTitulo.setLayout(null);
 		
-		JLabel lblImgTitulo = new JLabel("");
-		lblImgTitulo.setIcon(new ImageIcon(TelaEditarCliente.class.getResource("/br/com/pizza/icons/mulher (1).png")));
-		lblImgTitulo.setBounds(215, -23, 124, 169);
+		JLabel lblImgTitulo = new JLabel("Editar Cliente");
+		lblImgTitulo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblImgTitulo.setFont(new Font("Tahoma", Font.PLAIN, 72));
+		lblImgTitulo.setIcon(new ImageIcon(TelaEditarCliente.class.getResource("/br/com/pizza/icons/cliente-titulo.png")));
+		lblImgTitulo.setBounds(0, 0, 985, 118);
 		panel_CorTitulo.add(lblImgTitulo);
-		
-		JLabel lblEditarCliente = new JLabel("Editar Cliente");
-		lblEditarCliente.setBounds(269, 11, 557, 87);
-		panel_CorTitulo.add(lblEditarCliente);
-		lblEditarCliente.setHorizontalAlignment(SwingConstants.CENTER);
-		lblEditarCliente.setFont(new Font("Tahoma", Font.PLAIN, 72));
 		
 		JLabel lblNomeAtualizado = new JLabel("Inserir nome atualizado: ");
 		lblNomeAtualizado.setBounds(5, 200, 273, 27);
@@ -81,10 +79,20 @@ public class TelaEditarCliente extends JPanel {
 		add(txtEnderecoAtualizado);
 		
 		JButton btnSalvarEditar = new JButton("Salvar");
+		btnSalvarEditar.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnSalvarEditar.setBounds(204, 577, 140, 45);
 		add(btnSalvarEditar);
 		
 		JButton btnLimparEditar = new JButton("Limpar");
+		btnLimparEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				txtEnderecoAtualizado.setText(null);
+				txtTelefoneAtualizado.setText(null);
+				txtNomeAtualizado.setText(null);
+				txtSobrenomeAtualizado.setText(null);
+			}
+		});
+		btnLimparEditar.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnLimparEditar.setBounds(583, 582, 140, 45);
 		add(btnLimparEditar);
 		
@@ -101,7 +109,7 @@ public class TelaEditarCliente extends JPanel {
 		
 		JLabel lblImgForno = new JLabel("");
 		lblImgForno.setBounds(616, 139, 273, 399);
-		lblImgForno.setIcon(new ImageIcon(TelaEditarCliente.class.getResource("/br/com/pizza/icons/forno-de-pedra (2).png")));
+		lblImgForno.setIcon(new ImageIcon(TelaEditarCliente.class.getResource("/br/com/pizza/icons/forno.png")));
 		add(lblImgForno);
 		
 		JPanel panel_BordaForno = new JPanel();

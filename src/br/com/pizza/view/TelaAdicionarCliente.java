@@ -14,10 +14,16 @@ import javax.swing.SpringLayout;
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.border.MatteBorder;
+
+import br.com.pizza.controller.ClienteController;
+import br.com.pizza.model.vo.ClienteVO;
+
 import javax.swing.border.BevelBorder;
 import javax.swing.border.CompoundBorder;
 import java.awt.Dimension;
 import javax.swing.border.LineBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class TelaAdicionarCliente extends JPanel {
 	private JTextField txtNome;
@@ -32,20 +38,17 @@ public class TelaAdicionarCliente extends JPanel {
 		setBorder(UIManager.getBorder("Menu.border"));
 		setLayout(null);
 		
-		JLabel lblCadastroDeCliente = new JLabel("Cadastro de Cliente");
-		lblCadastroDeCliente.setBounds(248, 23, 619, 87);
-		lblCadastroDeCliente.setFont(new Font("Tahoma", Font.PLAIN, 72));
-		add(lblCadastroDeCliente);
-		
 		JPanel panel_Titulo = new JPanel();
 		panel_Titulo.setBounds(7, 7, 985, 118);
 		panel_Titulo.setBackground(Color.LIGHT_GRAY);
 		add(panel_Titulo);
 		panel_Titulo.setLayout(null);
 		
-		JLabel lblImgTitulo = new JLabel("");
-		lblImgTitulo.setIcon(new ImageIcon(TelaAdicionarCliente.class.getResource("/br/com/pizza/icons/mulher (1).png")));
-		lblImgTitulo.setBounds(141, -20, 124, 169);
+		JLabel lblImgTitulo = new JLabel("Cadastro de Cliente");
+		lblImgTitulo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblImgTitulo.setFont(new Font("Tahoma", Font.PLAIN, 72));
+		lblImgTitulo.setIcon(new ImageIcon(TelaAdicionarCliente.class.getResource("/br/com/pizza/icons/cliente-titulo.png")));
+		lblImgTitulo.setBounds(0, 0, 985, 118);
 		panel_Titulo.add(lblImgTitulo);
 		
 		JLabel lblNome = new JLabel("Nome: ");
@@ -80,10 +83,32 @@ public class TelaAdicionarCliente extends JPanel {
 		add(txtEndereco);
 		
 		JButton btnSalvarAdicionar = new JButton("Salvar");
+		btnSalvarAdicionar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ClienteVO clienteVO = new ClienteVO();
+				
+				clienteVO.setNome(txtNome.getText() + txtSobrenome.getText());
+				clienteVO.setTelefone(txtTelefone.getText());
+				clienteVO.setEndereco(txtEndereco.getText());				
+				
+				ClienteController clienteController = new ClienteController();
+				clienteController.cadastrarCliente(clienteVO);
+			}
+		});
+		btnSalvarAdicionar.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnSalvarAdicionar.setBounds(204, 577, 140, 45);
 		add(btnSalvarAdicionar);
 		
 		JButton btnLimparAdicionar = new JButton("Limpar");
+		btnLimparAdicionar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				txtNome.setText(null);
+				txtSobrenome.setText(null);
+				txtTelefone.setText(null);
+				txtEndereco.setText(null);
+			}
+		});
+		btnLimparAdicionar.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnLimparAdicionar.setBounds(583, 582, 140, 45);
 		add(btnLimparAdicionar);
 		
