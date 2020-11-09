@@ -26,6 +26,7 @@ public class TelaEditarCliente extends JPanel {
 	private JTextField txtTelefoneAtualizado;
 	private JTextField txtEnderecoAtualizado;
 	private JTextField txtSobrenomeAtualizado;
+	private JTextField txtTelefonePesquisado;
 
 	/**
 	 * Create the panel.
@@ -48,33 +49,33 @@ public class TelaEditarCliente extends JPanel {
 		panel_CorTitulo.add(lblImgTitulo);
 		
 		JLabel lblNomeAtualizado = new JLabel("Inserir nome atualizado: ");
-		lblNomeAtualizado.setBounds(5, 200, 273, 27);
+		lblNomeAtualizado.setBounds(7, 228, 273, 27);
 		lblNomeAtualizado.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		lblNomeAtualizado.setHorizontalAlignment(SwingConstants.LEFT);
 		add(lblNomeAtualizado);
 		
 		txtNomeAtualizado = new JTextField();
-		txtNomeAtualizado.setBounds(5, 231, 501, 31);
+		txtNomeAtualizado.setBounds(7, 259, 501, 31);
 		add(txtNomeAtualizado);
 		txtNomeAtualizado.setColumns(10);
 		
 		JLabel lblTelefoneAtualizado = new JLabel("Inserir telefone atualizado: ");
-		lblTelefoneAtualizado.setBounds(7, 339, 273, 31);
+		lblTelefoneAtualizado.setBounds(9, 367, 273, 31);
 		lblTelefoneAtualizado.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		add(lblTelefoneAtualizado);
 		
 		txtTelefoneAtualizado = new JTextField();
-		txtTelefoneAtualizado.setBounds(7, 374, 157, 31);
+		txtTelefoneAtualizado.setBounds(9, 402, 157, 31);
 		txtTelefoneAtualizado.setColumns(10);
 		add(txtTelefoneAtualizado);
 		
 		JLabel lblEnderecoAtualizado = new JLabel("Inserir Endere\u00E7o atualizado: ");
-		lblEnderecoAtualizado.setBounds(7, 409, 311, 31);
+		lblEnderecoAtualizado.setBounds(9, 437, 311, 31);
 		lblEnderecoAtualizado.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		add(lblEnderecoAtualizado);
 		
 		txtEnderecoAtualizado = new JTextField();
-		txtEnderecoAtualizado.setBounds(7, 444, 501, 31);
+		txtEnderecoAtualizado.setBounds(9, 472, 501, 31);
 		txtEnderecoAtualizado.setColumns(10);
 		add(txtEnderecoAtualizado);
 		
@@ -86,6 +87,7 @@ public class TelaEditarCliente extends JPanel {
 		JButton btnLimparEditar = new JButton("Limpar");
 		btnLimparEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				txtTelefonePesquisado.setText(null);
 				txtEnderecoAtualizado.setText(null);
 				txtTelefoneAtualizado.setText(null);
 				txtNomeAtualizado.setText(null);
@@ -97,13 +99,13 @@ public class TelaEditarCliente extends JPanel {
 		add(btnLimparEditar);
 		
 		JLabel lblSobrenomeAtualizado = new JLabel("Inserir sobrenome atualizado:");
-		lblSobrenomeAtualizado.setBounds(6, 272, 323, 27);
+		lblSobrenomeAtualizado.setBounds(8, 300, 323, 27);
 		lblSobrenomeAtualizado.setHorizontalAlignment(SwingConstants.LEFT);
 		lblSobrenomeAtualizado.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		add(lblSobrenomeAtualizado);
 		
 		txtSobrenomeAtualizado = new JTextField();
-		txtSobrenomeAtualizado.setBounds(6, 303, 501, 31);
+		txtSobrenomeAtualizado.setBounds(8, 331, 501, 31);
 		txtSobrenomeAtualizado.setColumns(10);
 		add(txtSobrenomeAtualizado);
 		
@@ -116,6 +118,16 @@ public class TelaEditarCliente extends JPanel {
 		panel_BordaForno.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		panel_BordaForno.setBounds(574, 192, 349, 311);
 		add(panel_BordaForno);
+		
+		JLabel lblTelefonePesquisado = new JLabel("Inserir telefone a ser pesquisado: ");
+		lblTelefonePesquisado.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		lblTelefonePesquisado.setBounds(5, 136, 339, 31);
+		add(lblTelefonePesquisado);
+		
+		txtTelefonePesquisado = new JTextField();
+		txtTelefonePesquisado.setColumns(10);
+		txtTelefonePesquisado.setBounds(5, 171, 157, 31);
+		add(txtTelefonePesquisado);
 		
 
 	}
