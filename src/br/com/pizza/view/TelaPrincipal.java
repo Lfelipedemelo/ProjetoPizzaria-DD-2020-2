@@ -95,16 +95,17 @@ public class TelaPrincipal extends JFrame {
 		mnPedidos.add(mntmPedidosAdicionar);
 		
 		JMenuItem mntmPedidosConsultar = new JMenuItem("Consultar");
+		mntmPedidosConsultar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				TelaConsultarPedido consultarPedido = new TelaConsultarPedido();
+				setContentPane(consultarPedido);
+				revalidate();
+			}
+		});
 		mntmPedidosConsultar.setIconTextGap(25);
 		mntmPedidosConsultar.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		mntmPedidosConsultar.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/br/com/pizza/icons/lupa.png")));
 		mnPedidos.add(mntmPedidosConsultar);
-		
-		JMenuItem mntmPedidosExcluir = new JMenuItem("Excluir");
-		mntmPedidosExcluir.setIconTextGap(25);
-		mntmPedidosExcluir.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		mntmPedidosExcluir.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/br/com/pizza/icons/delete.png")));
-		mnPedidos.add(mntmPedidosExcluir);
 		
 		JMenu mnClientes = new JMenu("Clientes");
 		mnClientes.setFont(new Font("Segoe UI", Font.PLAIN, 30));
@@ -172,7 +173,7 @@ public class TelaPrincipal extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{mnPedidos, mntmPedidosAdicionar, mntmPedidosConsultar, mntmPedidosExcluir, mnClientes, mntmClientesAdicionar, mntmClientesConsultar, mntmClientesEditar, mntmClientesExcluir, contentPane, menuBar}));
+		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{mnPedidos, mntmPedidosAdicionar, mntmPedidosConsultar, mnClientes, mntmClientesAdicionar, mntmClientesConsultar, mntmClientesEditar, mntmClientesExcluir, contentPane, menuBar}));
 	}
 
 }
