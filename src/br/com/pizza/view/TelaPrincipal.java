@@ -46,6 +46,7 @@ public class TelaPrincipal extends JFrame {
 				try {
 					TelaPrincipal frame = new TelaPrincipal();
 					frame.setVisible(true);
+					frame.setSize(1024, 768);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -57,11 +58,14 @@ public class TelaPrincipal extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaPrincipal() {
+		setPreferredSize(new Dimension(1024, 800));
+		setMinimumSize(new Dimension(1024, 800));
+		setMaximumSize(new Dimension(1024, 800));
 		
 		setTitle("Pizzaria Pizza e Pizza");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaPrincipal.class.getResource("/br/com/pizza/icons/pizzaLogo.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1050, 800);
+		setBounds(100, 100, 478, 768);
 		
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBorderPainted(false);
@@ -103,7 +107,7 @@ public class TelaPrincipal extends JFrame {
 		
 		JMenu mnClientes = new JMenu("Clientes");
 		mnClientes.setFont(new Font("Segoe UI", Font.PLAIN, 30));
-		mnClientes.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/br/com/pizza/icons/Cliente.png")));
+		mnClientes.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/br/com/pizza/icons/cliente.png")));
 		menuBar.add(mnClientes);
 		
 		JMenuItem mntmClientesAdicionar = new JMenuItem("Adicionar");

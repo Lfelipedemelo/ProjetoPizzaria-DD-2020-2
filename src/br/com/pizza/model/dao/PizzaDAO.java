@@ -11,7 +11,7 @@ import java.util.List;
 import br.com.pizza.Banco;
 import br.com.pizza.model.vo.PizzaVO;
 
-public class PizzaDAO {
+public class PizzaDAO implements BaseDAO<PizzaVO>{
 
 	DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -103,7 +103,7 @@ public class PizzaDAO {
 			ResultSet conjuntoResultante = consulta.executeQuery();
 			
 			if(conjuntoResultante.next()) {
-				pizzaBuscada = construirPizzaDoResultSet(conjuntoResultante);
+				pizzaBuscada = construirDoResultSet(conjuntoResultante);
 			}
 		} catch (SQLException e) {
 			System.out.println("Erro ao consultar cliente por Id (id: " + idPizza + ") .\nCausa: " + e.getMessage());
@@ -112,7 +112,7 @@ public class PizzaDAO {
 		return pizzaBuscada;
 	}
 	
-	private PizzaVO construirPizzaDoResultSet(ResultSet conjuntoResultante) throws SQLException {
+	public PizzaVO construirDoResultSet(ResultSet conjuntoResultante) throws SQLException {
 		PizzaVO pizzaBuscada = new PizzaVO();
 		pizzaBuscada.setIdPizza(conjuntoResultante.getInt("idPizza"));
 		pizzaBuscada.setSabor1(conjuntoResultante.getString("sabor1"));
@@ -136,7 +136,7 @@ public class PizzaDAO {
 		try {
 			ResultSet conjuntoResultante = consulta.executeQuery();
 			while(conjuntoResultante.next()) {
-				PizzaVO pizzaBuscada = construirPizzaDoResultSet(conjuntoResultante);
+				PizzaVO pizzaBuscada = construirDoResultSet(conjuntoResultante);
 				pizzasBuscadas.add(pizzaBuscada);
 			}
 		} catch (SQLException e) {

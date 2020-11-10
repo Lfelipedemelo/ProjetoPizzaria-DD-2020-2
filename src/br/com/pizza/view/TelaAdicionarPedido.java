@@ -19,6 +19,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
+import java.awt.Dimension;
 
 public class TelaAdicionarPedido extends JPanel {
 	private JTextField txtTelCliente;
@@ -41,6 +42,9 @@ public class TelaAdicionarPedido extends JPanel {
 	 * Create the panel.
 	 */
 	public TelaAdicionarPedido() {
+		setMaximumSize(new Dimension(1000, 700));
+		setMinimumSize(new Dimension(1000, 700));
+		setPreferredSize(new Dimension(1000, 700));
 		setLayout(null);
 		
 		JPanel panelTamanho = new JPanel();
@@ -231,16 +235,16 @@ public class TelaAdicionarPedido extends JPanel {
 		JButton btnFazerPedido = new JButton("Confirmar Pedido");
 		btnFazerPedido.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnFazerPedido.setForeground(Color.BLACK);
-		btnFazerPedido.setBounds(440, 616, 237, 54);
+		btnFazerPedido.setBounds(440, 616, 237, 43);
 		add(btnFazerPedido);
 		
-		JButton btnCancelar = new JButton("Cancelar");
+		JButton btnCancelar = new JButton("Limpar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnCancelar.setBounds(687, 616, 237, 54);
+		btnCancelar.setBounds(687, 616, 237, 43);
 		add(btnCancelar);
 		
 		JTextPane txtObservacoes = new JTextPane();
@@ -252,6 +256,11 @@ public class TelaAdicionarPedido extends JPanel {
 		lblObservacoes.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		lblObservacoes.setBounds(31, 454, 138, 28);
 		add(lblObservacoes);
+		
+		JButton btnPesquisar = new JButton("Pesquisar");
+		btnPesquisar.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		btnPesquisar.setBounds(401, 368, 90, 34);
+		add(btnPesquisar);
 		
 	}
 }
