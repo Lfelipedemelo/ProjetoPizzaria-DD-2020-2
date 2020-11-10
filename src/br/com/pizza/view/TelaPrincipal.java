@@ -86,6 +86,7 @@ public class TelaPrincipal extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				TelaAdicionarPedido addPedido = new TelaAdicionarPedido();
 				setContentPane(addPedido);
+				revalidate();
 			}
 		});
 		mntmPedidosAdicionar.setIconTextGap(25);
@@ -115,6 +116,7 @@ public class TelaPrincipal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				TelaAdicionarCliente addCliente = new TelaAdicionarCliente();
 				setContentPane(addCliente);
+				revalidate();
 			}
 		});
 		mntmClientesAdicionar.setHorizontalAlignment(SwingConstants.LEFT);
@@ -130,6 +132,7 @@ public class TelaPrincipal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				TelaConsultarCliente consultarCliente = new TelaConsultarCliente();
 				setContentPane(consultarCliente);
+				revalidate();
 			}
 		});
 		mntmClientesConsultar.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
@@ -143,6 +146,7 @@ public class TelaPrincipal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				TelaEditarCliente editarCliente = new TelaEditarCliente();
 				setContentPane(editarCliente);
+				revalidate();
 			}
 		});
 		mntmClientesEditar.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
@@ -156,6 +160,7 @@ public class TelaPrincipal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				TelaExcluirCliente excluirCliente = new TelaExcluirCliente();
 				setContentPane(excluirCliente);
+				revalidate();
 			}
 		});
 		mntmClientesExcluir.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
