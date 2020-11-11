@@ -12,6 +12,7 @@ import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 import java.awt.Font;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.border.CompoundBorder;
 import java.awt.ComponentOrientation;
 import java.awt.Cursor;
@@ -27,6 +28,8 @@ import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class TelaPrincipal extends JFrame {
 
@@ -107,6 +110,29 @@ public class TelaPrincipal extends JFrame {
 		mntmPedidosConsultar.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/br/com/pizza/icons/lupa.png")));
 		mnPedidos.add(mntmPedidosConsultar);
 		
+		JMenuItem mntmNewMenuItem = new JMenuItem("Editar");
+		mntmNewMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				TelaEditarPedido editarPedido = new TelaEditarPedido();
+				setContentPane(editarPedido);
+				revalidate();
+			}
+		});
+		mntmNewMenuItem.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/br/com/pizza/icons/edit.png")));
+		mntmNewMenuItem.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		mnPedidos.add(mntmNewMenuItem);
+		
+		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Excluir");
+		mntmNewMenuItem_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaExcluirPedido excluirPedido = new TelaExcluirPedido();
+				setContentPane(excluirPedido);
+			}
+		});
+		mntmNewMenuItem_1.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/br/com/pizza/icons/delete.png")));
+		mntmNewMenuItem_1.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		mnPedidos.add(mntmNewMenuItem_1);
+		
 		JMenu mnClientes = new JMenu("Clientes");
 		mnClientes.setFont(new Font("Segoe UI", Font.PLAIN, 30));
 		mnClientes.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/br/com/pizza/icons/cliente.png")));
@@ -169,6 +195,17 @@ public class TelaPrincipal extends JFrame {
 		mntmClientesExcluir.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		mntmClientesExcluir.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/br/com/pizza/icons/delete.png")));
 		mnClientes.add(mntmClientesExcluir);
+		
+		JMenu mnSobre = new JMenu("Sobre");
+		mnSobre.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/br/com/pizza/icons/informacoes.png")));
+		mnSobre.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JOptionPane.showMessageDialog(null, "SOFTWARE CRIADO POR:" + "\nBryan Richard Lohn e Luis Felipe de Melo", "Sobre", JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
+		mnSobre.setFont(new Font("Segoe UI", Font.PLAIN, 30));
+		menuBar.add(mnSobre);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));

@@ -14,7 +14,6 @@ import javax.swing.JButton;
 
 public class TelaConsultarPedido extends JPanel {
 	private JTable tblPedidos;
-	private JTextField textField;
 	private JTextField txtPesquisarPorNumero;
 	private JTextField txtPesquisarPorCliente;
 
@@ -47,18 +46,6 @@ public class TelaConsultarPedido extends JPanel {
 		tblPedidos.setBounds(10, 273, 980, 368);
 		add(tblPedidos);
 		
-		textField = new JTextField();
-		textField.setEditable(false);
-		textField.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		textField.setBounds(215, 652, 81, 25);
-		add(textField);
-		textField.setColumns(10);
-		
-		JLabel lblPedidoSelecionado = new JLabel("Pedido selecionado:");
-		lblPedidoSelecionado.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		lblPedidoSelecionado.setBounds(10, 650, 206, 25);
-		add(lblPedidoSelecionado);
-		
 		JLabel lblPesquisarNumero = new JLabel("Numero do pedido");
 		lblPesquisarNumero.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		lblPesquisarNumero.setBounds(274, 162, 180, 32);
@@ -82,14 +69,10 @@ public class TelaConsultarPedido extends JPanel {
 		add(txtPesquisarPorCliente);
 		
 		JButton btnNewButton = new JButton("Filtrar");
+		btnNewButton.setIcon(new ImageIcon(TelaConsultarPedido.class.getResource("/br/com/pizza/icons/Lupa.png")));
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnNewButton.setBounds(422, 230, 180, 32);
 		add(btnNewButton);
-		
-		JButton btnExcluir = new JButton("Excluir pedido");
-		btnExcluir.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		btnExcluir.setBounds(306, 652, 148, 25);
-		add(btnExcluir);
 
 	}
 }

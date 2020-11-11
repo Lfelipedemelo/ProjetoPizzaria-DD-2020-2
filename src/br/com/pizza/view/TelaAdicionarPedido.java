@@ -233,12 +233,14 @@ public class TelaAdicionarPedido extends JPanel {
 		add(lblValorNumerico);
 		
 		JButton btnFazerPedido = new JButton("Confirmar Pedido");
+		btnFazerPedido.setIcon(new ImageIcon(TelaAdicionarPedido.class.getResource("/br/com/pizza/icons/add.png")));
 		btnFazerPedido.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnFazerPedido.setForeground(Color.BLACK);
 		btnFazerPedido.setBounds(440, 616, 237, 43);
 		add(btnFazerPedido);
 		
 		JButton btnCancelar = new JButton("Limpar");
+		btnCancelar.setIcon(new ImageIcon(TelaAdicionarPedido.class.getResource("/br/com/pizza/icons/borracha.png")));
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
