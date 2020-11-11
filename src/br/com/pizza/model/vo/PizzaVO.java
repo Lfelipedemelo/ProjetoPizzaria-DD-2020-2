@@ -8,9 +8,11 @@ public class PizzaVO {
 	private String sabor3;
 	private String tamanho;
 	private Double valor;
+	private String observacoes;
+	private String telefoneCliente;
 	
 	
-	public PizzaVO(int idPizza, String sabor1, String sabor2, String sabor3, String tamanho, Double valor) {
+	public PizzaVO(int idPizza, String sabor1, String sabor2, String sabor3, String tamanho, Double valor, String observacoes, String telefoneCliente) {
 		super();
 		this.idPizza = idPizza;
 		this.sabor1 = sabor1;
@@ -18,7 +20,8 @@ public class PizzaVO {
 		this.sabor3 = sabor3;
 		this.tamanho = tamanho;
 		this.valor = valor;
-		
+		this.observacoes = observacoes;
+		this.telefoneCliente = telefoneCliente;
 	}
 
 
@@ -83,6 +86,26 @@ public class PizzaVO {
 
 	public void setValor(Double valor) {
 		this.valor = valor;
+	}
+
+
+	public String getObservacoes() {
+		return observacoes;
+	}
+
+
+	public void setObservacoes(String observacoes) {
+		this.observacoes = observacoes;
+	}
+
+
+	public String getTelefoneCliente() {
+		return telefoneCliente;
+	}
+
+
+	public void setTelefoneCliente(String telefoneCliente) {
+		this.telefoneCliente = telefoneCliente;
 	}
 	
 	

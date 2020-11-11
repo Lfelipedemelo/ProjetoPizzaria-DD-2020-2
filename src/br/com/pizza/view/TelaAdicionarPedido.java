@@ -3,26 +3,43 @@ package br.com.pizza.view;
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.border.LineBorder;
+import javax.swing.text.MaskFormatter;
+
 import java.awt.Color;
+import java.awt.Component;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import javax.swing.JRadioButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
+
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import java.awt.Dimension;
+import javax.swing.DefaultComboBoxModel;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import javax.swing.DropMode;
+import javax.swing.JTextArea;
+import javax.swing.border.TitledBorder;
+import javax.swing.JScrollBar;
+import javax.swing.JSlider;
+import javax.swing.JProgressBar;
+import javax.swing.JSeparator;
 
 public class TelaAdicionarPedido extends JPanel {
-	private JTextField txtTelCliente;
 	private JTextField txtNomeCliente;
 	private JTextField txtEnderecoCliente;
 	private JLabel lblSegundoSabor;
@@ -37,7 +54,12 @@ public class TelaAdicionarPedido extends JPanel {
 	private JRadioButton rdbtnTamanhoBroto;
 	private JRadioButton rdbtNsaboresDois;
 	private JRadioButton rdbtNsaboresTres;
-
+	private Component formattedTextFieldTelefone;
+	private final String SELECIONE_SABOR = "Selecione um sabor";
+	private JFormattedTextField txtTelefone;
+	private JTextArea txtObservacoes;
+	
+	
 	/**
 	 * Create the panel.
 	 */
@@ -58,28 +80,32 @@ public class TelaAdicionarPedido extends JPanel {
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		
 		rdbtnTamanhoBroto = new JRadioButton("Broto");
-		rdbtnTamanhoBroto.setSelected(true);
 		rdbtnTamanhoBroto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				lblValorNumerico.setText("10,50");
+				isPizzaBroto(true);		
 			}
 		});
 		rdbtnTamanhoBroto.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panelTamanho.add(rdbtnTamanhoBroto, "flowx,cell 0 1");
 		
+		
 		JRadioButton rdbtnTamanhoMedia = new JRadioButton("M\u00E9dia");
 		rdbtnTamanhoMedia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				lblValorNumerico.setText("19,90");
+				isPizzaBroto(false);
 			}
 		});
 		rdbtnTamanhoMedia.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panelTamanho.add(rdbtnTamanhoMedia, "cell 0 1");
 		
 		JRadioButton rdbtnTamanhoGrande = new JRadioButton("Grande");
+		rdbtnTamanhoGrande.setSelected(true);
 		rdbtnTamanhoGrande.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				lblValorNumerico.setText("26,90");
+				isPizzaBroto(false);
 			}
 		});
 		rdbtnTamanhoGrande.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -89,6 +115,7 @@ public class TelaAdicionarPedido extends JPanel {
 		rdbtnTamanhoGigante.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				lblValorNumerico.setText("34,90");
+				isPizzaBroto(false);
 			}
 		});
 		rdbtnTamanhoGigante.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -116,8 +143,10 @@ public class TelaAdicionarPedido extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				lblSegundoSabor.setEnabled(false);
 				cbSegundoSabor.setEnabled(false);
+				cbSegundoSabor.setSelectedIndex(0);
 				lblTerceiroSabor.setEnabled(false);
 				cbTerceiroSabor.setEnabled(false);
+				cbTerceiroSabor.setSelectedIndex(0);
 			}
 			
 		});
@@ -130,7 +159,9 @@ public class TelaAdicionarPedido extends JPanel {
 				lblSegundoSabor.setEnabled(true);
 				cbSegundoSabor.setEnabled(true);
 				lblTerceiroSabor.setEnabled(false);
+				cbTerceiroSabor.setSelectedIndex(0);
 				cbTerceiroSabor.setEnabled(false);
+				
 			}
 		});
 		rdbtNsaboresDois.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -171,17 +202,20 @@ public class TelaAdicionarPedido extends JPanel {
 		add(lblTerceiroSabor);
 		
 		cbPrimeiroSabor = new JComboBox();
+		cbPrimeiroSabor.setModel(new DefaultComboBoxModel(new String[] {"Selecione um sabor", "Alho e \u00F3leo", "Bacon", "Bolonhesa", "Br\u00F3colis", "Calabresa", "Frango", "Lombinho", "Marguerita", "Mussarela", "Portuguesa", "Quatro queijos"}));
 		cbPrimeiroSabor.setBounds(31, 322, 301, 26);
 		cbPrimeiroSabor.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		add(cbPrimeiroSabor);
 		
 		cbSegundoSabor = new JComboBox();
+		cbSegundoSabor.setModel(new DefaultComboBoxModel(new String[] {"Selecione um sabor", "Alho e \u00F3leo", "Bacon", "Bolonhesa", "Br\u00F3colis", "Calabresa", "Frango", "Lombinho", "Marguerita", "Mussarela", "Portuguesa", "Quatro queijos"}));
 		cbSegundoSabor.setEnabled(false);
 		cbSegundoSabor.setBounds(342, 322, 301, 26);
 		cbSegundoSabor.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		add(cbSegundoSabor);
 		
 		cbTerceiroSabor = new JComboBox();
+		cbTerceiroSabor.setModel(new DefaultComboBoxModel(new String[] {"Selecione um sabor", "Alho e \u00F3leo", "Bacon", "Bolonhesa", "Br\u00F3colis", "Calabresa", "Frango", "Lombinho", "Marguerita", "Mussarela", "Portuguesa", "Quatro queijos"}));
 		cbTerceiroSabor.setEnabled(false);
 		cbTerceiroSabor.setBounds(653, 322, 301, 26);
 		cbTerceiroSabor.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -208,11 +242,17 @@ public class TelaAdicionarPedido extends JPanel {
 		lblTelCliente.setBounds(31, 369, 207, 27);
 		add(lblTelCliente);
 		
-		txtTelCliente = new JTextField();
-		txtTelCliente.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		txtTelCliente.setBounds(235, 368, 156, 32);
-		add(txtTelCliente);
-		txtTelCliente.setColumns(10);
+		try {
+			MaskFormatter mascaraTelefone = new MaskFormatter("(##)#####-####");
+			txtTelefone = new JFormattedTextField(mascaraTelefone);
+			txtTelefone.setFont(new Font("Tahoma", Font.PLAIN, 18));
+			txtTelefone.setBounds(248, 369, 143, 28);
+			add(txtTelefone);
+		} catch (ParseException e1) {
+			JOptionPane.showMessageDialog(null, "Ocorreu um erro no sistema, entre em contato com o administrador.");
+	        System.out.println("Causa da exceção: " + e1.getMessage());
+		}
+		
 		
 		txtNomeCliente = new JTextField();
 		txtNomeCliente.setEditable(false);
@@ -243,16 +283,12 @@ public class TelaAdicionarPedido extends JPanel {
 		btnCancelar.setIcon(new ImageIcon(TelaAdicionarPedido.class.getResource("/br/com/pizza/icons/borracha.png")));
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				limparTela();
 			}
 		});
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnCancelar.setBounds(687, 616, 237, 43);
 		add(btnCancelar);
-		
-		JTextPane txtObservacoes = new JTextPane();
-		txtObservacoes.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		txtObservacoes.setBounds(31, 493, 929, 111);
-		add(txtObservacoes);
 		
 		JLabel lblObservacoes = new JLabel("Observa\u00E7\u00F5es:");
 		lblObservacoes.setFont(new Font("Tahoma", Font.PLAIN, 22));
@@ -260,9 +296,63 @@ public class TelaAdicionarPedido extends JPanel {
 		add(lblObservacoes);
 		
 		JButton btnPesquisar = new JButton("Pesquisar");
+		btnPesquisar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String telefone = new String();
+				
+			}
+		});
 		btnPesquisar.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnPesquisar.setBounds(401, 368, 90, 34);
 		add(btnPesquisar);
 		
+		txtObservacoes = new JTextArea();
+		txtObservacoes.setBorder(new LineBorder(new Color(0, 0, 0)));
+		txtObservacoes.setLineWrap(true);
+		
+		txtObservacoes.setFont(new Font("Monospaced", Font.PLAIN, 18));
+		txtObservacoes.setBounds(28, 493, 926, 118);
+		add(txtObservacoes);
+		txtObservacoes.setWrapStyleWord(true);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(10, 274, 980, 5);
+		add(separator);
+		txtObservacoes.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if(txtObservacoes.getText().length() == 250 || txtObservacoes.getText().length() > 250 )
+	            {
+	                e.consume();
+	            }
+			}
+		});
+		
+		
+	}
+
+	public void isPizzaBroto(boolean b) {
+		if(b) {
+			rdbtNsaboresUnico.setSelected(true);
+			rdbtNsaboresDois.setEnabled(false);
+			rdbtNsaboresTres.setEnabled(false);
+			lblSegundoSabor.setEnabled(false);
+			lblTerceiroSabor.setEnabled(false);
+			cbSegundoSabor.setEnabled(false);
+			cbSegundoSabor.setSelectedIndex(0);
+			cbTerceiroSabor.setEnabled(false);
+			cbTerceiroSabor.setSelectedIndex(0);
+		} else {
+			rdbtNsaboresDois.setEnabled(true);
+			rdbtNsaboresTres.setEnabled(true);
+		}
+		
+	}
+	
+	private void limparTela() {
+		txtTelefone.setValue(null);
+		txtNomeCliente.setText(null);
+		txtEnderecoCliente.setText(null);
+		txtObservacoes.setText(null);
 	}
 }
