@@ -6,9 +6,10 @@ import br.com.pizza.model.vo.ClienteVO;
 
 public class ClienteController {
 
-	public void cadastrarCliente(ClienteVO clienteVO) {
+	public String cadastrarCliente(ClienteVO clienteVO) {
 		ClienteBO clienteBO = new ClienteBO();
-		clienteBO.cadastrarCliente(clienteVO);
+		return clienteBO.cadastrarCliente(clienteVO);
+		
 	}
 
 	

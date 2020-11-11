@@ -4,8 +4,10 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.SwingConstants;
 import java.awt.Label;
@@ -20,8 +22,10 @@ import java.awt.Dimension;
 import javax.swing.border.LineBorder;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.MaskFormatter;
 import javax.swing.ListSelectionModel;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.awt.event.ActionEvent;
 
 public class TelaConsultarCliente extends JPanel {
@@ -29,6 +33,7 @@ public class TelaConsultarCliente extends JPanel {
 	private JTextField txtNomePesquisado;
 	private JTable tblClientes;
 	private JTextField txtTelefonePesquisado;
+	private JFormattedTextField formattedTextFieldTelefone;
 
 	/**
 	 * Create the panel.
@@ -65,7 +70,7 @@ public class TelaConsultarCliente extends JPanel {
 		btnLimparExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				txtNomePesquisado.setText(null);
-				txtTelefonePesquisado.setText(null);
+				formattedTextFieldTelefone.setValue(null);
 				txtIdPesquisado.setText(null);
 			}
 		});
@@ -124,11 +129,18 @@ public class TelaConsultarCliente extends JPanel {
 		lblPesquisarPorTelefone.setBounds(7, 248, 311, 27);
 		add(lblPesquisarPorTelefone);
 		
-		txtTelefonePesquisado = new JTextField();
-		txtTelefonePesquisado.setColumns(10);
-		txtTelefonePesquisado.setBounds(7, 281, 501, 22);
-		add(txtTelefonePesquisado);
+		
+		try {
+			MaskFormatter mascaraTelefone = new MaskFormatter("(##)#####-####");
+		
+		formattedTextFieldTelefone = new JFormattedTextField(mascaraTelefone);
+		formattedTextFieldTelefone.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		formattedTextFieldTelefone.setBounds(7, 276, 140, 31);
+		add(formattedTextFieldTelefone);
+	} catch (ParseException e) {
+		JOptionPane.showMessageDialog(null, "Ocorreu um erro no sistema, entre em contato com o administrador.");
+		System.out.println("Causa da exceção: " + e.getMessage());
 		
 
 	}
-}
+}}

@@ -28,7 +28,7 @@ public class ClienteDAO implements BaseDAO<ClienteVO> {
 			query.setString(2, clienteVO.getTelefone());
 			query.setString(3, clienteVO.getEndereco());
 			
-			int codigoRetorno = query.executeUpdate();
+			query.execute();
 			
 			
 		} catch (SQLException e) {
