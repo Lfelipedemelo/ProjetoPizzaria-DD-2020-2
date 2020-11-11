@@ -9,7 +9,7 @@ create table Pizza (
     , Tamanho varchar(45) not null
     , Valor Double not null
     , Observacoes varchar(250)
-    , TelefoneCliente varchar()14 not null
+    , TelefoneCliente varchar(14) not null
 	, primary key (IdPizza)
 );
 
@@ -23,3 +23,6 @@ create table Cliente (
     , PesquisarNome varchar(130)
     , primary key(IdCliente)
 );
+
+select * from cliente where nome = 'luis';
+select * from cliente where nome like 'l%';
