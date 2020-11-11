@@ -86,9 +86,9 @@ public class TelaConsultarPedido extends JPanel {
 		btnNewButton.setBounds(422, 230, 180, 32);
 		add(btnNewButton);
 		
-		JButton btnExcluir = new JButton("Excluir");
+		JButton btnExcluir = new JButton("Excluir pedido");
 		btnExcluir.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		btnExcluir.setBounds(306, 652, 89, 25);
+		btnExcluir.setBounds(306, 652, 148, 25);
 		add(btnExcluir);
 
 	}
