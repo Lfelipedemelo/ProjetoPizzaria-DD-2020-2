@@ -9,7 +9,7 @@ public class ClienteBO {
 	ClienteVO clienteVO = new ClienteVO();
 	
 	public String cadastrarCliente(ClienteVO clienteVO) {
-		clienteDAO.inserir(clienteVO);
+		
 		
 		if (clienteVO.getNome() == null || clienteVO.getNome() == "" || clienteVO.getNome().isEmpty() || clienteVO.getNome().length() <3) {
 			return "Digite um nome válido!";
@@ -18,8 +18,8 @@ public class ClienteBO {
 		} else if (clienteVO.getTelefone() == null || clienteVO.getTelefone() == "" || clienteVO.getTelefone().isEmpty() || clienteVO.getTelefone().length() <11) {
 			return "Digite um Telefone válido!";
 		} else {
-				this.cadastrarCliente(clienteVO);
-				return "Aluno cadastrado com sucesso!";
+				clienteDAO.inserir(clienteVO);
+				return "Cliente cadastrado com sucesso!";
 			
 			}}
 

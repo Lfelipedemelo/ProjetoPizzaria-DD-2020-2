@@ -4,8 +4,10 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.SwingConstants;
 import java.awt.Label;
@@ -14,19 +16,23 @@ import javax.swing.SpringLayout;
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.border.MatteBorder;
+import javax.swing.text.MaskFormatter;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.CompoundBorder;
 import java.awt.Dimension;
 import javax.swing.border.LineBorder;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.awt.event.ActionEvent;
 
 public class TelaEditarCliente extends JPanel {
 	private JTextField txtNomeAtualizado;
-	private JTextField txtTelefoneAtualizado;
 	private JTextField txtEnderecoAtualizado;
 	private JTextField txtSobrenomeAtualizado;
 	private JTextField txtTelefonePesquisado;
+	protected JFormattedTextField formattedTextFieldTelefonePesquisado;
+	protected JFormattedTextField formattedTextFieldTelefoneAtualizado;
+	
 
 	/**
 	 * Create the panel.
@@ -64,11 +70,6 @@ public class TelaEditarCliente extends JPanel {
 		lblTelefoneAtualizado.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		add(lblTelefoneAtualizado);
 		
-		txtTelefoneAtualizado = new JTextField();
-		txtTelefoneAtualizado.setBounds(9, 402, 157, 31);
-		txtTelefoneAtualizado.setColumns(10);
-		add(txtTelefoneAtualizado);
-		
 		JLabel lblEnderecoAtualizado = new JLabel("Inserir Endere\u00E7o atualizado: ");
 		lblEnderecoAtualizado.setBounds(9, 437, 311, 31);
 		lblEnderecoAtualizado.setFont(new Font("Tahoma", Font.PLAIN, 22));
@@ -80,6 +81,10 @@ public class TelaEditarCliente extends JPanel {
 		add(txtEnderecoAtualizado);
 		
 		JButton btnSalvarEditar = new JButton("Salvar");
+		btnSalvarEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		btnSalvarEditar.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnSalvarEditar.setBounds(204, 577, 140, 45);
 		add(btnSalvarEditar);
@@ -87,11 +92,7 @@ public class TelaEditarCliente extends JPanel {
 		JButton btnLimparEditar = new JButton("Limpar");
 		btnLimparEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				txtTelefonePesquisado.setText(null);
-				txtEnderecoAtualizado.setText(null);
-				txtTelefoneAtualizado.setText(null);
-				txtNomeAtualizado.setText(null);
-				txtSobrenomeAtualizado.setText(null);
+				limparTela();
 			}
 		});
 		btnLimparEditar.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -124,11 +125,44 @@ public class TelaEditarCliente extends JPanel {
 		lblTelefonePesquisado.setBounds(5, 136, 339, 31);
 		add(lblTelefonePesquisado);
 		
-		txtTelefonePesquisado = new JTextField();
-		txtTelefonePesquisado.setColumns(10);
-		txtTelefonePesquisado.setBounds(5, 171, 157, 31);
-		add(txtTelefonePesquisado);
+		try {
+			MaskFormatter mascaraTelefoneAtualizado = new MaskFormatter("(##)#####-####");
+		
+		formattedTextFieldTelefoneAtualizado = new JFormattedTextField(mascaraTelefoneAtualizado);
+		formattedTextFieldTelefoneAtualizado.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		formattedTextFieldTelefoneAtualizado.setBounds(8, 402, 140, 31);
+		add(formattedTextFieldTelefoneAtualizado);
+		
+	} catch (ParseException e) {
+		JOptionPane.showMessageDialog(null, "Ocorreu um erro no sistema, entre em contato com o administrador.");
+		System.out.println("Causa da exceção: " + e.getMessage());
 		
 
 	}
+		
+		
+		try {
+			MaskFormatter mascaraTelefonePesquisado = new MaskFormatter("(##)#####-####");
+		
+		formattedTextFieldTelefonePesquisado = new JFormattedTextField(mascaraTelefonePesquisado);
+		formattedTextFieldTelefonePesquisado.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		formattedTextFieldTelefonePesquisado.setBounds(7, 170, 140, 31);
+		add(formattedTextFieldTelefonePesquisado);
+		
+	} catch (ParseException e) {
+		JOptionPane.showMessageDialog(null, "Ocorreu um erro no campo Telefone, entre em contato com o administrador.");
+		System.out.println("Causa da exceção: " + e.getMessage());
+		
+
+	}
+		
 }
+
+
+	private void limparTela() {
+		formattedTextFieldTelefonePesquisado.setValue(null);
+		txtEnderecoAtualizado.setText("");
+		formattedTextFieldTelefoneAtualizado.setValue(null);
+		txtNomeAtualizado.setText("");
+		txtSobrenomeAtualizado.setText("");
+	}}

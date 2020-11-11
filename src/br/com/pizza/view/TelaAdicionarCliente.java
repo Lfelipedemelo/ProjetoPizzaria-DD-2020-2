@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,6 +15,7 @@ import javax.swing.SpringLayout;
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.border.MatteBorder;
+import javax.swing.text.MaskFormatter;
 
 import br.com.pizza.controller.ClienteController;
 import br.com.pizza.model.vo.ClienteVO;
@@ -23,13 +25,15 @@ import javax.swing.border.CompoundBorder;
 import java.awt.Dimension;
 import javax.swing.border.LineBorder;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.awt.event.ActionEvent;
+import javax.swing.JFormattedTextField;
 
 public class TelaAdicionarCliente extends JPanel {
 	private JTextField txtNome;
-	private JTextField txtTelefone;
 	private JTextField txtEndereco;
 	private JTextField txtSobrenome;
+	private JFormattedTextField formattedTextFieldTelefone;
 
 	/**
 	 * Create the panel.
@@ -67,11 +71,6 @@ public class TelaAdicionarCliente extends JPanel {
 		lblTelefone.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		add(lblTelefone);
 		
-		txtTelefone = new JTextField();
-		txtTelefone.setBounds(7, 374, 157, 31);
-		txtTelefone.setColumns(10);
-		add(txtTelefone);
-		
 		JLabel lblEndereo = new JLabel("Endere\u00E7o: ");
 		lblEndereo.setBounds(7, 409, 157, 31);
 		lblEndereo.setFont(new Font("Tahoma", Font.PLAIN, 22));
@@ -86,13 +85,13 @@ public class TelaAdicionarCliente extends JPanel {
 		btnSalvarAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ClienteVO clienteVO = new ClienteVO();
-				
-				clienteVO.setNome(txtNome.getText() + txtSobrenome.getText());
-				clienteVO.setTelefone(txtTelefone.getText());
+				String telefone = new String();
+				clienteVO.setNome(txtNome.getText() + " " + txtSobrenome.getText());
+				clienteVO.setTelefone(formattedTextFieldTelefone.getText().replace("(","").replace(")", "").replace("-", ""));
 				clienteVO.setEndereco(txtEndereco.getText());				
 				
 				ClienteController clienteController = new ClienteController();
-				clienteController.cadastrarCliente(clienteVO);
+				JOptionPane.showMessageDialog(null, clienteController.cadastrarCliente(clienteVO));
 			}
 		});
 		btnSalvarAdicionar.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -104,7 +103,7 @@ public class TelaAdicionarCliente extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				txtNome.setText(null);
 				txtSobrenome.setText(null);
-				txtTelefone.setText(null);
+				formattedTextFieldTelefone.setValue(null);
 				txtEndereco.setText(null);
 			}
 		});
@@ -133,6 +132,15 @@ public class TelaAdicionarCliente extends JPanel {
 		panel_BordaForno.setBounds(574, 192, 349, 311);
 		add(panel_BordaForno);
 		
-
-	}
-}
+		try {
+			MaskFormatter mascaraTelefone = new MaskFormatter("(##)#####-####");
+		
+		formattedTextFieldTelefone = new JFormattedTextField(mascaraTelefone);
+		formattedTextFieldTelefone.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		formattedTextFieldTelefone.setBounds(7, 376, 140, 31);
+		add(formattedTextFieldTelefone);
+	} catch (ParseException e) {
+		JOptionPane.showMessageDialog(null, "Ocorreu um erro no campo Telefone, entre em contato com o administrador.");
+		System.out.println("Causa da exceção: " + e.getMessage());
+		
+}}}
