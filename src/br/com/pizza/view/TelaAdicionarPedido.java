@@ -72,6 +72,7 @@ public class TelaAdicionarPedido extends JPanel {
 	private JRadioButton rdbtnTamanhoGrande;
 	private JRadioButton rdbtnTamanhoGigante;
 	
+	double valorFinal = 0;
 
 	public TelaAdicionarPedido() {
 		setMaximumSize(new Dimension(1000, 700));
@@ -95,7 +96,8 @@ public class TelaAdicionarPedido extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				String valor = String.valueOf(VALOR_BROTO + "0");
 				lblValorNumerico.setText(valor);
-				isPizzaBroto(true);		
+				isPizzaBroto(true);
+				valorFinal = VALOR_BROTO;
 			}
 		});
 		rdbtnTamanhoBroto.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -109,6 +111,7 @@ public class TelaAdicionarPedido extends JPanel {
 				String valor = String.valueOf(VALOR_MEDIA + "0");
 				lblValorNumerico.setText(valor);
 				isPizzaBroto(false);
+				valorFinal = VALOR_MEDIA;
 			}
 		});
 		rdbtnTamanhoMedia.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -122,6 +125,7 @@ public class TelaAdicionarPedido extends JPanel {
 				String valor = String.valueOf(VALOR_GRANDE + "0");
 				lblValorNumerico.setText(valor);
 				isPizzaBroto(false);
+				valorFinal = VALOR_GRANDE;
 			}
 		});
 		rdbtnTamanhoGrande.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -134,6 +138,7 @@ public class TelaAdicionarPedido extends JPanel {
 				String valor = String.valueOf(VALOR_GIGANTE + "0");
 				lblValorNumerico.setText(valor);
 				isPizzaBroto(false);
+				valorFinal = VALOR_GIGANTE;
 			}
 		});
 		rdbtnTamanhoGigante.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -253,7 +258,7 @@ public class TelaAdicionarPedido extends JPanel {
 		lblAdicionarPeedido.setFont(new Font("Tahoma", Font.PLAIN, 72));
 		lblAdicionarPeedido.setIcon(new ImageIcon(TelaAdicionarPedido.class.getResource("/br/com/pizza/icons/pizza.png")));
 		
-		JLabel lblValorTotal = new JLabel("Valor Total: R$");
+		final JLabel lblValorTotal = new JLabel("Valor Total: R$");
 		lblValorTotal.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		lblValorTotal.setBounds(31, 622, 149, 32);
 		add(lblValorTotal);
@@ -308,7 +313,7 @@ public class TelaAdicionarPedido extends JPanel {
 				pVo.setTamanho(btgpTamanho.getSelection().getActionCommand());
 				pVo.setTelefoneCliente(txtTelefone.getText().replace(")", "").replace("(", "").replace("-", "").replace(" ", ""));
 				pVo.setObservacoes(txtObservacoes.getText());
-			//FAZER	pVo.setValor(VALOR_);
+				pVo.setValor(valorFinal);
 				if(cbPrimeiroSabor.getSelectedIndex() == 0) {
 					JOptionPane.showMessageDialog(null, "Selecione um sabor");
 				} else if (cbSegundoSabor.getSelectedIndex() == 0 && rdbtNsaboresUnico.isSelected() == false){
@@ -319,8 +324,10 @@ public class TelaAdicionarPedido extends JPanel {
 					pVo.setSabor1(cbPrimeiroSabor.getSelectedItem().toString().toUpperCase());
 					pVo.setSabor2(cbSegundoSabor.getSelectedItem().toString().toUpperCase());
 					pVo.setSabor3(cbTerceiroSabor.getSelectedItem().toString().toUpperCase());
-					JOptionPane.showMessageDialog(null, pVo.getTamanho() + "\n" + pVo.getSabor1());
 				}
+				
+				JOptionPane.showMessageDialog(null, pController.inserirPedido(pVo));
+				limparTela();
 			}
 		});
 		

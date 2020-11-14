@@ -18,8 +18,8 @@ public class PizzaDAO implements BaseDAO<PizzaVO>{
 	public PizzaVO inserir (PizzaVO pizzaVO) {
 		Connection conn = Banco.getConnection();
 		
-		String sql = "INSERT INTO PIZZA (SABOR1, SABOR2, SABOR3, TAMANHO, VALOR) "
-				+ "VALUES (?,?,?,?,?)";
+		String sql = "INSERT INTO PIZZA (SABOR1, SABOR2, SABOR3, TAMANHO, VALOR, OBSERVACOES, TELEFONECLIENTE) "
+				+ "VALUES (?,?,?,?,?,?,?)";
 		
 		PreparedStatement query = Banco.getPreparedStatement (conn, sql);
 		
@@ -29,9 +29,9 @@ public class PizzaDAO implements BaseDAO<PizzaVO>{
 			query.setString(3, pizzaVO.getSabor3());
 			query.setString(4, pizzaVO.getTamanho());
 			query.setDouble(5, pizzaVO.getValor());
-			
-			int codigoRetorno = query.executeUpdate();
-			
+			query.setString(6, pizzaVO.getObservacoes());
+			query.setString(7, pizzaVO.getTelefoneCliente());
+			query.executeUpdate();
 			
 		} catch (SQLException e) {
 			System.out.println("Erro ao inserir uma pizza.\nCausa: " + e.getMessage());
