@@ -12,5 +12,12 @@ public class ClienteController {
 		
 	}
 
+	public ClienteVO pesquisarPorTelefone(String telefone) {
+		ClienteBO bo = new ClienteBO();
+		return bo.pesquisarPorTelefone(telefone);
+		
+		
+	}
+
 	
 }

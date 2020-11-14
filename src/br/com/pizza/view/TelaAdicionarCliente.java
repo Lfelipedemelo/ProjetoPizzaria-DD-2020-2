@@ -84,13 +84,13 @@ public class TelaAdicionarCliente extends JPanel {
 		JButton btnSalvarAdicionar = new JButton("Salvar");
 		btnSalvarAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				ClienteController clienteController = new ClienteController();
 				ClienteVO clienteVO = new ClienteVO();
 				String telefone = new String();
 				clienteVO.setNome(txtNome.getText() + " " + txtSobrenome.getText());
 				clienteVO.setTelefone(formattedTextFieldTelefone.getText().replace("(","").replace(")", "").replace("-", ""));
-				clienteVO.setEndereco(txtEndereco.getText());				
+				clienteVO.setEndereco(txtEndereco.getText());	
 				
-				ClienteController clienteController = new ClienteController();
 				JOptionPane.showMessageDialog(null, clienteController.cadastrarCliente(clienteVO));
 			}
 		});

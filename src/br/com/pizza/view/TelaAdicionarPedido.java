@@ -5,6 +5,9 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.border.LineBorder;
 import javax.swing.text.MaskFormatter;
 
+import br.com.pizza.controller.ClienteController;
+import br.com.pizza.model.vo.ClienteVO;
+
 import java.awt.Color;
 import java.awt.Component;
 
@@ -55,14 +58,16 @@ public class TelaAdicionarPedido extends JPanel {
 	private JRadioButton rdbtNsaboresDois;
 	private JRadioButton rdbtNsaboresTres;
 	private Component formattedTextFieldTelefone;
-	private final String SELECIONE_SABOR = "Selecione um sabor";
 	private JFormattedTextField txtTelefone;
 	private JTextArea txtObservacoes;
 	
+	private final String SELECIONE_SABOR = "Selecione um sabor";
+	private final double VALOR_BROTO = 32.90;
+	private final double VALOR_MEDIA = 46.90;
+	private final double VALOR_GRANDE = 52.90;
+	private final double VALOR_GIGANTE = 56.90;
 	
-	/**
-	 * Create the panel.
-	 */
+
 	public TelaAdicionarPedido() {
 		setMaximumSize(new Dimension(1000, 700));
 		setMinimumSize(new Dimension(1000, 700));
@@ -82,7 +87,8 @@ public class TelaAdicionarPedido extends JPanel {
 		rdbtnTamanhoBroto = new JRadioButton("Broto");
 		rdbtnTamanhoBroto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				lblValorNumerico.setText("10,50");
+				String valor = String.valueOf(VALOR_BROTO + "0");
+				lblValorNumerico.setText(valor);
 				isPizzaBroto(true);		
 			}
 		});
@@ -93,7 +99,8 @@ public class TelaAdicionarPedido extends JPanel {
 		JRadioButton rdbtnTamanhoMedia = new JRadioButton("M\u00E9dia");
 		rdbtnTamanhoMedia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				lblValorNumerico.setText("19,90");
+				String valor = String.valueOf(VALOR_MEDIA + "0");
+				lblValorNumerico.setText(valor);
 				isPizzaBroto(false);
 			}
 		});
@@ -104,7 +111,8 @@ public class TelaAdicionarPedido extends JPanel {
 		rdbtnTamanhoGrande.setSelected(true);
 		rdbtnTamanhoGrande.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				lblValorNumerico.setText("26,90");
+				String valor = String.valueOf(VALOR_GRANDE + "0");
+				lblValorNumerico.setText(valor);
 				isPizzaBroto(false);
 			}
 		});
@@ -114,7 +122,8 @@ public class TelaAdicionarPedido extends JPanel {
 		JRadioButton rdbtnTamanhoGigante = new JRadioButton("Gigante");
 		rdbtnTamanhoGigante.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				lblValorNumerico.setText("34,90");
+				String valor = String.valueOf(VALOR_GIGANTE + "0");
+				lblValorNumerico.setText(valor);
 				isPizzaBroto(false);
 			}
 		});
@@ -262,12 +271,13 @@ public class TelaAdicionarPedido extends JPanel {
 		txtNomeCliente.setColumns(10);
 		
 		txtEnderecoCliente = new JTextField();
+		txtEnderecoCliente.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		txtEnderecoCliente.setEditable(false);
 		txtEnderecoCliente.setBounds(401, 411, 560, 32);
 		add(txtEnderecoCliente);
 		txtEnderecoCliente.setColumns(10);
 		
-		lblValorNumerico = new JLabel("10,50");
+		lblValorNumerico = new JLabel("");
 		lblValorNumerico.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		lblValorNumerico.setBounds(183, 628, 90, 21);
 		add(lblValorNumerico);
@@ -298,8 +308,16 @@ public class TelaAdicionarPedido extends JPanel {
 		JButton btnPesquisar = new JButton("Pesquisar");
 		btnPesquisar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				ClienteController cController = new ClienteController();
+				ClienteVO cliente = new ClienteVO();
 				String telefone = new String();
 				
+				telefone = txtTelefone.getText().replace(")", "").replace("(", "").replace("-", "").replace(" ", "");			
+				cliente = cController.pesquisarPorTelefone(telefone);
+				if(cliente != null) {
+					txtNomeCliente.setText(cliente.getNome());
+					txtEnderecoCliente.setText(cliente.getEndereco());
+				}
 			}
 		});
 		btnPesquisar.setFont(new Font("Tahoma", Font.PLAIN, 13));

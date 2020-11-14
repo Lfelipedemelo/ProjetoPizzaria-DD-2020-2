@@ -1,5 +1,7 @@
 package br.com.pizza.model.bo;
 
+import javax.swing.JOptionPane;
+
 import br.com.pizza.model.dao.ClienteDAO;
 import br.com.pizza.model.vo.ClienteVO;
 
@@ -17,10 +19,27 @@ public class ClienteBO {
 			return "Digite um Endereço válido!";			
 		} else if (clienteVO.getTelefone() == null || clienteVO.getTelefone() == "" || clienteVO.getTelefone().isEmpty() || clienteVO.getTelefone().length() <11) {
 			return "Digite um Telefone válido!";
-		} else {
+		} else if(clienteDAO.clienteJaCadastrado(clienteVO.getTelefone())) {
+			return "Já possui um cliente com este telefone cadastrado";
+		}else {
 				clienteDAO.inserir(clienteVO);
 				return "Cliente cadastrado com sucesso!";
 			
 			}}
+
+	public ClienteVO pesquisarPorTelefone(String telefone) {
+		ClienteDAO dao = new ClienteDAO();
+		if(telefone.length() == 11) {
+			if(dao.pesquisarPorTelefone(telefone) == null) {
+				JOptionPane.showMessageDialog(null, "Não existe nenhum cliente com este telefone cadastrado");		
+				return null;
+			} else {
+				return dao.pesquisarPorTelefone(telefone);
+			}
+		} else {
+			JOptionPane.showMessageDialog(null, "Por favor digite um telefone valido");
+			return null;
+		}
+	}
 
 }

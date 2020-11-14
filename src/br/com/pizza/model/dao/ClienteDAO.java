@@ -142,5 +142,44 @@ public class ClienteDAO implements BaseDAO<ClienteVO> {
 		
 		return clientesBuscados;
 	}
+
+
+	public ClienteVO pesquisarPorTelefone(String telefone) {
+		String sql = " SELECT * FROM CLIENTE WHERE TELEFONE=? ";
+		ClienteVO clienteBuscado = null;
+		
+		try (Connection conexao = Banco.getConnection();
+			PreparedStatement consulta = Banco.getPreparedStatement(conexao, sql);) {
+			consulta.setString(1, telefone);
+			ResultSet conjuntoResultante = consulta.executeQuery();
+			
+			if(conjuntoResultante.next()) {
+				clienteBuscado = construirDoResultSet(conjuntoResultante);
+			}
+		} catch (SQLException e) {
+			System.out.println("Erro ao consultar cliente por telefone (telefone: " + telefone + ") .\nCausa: " + e.getMessage());
+		}
+		
+		return clienteBuscado;
+	}
+
+
+	public boolean clienteJaCadastrado(String telefone) {
+		boolean existe = false;
+		String sql = " SELECT * FROM CLIENTE WHERE TELEFONE=? ";
+		
+		try (Connection conexao = Banco.getConnection();
+			PreparedStatement consulta = Banco.getPreparedStatement(conexao, sql);) {
+			consulta.setString(1, telefone);
+			ResultSet conjuntoResultante = consulta.executeQuery();
+			
+			if(conjuntoResultante.next()) {
+				existe = true;
+			}
+		} catch (SQLException e) {
+			System.out.println("Erro ao consultar cliente por telefone (telefone: " + telefone + ") .\nCausa: " + e.getMessage());
+		}
+		return existe;
+	}
 	
 }
