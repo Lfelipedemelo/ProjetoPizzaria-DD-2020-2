@@ -6,7 +6,9 @@ import javax.swing.border.LineBorder;
 import javax.swing.text.MaskFormatter;
 
 import br.com.pizza.controller.ClienteController;
+import br.com.pizza.controller.PizzaController;
 import br.com.pizza.model.vo.ClienteVO;
+import br.com.pizza.model.vo.PizzaVO;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -66,6 +68,9 @@ public class TelaAdicionarPedido extends JPanel {
 	private final double VALOR_MEDIA = 46.90;
 	private final double VALOR_GRANDE = 52.90;
 	private final double VALOR_GIGANTE = 56.90;
+	private JRadioButton rdbtnTamanhoMedia;
+	private JRadioButton rdbtnTamanhoGrande;
+	private JRadioButton rdbtnTamanhoGigante;
 	
 
 	public TelaAdicionarPedido() {
@@ -85,6 +90,7 @@ public class TelaAdicionarPedido extends JPanel {
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		
 		rdbtnTamanhoBroto = new JRadioButton("Broto");
+		rdbtnTamanhoBroto.setActionCommand("BROTO");
 		rdbtnTamanhoBroto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String valor = String.valueOf(VALOR_BROTO + "0");
@@ -96,7 +102,8 @@ public class TelaAdicionarPedido extends JPanel {
 		panelTamanho.add(rdbtnTamanhoBroto, "flowx,cell 0 1");
 		
 		
-		JRadioButton rdbtnTamanhoMedia = new JRadioButton("M\u00E9dia");
+		rdbtnTamanhoMedia = new JRadioButton("M\u00E9dia");
+		rdbtnTamanhoMedia.setActionCommand("MEDIA");
 		rdbtnTamanhoMedia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String valor = String.valueOf(VALOR_MEDIA + "0");
@@ -107,7 +114,8 @@ public class TelaAdicionarPedido extends JPanel {
 		rdbtnTamanhoMedia.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panelTamanho.add(rdbtnTamanhoMedia, "cell 0 1");
 		
-		JRadioButton rdbtnTamanhoGrande = new JRadioButton("Grande");
+		rdbtnTamanhoGrande = new JRadioButton("Grande");
+		rdbtnTamanhoGrande.setActionCommand("GRANDE");
 		rdbtnTamanhoGrande.setSelected(true);
 		rdbtnTamanhoGrande.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -119,7 +127,8 @@ public class TelaAdicionarPedido extends JPanel {
 		rdbtnTamanhoGrande.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panelTamanho.add(rdbtnTamanhoGrande, "cell 0 1");
 		
-		JRadioButton rdbtnTamanhoGigante = new JRadioButton("Gigante");
+		rdbtnTamanhoGigante = new JRadioButton("Gigante");
+		rdbtnTamanhoGigante.setActionCommand("GIGANTE");
 		rdbtnTamanhoGigante.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String valor = String.valueOf(VALOR_GIGANTE + "0");
@@ -130,7 +139,7 @@ public class TelaAdicionarPedido extends JPanel {
 		rdbtnTamanhoGigante.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panelTamanho.add(rdbtnTamanhoGigante, "cell 0 1");
 		
-		ButtonGroup btgpTamanho = new ButtonGroup();
+		final ButtonGroup btgpTamanho = new ButtonGroup();
 		btgpTamanho.add(rdbtnTamanhoBroto);
 		btgpTamanho.add(rdbtnTamanhoMedia);
 		btgpTamanho.add(rdbtnTamanhoGrande);
@@ -147,6 +156,7 @@ public class TelaAdicionarPedido extends JPanel {
 		PanelNSabores.add(lblNewLabel_2, "cell 0 0");
 		
 		rdbtNsaboresUnico = new JRadioButton("Sabor \u00FAnico");
+		rdbtNsaboresUnico.setActionCommand("UM SABOR");
 		rdbtNsaboresUnico.setSelected(true);
 		rdbtNsaboresUnico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -163,6 +173,7 @@ public class TelaAdicionarPedido extends JPanel {
 		PanelNSabores.add(rdbtNsaboresUnico, "flowx,cell 0 1");
 		
 		rdbtNsaboresDois = new JRadioButton("Dois sabores");
+		rdbtNsaboresDois.setActionCommand("DOIS SABORES");
 		rdbtNsaboresDois.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {			
 				lblSegundoSabor.setEnabled(true);
@@ -177,6 +188,7 @@ public class TelaAdicionarPedido extends JPanel {
 		PanelNSabores.add(rdbtNsaboresDois, "cell 0 1");
 		
 		rdbtNsaboresTres = new JRadioButton("Tr\u00EAs sabores");
+		rdbtNsaboresTres.setActionCommand("TRES SABORES");
 		rdbtNsaboresTres.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				lblSegundoSabor.setEnabled(true);
@@ -288,6 +300,31 @@ public class TelaAdicionarPedido extends JPanel {
 		btnFazerPedido.setForeground(Color.BLACK);
 		btnFazerPedido.setBounds(440, 616, 237, 43);
 		add(btnFazerPedido);
+		
+		btnFazerPedido.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				PizzaController pController = new PizzaController();
+				PizzaVO pVo = new PizzaVO();
+				pVo.setTamanho(btgpTamanho.getSelection().getActionCommand());
+				pVo.setTelefoneCliente(txtTelefone.getText().replace(")", "").replace("(", "").replace("-", "").replace(" ", ""));
+				pVo.setObservacoes(txtObservacoes.getText());
+			//FAZER	pVo.setValor(VALOR_);
+				if(cbPrimeiroSabor.getSelectedIndex() == 0) {
+					JOptionPane.showMessageDialog(null, "Selecione um sabor");
+				} else if (cbSegundoSabor.getSelectedIndex() == 0 && rdbtNsaboresUnico.isSelected() == false){
+					JOptionPane.showMessageDialog(null, "Selecione um sabor");
+				} else if(cbTerceiroSabor.getSelectedIndex() == 0 && !rdbtNsaboresTres.isSelected() == false){
+					JOptionPane.showMessageDialog(null, "Selecione um sabor");
+				} else {
+					pVo.setSabor1(cbPrimeiroSabor.getSelectedItem().toString().toUpperCase());
+					pVo.setSabor2(cbSegundoSabor.getSelectedItem().toString().toUpperCase());
+					pVo.setSabor3(cbTerceiroSabor.getSelectedItem().toString().toUpperCase());
+					JOptionPane.showMessageDialog(null, pVo.getTamanho() + "\n" + pVo.getSabor1());
+				}
+			}
+		});
+		
+		
 		
 		JButton btnCancelar = new JButton("Limpar");
 		btnCancelar.setIcon(new ImageIcon(TelaAdicionarPedido.class.getResource("/br/com/pizza/icons/borracha.png")));
