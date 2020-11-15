@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.pizza.Banco;
+import br.com.pizza.model.vo.PizzaSeletor;
 import br.com.pizza.model.vo.PizzaVO;
 
 public class PizzaDAO implements BaseDAO<PizzaVO>{
@@ -120,6 +121,8 @@ public class PizzaDAO implements BaseDAO<PizzaVO>{
 		pizzaBuscada.setSabor3(conjuntoResultante.getString("sabor3"));
 		pizzaBuscada.setTamanho(conjuntoResultante.getString("tamanho"));
 		pizzaBuscada.setValor(conjuntoResultante.getDouble("valor"));
+		pizzaBuscada.setTelefoneCliente(conjuntoResultante.getString("TelefoneCliente"));
+		pizzaBuscada.setObservacoes(conjuntoResultante.getString("OBSERVACOES"));
 		return pizzaBuscada;
 	}
 	
@@ -147,6 +150,60 @@ public class PizzaDAO implements BaseDAO<PizzaVO>{
 		}
 		
 		return pizzasBuscadas;
+	}
+
+
+	public List<PizzaVO> listarComSeletor(PizzaSeletor seletor) {
+		String sql = " SELECT * FROM PIZZA";
+
+		if (seletor.temFiltro()) {
+			sql = criarFiltros(seletor, sql);
+		}
+
+		if (seletor.temPaginacao()) {
+			sql += " LIMIT " + seletor.getLimite() + " OFFSET " + seletor.getOffset();
+		}
+		
+		Connection conexao = Banco.getConnection();
+		PreparedStatement prepStmt = Banco.getPreparedStatement(conexao, sql);
+		ArrayList<PizzaVO> pedidos = new ArrayList<PizzaVO>();
+
+		try {
+			ResultSet result = prepStmt.executeQuery();
+
+			while (result.next()) {
+				PizzaVO p = construirDoResultSet(result);
+				pedidos.add(p);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return pedidos;
+	}
+
+
+	private String criarFiltros(PizzaSeletor seletor, String sql) {
+		// Tem pelo menos UM filtro
+				sql += " WHERE ";
+				boolean primeiro = true;
+
+				if (seletor.getIdPizza() > 0) {
+					if (!primeiro) {
+						sql += " AND ";
+					}
+					sql += "IDPIZZA = " + seletor.getIdPizza();
+					primeiro = false;
+				}
+
+				if ((seletor.getTelefoneCliente() != null) && (seletor.getTelefoneCliente().trim().length() > 0)) {
+					if (!primeiro) {
+						sql += " AND ";
+					}
+					sql += "TELEFONECLIENTE LIKE '%" + seletor.getTelefoneCliente() + "%'";
+					primeiro = false;
+				}
+				
+				return sql;
 	}
 	
 }

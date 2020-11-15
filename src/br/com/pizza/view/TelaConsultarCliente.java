@@ -27,7 +27,6 @@ import javax.swing.text.MaskFormatter;
 import br.com.pizza.controller.ClienteController;
 import br.com.pizza.model.dao.ClienteDAO;
 import br.com.pizza.model.vo.ClienteVO;
-import model.vo.Produto;
 
 import javax.swing.ListSelectionModel;
 import java.awt.event.ActionListener;
@@ -131,8 +130,8 @@ public class TelaConsultarCliente extends JPanel {
 		JButton btnPesquisar = new JButton("Pesquisar");
 		btnPesquisar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				/*consultarClientes();
-				
+				consultarClientes();
+				/*
 				ClienteController cController = new ClienteController();
 				ClienteVO cliente = new ClienteVO();
 				

@@ -72,7 +72,8 @@ public class TelaAdicionarPedido extends JPanel {
 	private JRadioButton rdbtnTamanhoGrande;
 	private JRadioButton rdbtnTamanhoGigante;
 	
-	double valorFinal = 0;
+	double valorFinal = 52.90;
+	private JButton btnFazerPedido;
 
 	public TelaAdicionarPedido() {
 		setMaximumSize(new Dimension(1000, 700));
@@ -294,12 +295,13 @@ public class TelaAdicionarPedido extends JPanel {
 		add(txtEnderecoCliente);
 		txtEnderecoCliente.setColumns(10);
 		
-		lblValorNumerico = new JLabel("");
+		lblValorNumerico = new JLabel("52.90");
 		lblValorNumerico.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		lblValorNumerico.setBounds(183, 628, 90, 21);
 		add(lblValorNumerico);
 		
-		JButton btnFazerPedido = new JButton("Confirmar Pedido");
+		btnFazerPedido = new JButton("Confirmar Pedido");
+		btnFazerPedido.setEnabled(false);
 		btnFazerPedido.setIcon(new ImageIcon(TelaAdicionarPedido.class.getResource("/br/com/pizza/icons/add.png")));
 		btnFazerPedido.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnFazerPedido.setForeground(Color.BLACK);
@@ -308,26 +310,34 @@ public class TelaAdicionarPedido extends JPanel {
 		
 		btnFazerPedido.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				PizzaController pController = new PizzaController();
-				PizzaVO pVo = new PizzaVO();
-				pVo.setTamanho(btgpTamanho.getSelection().getActionCommand());
-				pVo.setTelefoneCliente(txtTelefone.getText().replace(")", "").replace("(", "").replace("-", "").replace(" ", ""));
-				pVo.setObservacoes(txtObservacoes.getText());
-				pVo.setValor(valorFinal);
-				if(cbPrimeiroSabor.getSelectedIndex() == 0) {
-					JOptionPane.showMessageDialog(null, "Selecione um sabor");
-				} else if (cbSegundoSabor.getSelectedIndex() == 0 && rdbtNsaboresUnico.isSelected() == false){
-					JOptionPane.showMessageDialog(null, "Selecione um sabor");
-				} else if(cbTerceiroSabor.getSelectedIndex() == 0 && !rdbtNsaboresTres.isSelected() == false){
-					JOptionPane.showMessageDialog(null, "Selecione um sabor");
-				} else {
-					pVo.setSabor1(cbPrimeiroSabor.getSelectedItem().toString().toUpperCase());
-					pVo.setSabor2(cbSegundoSabor.getSelectedItem().toString().toUpperCase());
-					pVo.setSabor3(cbTerceiroSabor.getSelectedItem().toString().toUpperCase());
-				}
+				ClienteController cController = new ClienteController();
+				ClienteVO cliente = new ClienteVO();
+				String telefone = new String();
 				
-				JOptionPane.showMessageDialog(null, pController.inserirPedido(pVo));
-				limparTela();
+				telefone = txtTelefone.getText().replace(")", "").replace("(", "").replace("-", "").replace(" ", "");			
+				cliente = cController.pesquisarPorTelefone(telefone);
+				if(cliente != null) {					
+					PizzaController pController = new PizzaController();
+					PizzaVO pVo = new PizzaVO();
+					pVo.setTamanho(btgpTamanho.getSelection().getActionCommand());
+					pVo.setTelefoneCliente(txtTelefone.getText().replace(")", "").replace("(", "").replace("-", "").replace(" ", ""));
+					pVo.setObservacoes(txtObservacoes.getText());
+					pVo.setValor(valorFinal);
+					if(cbPrimeiroSabor.getSelectedIndex() == 0) {
+						JOptionPane.showMessageDialog(null, "Selecione um sabor");
+					} else if (cbSegundoSabor.getSelectedIndex() == 0 && rdbtNsaboresUnico.isSelected() == false){
+						JOptionPane.showMessageDialog(null, "Selecione um sabor");
+					} else if(cbTerceiroSabor.getSelectedIndex() == 0 && !rdbtNsaboresTres.isSelected() == false){
+						JOptionPane.showMessageDialog(null, "Selecione um sabor");
+					} else {
+						pVo.setSabor1(cbPrimeiroSabor.getSelectedItem().toString().toUpperCase());
+						pVo.setSabor2(cbSegundoSabor.getSelectedItem().toString().toUpperCase());
+						pVo.setSabor3(cbTerceiroSabor.getSelectedItem().toString().toUpperCase());
+					}
+					
+					JOptionPane.showMessageDialog(null, pController.inserirPedido(pVo));
+					limparTela();
+				}
 			}
 		});
 		
@@ -361,6 +371,7 @@ public class TelaAdicionarPedido extends JPanel {
 				if(cliente != null) {
 					txtNomeCliente.setText(cliente.getNome());
 					txtEnderecoCliente.setText(cliente.getEndereco());
+					btnFazerPedido.setEnabled(true);
 				}
 			}
 		});
@@ -416,5 +427,6 @@ public class TelaAdicionarPedido extends JPanel {
 		txtNomeCliente.setText(null);
 		txtEnderecoCliente.setText(null);
 		txtObservacoes.setText(null);
+		btnFazerPedido.setEnabled(false);
 	}
 }
