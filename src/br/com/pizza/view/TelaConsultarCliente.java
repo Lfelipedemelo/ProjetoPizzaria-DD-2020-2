@@ -23,9 +23,18 @@ import javax.swing.border.LineBorder;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
+
+import br.com.pizza.controller.ClienteController;
+import br.com.pizza.model.dao.ClienteDAO;
+import br.com.pizza.model.vo.ClienteVO;
+import model.vo.Produto;
+
 import javax.swing.ListSelectionModel;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class TelaConsultarCliente extends JPanel {
@@ -72,6 +81,7 @@ public class TelaConsultarCliente extends JPanel {
 				txtNomePesquisado.setText(null);
 				formattedTextFieldTelefone.setValue(null);
 				txtIdPesquisado.setText(null);
+				limparTabela();
 			}
 		});
 		
@@ -119,6 +129,26 @@ public class TelaConsultarCliente extends JPanel {
 		add(tblClientes);
 		
 		JButton btnPesquisar = new JButton("Pesquisar");
+		btnPesquisar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				/*consultarClientes();
+				
+				ClienteController cController = new ClienteController();
+				ClienteVO cliente = new ClienteVO();
+				
+				String telefone = new String();
+				
+				telefone = formattedTextFieldTelefone.getText().replace(")", "").replace("(", "").replace("-", "").replace(" ", "");			
+				cliente = cController.pesquisarPorTelefone(telefone);
+				if(cliente != null) {
+					JOptionPane.showMessageDialog(null, telefone);
+					atualizarTabelaClientes(clientes);
+					List<ClienteVO> clientes = controlador.listarProdutos(cliente);
+					atualizarTabelaProdutos(clientes);
+				}*/
+				
+			}
+		});
 		btnPesquisar.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnPesquisar.setBounds(332, 610, 140, 45);
 		add(btnPesquisar);
@@ -140,7 +170,43 @@ public class TelaConsultarCliente extends JPanel {
 	} catch (ParseException e) {
 		JOptionPane.showMessageDialog(null, "Ocorreu um erro no sistema, entre em contato com o administrador.");
 		System.out.println("Causa da exceção: " + e.getMessage());
+	}}
 		
+		protected void consultarClientes() {
 
-	}
-}}
+			ClienteDAO clienteDAO = new ClienteDAO();
+			List<ClienteVO> clientes = new ArrayList<ClienteVO>();
+			clientes = clienteDAO.pesquisarTodos();
+			atualizarTabelaClientes(clientes);
+
+		}
+
+		protected void atualizarTabelaClientes(List<ClienteVO> clientes) {
+			this.limparTabela();
+
+			DefaultTableModel modelo = (DefaultTableModel) tblClientes.getModel();
+
+			for (ClienteVO cliente : clientes) {
+				String[] novaLinha = new String[] { 
+						cliente.getIdCliente() + "", 
+						cliente.getNome(), 
+						cliente.getTelefone() + "",
+						cliente.getEndereco() + "", 
+				};
+				modelo.addRow(novaLinha);
+			}
+
+		}
+
+		private void limparTabela() {
+			tblClientes.setModel(new DefaultTableModel(
+					new String[][] {
+						{"#ID", "Nome", "Telefone", "Endere\u00E7o"},
+					},
+					new String[] {
+						"#ID", "Nome", "Telefone", "Endere\u00E7o"
+					}
+				));
+		}
+		
+}
