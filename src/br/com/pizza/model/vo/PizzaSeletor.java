@@ -18,8 +18,8 @@ public class PizzaSeletor {
 	
 	
 	public void ProdutoSeletor() {
-		this.limite = 0;
-		this.pagina = -1;
+		this.limite = 5;
+		this.pagina = 0;
 	}
 	
 	public boolean temFiltro() {
@@ -33,7 +33,10 @@ public class PizzaSeletor {
 	}
 	
 	public boolean temPaginacao() {
-		return ((this.limite > 0) && (this.pagina > -1));
+		if(this.limite > 0 && this.pagina > -1){
+			return true;
+		}
+		return false;
 	}
 
 

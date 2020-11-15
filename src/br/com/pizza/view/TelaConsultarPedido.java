@@ -24,6 +24,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.border.TitledBorder;
 
 public class TelaConsultarPedido extends JPanel {
 	private JTable tblPedidos;
@@ -34,7 +35,7 @@ public class TelaConsultarPedido extends JPanel {
 	
 	private int paginaAtual = 1;
 	
-	private static final int TAMANHO_PAGINA = 0;
+	private static final int TAMANHO_PAGINA = 15;
 	/**
 	 * Create the panel.
 	 */
@@ -63,28 +64,39 @@ public class TelaConsultarPedido extends JPanel {
 				"N\u00BA Pedido", "Tamanho", "Sabor_1", "Sabor_2", "Sabor_3", "N\u00BA Cliente", "Observa\u00E7\u00F5es"
 			}
 		));
-		tblPedidos.setBounds(10, 273, 980, 368);
+		tblPedidos.getColumnModel().getColumn(0).setPreferredWidth(30);
+		tblPedidos.getColumnModel().getColumn(1).setPreferredWidth(53);
+		tblPedidos.getColumnModel().getColumn(2).setPreferredWidth(73);
+		tblPedidos.getColumnModel().getColumn(5).setPreferredWidth(55);
+		tblPedidos.getColumnModel().getColumn(6).setPreferredWidth(203);
+		tblPedidos.setBounds(10, 257, 980, 368);
 		add(tblPedidos);
 		
+		lblPaginaAtual = new JLabel("New label");
+		lblPaginaAtual.setBounds(496, 652, 46, 14);
+		add(lblPaginaAtual);
 		
-		
-		JLabel lblPesquisarPorId = new JLabel("Numero do pedido");
-		lblPesquisarPorId.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		lblPesquisarPorId.setBounds(274, 162, 180, 32);
-		add(lblPesquisarPorId);
+		JPanel panel = new JPanel();
+		panel.setBorder(new TitledBorder(null, "Filtrar", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel.setBounds(108, 162, 809, 84);
+		add(panel);
+		panel.setLayout(null);
 		
 		txtPesquisarPorId = new JTextField();
+		txtPesquisarPorId.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				consultarPedidos();
+			}
+		});
+		txtPesquisarPorId.setBounds(216, 32, 156, 28);
+		panel.add(txtPesquisarPorId);
 		txtPesquisarPorId.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		txtPesquisarPorId.setBounds(274, 196, 180, 25);
-		add(txtPesquisarPorId);
 		txtPesquisarPorId.setColumns(10);
 		
-		JLabel lblPesquisarPorNumero = new JLabel("Numero do cliente");
-		lblPesquisarPorNumero.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		lblPesquisarPorNumero.setBounds(560, 162, 180, 32);
-		add(lblPesquisarPorNumero);
-		
 		txtPesquisarPorNumero = new JTextField();
+		txtPesquisarPorNumero.setBounds(605, 33, 180, 25);
+		panel.add(txtPesquisarPorNumero);
 		txtPesquisarPorNumero.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
@@ -93,23 +105,18 @@ public class TelaConsultarPedido extends JPanel {
 		});
 		txtPesquisarPorNumero.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		txtPesquisarPorNumero.setColumns(10);
-		txtPesquisarPorNumero.setBounds(560, 196, 180, 25);
-		add(txtPesquisarPorNumero);
 		
-		JButton btnFiltrar = new JButton("Filtrar");
-		btnFiltrar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				consultarPedidos();
-			}
-		});
-		btnFiltrar.setIcon(new ImageIcon(TelaConsultarPedido.class.getResource("/br/com/pizza/icons/Lupa.png")));
-		btnFiltrar.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		btnFiltrar.setBounds(422, 230, 180, 32);
-		add(btnFiltrar);
+		JLabel lblPesquisarPorNumero = new JLabel("Numero do cliente:");
+		lblPesquisarPorNumero.setBounds(404, 28, 191, 32);
+		panel.add(lblPesquisarPorNumero);
+		lblPesquisarPorNumero.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		
-		lblPaginaAtual = new JLabel("New label");
-		lblPaginaAtual.setBounds(496, 652, 46, 14);
-		add(lblPaginaAtual);
+		
+		
+		JLabel lblPesquisarPorId = new JLabel("Numero do pedido:");
+		lblPesquisarPorId.setBounds(10, 28, 196, 32);
+		panel.add(lblPesquisarPorId);
+		lblPesquisarPorId.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		
 		//LISTAR TODOS OS PEDIDOS
 		consultarPedidos();

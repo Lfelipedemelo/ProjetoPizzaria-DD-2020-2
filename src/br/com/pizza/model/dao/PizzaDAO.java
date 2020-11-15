@@ -191,7 +191,7 @@ public class PizzaDAO implements BaseDAO<PizzaVO>{
 					if (!primeiro) {
 						sql += " AND ";
 					}
-					sql += "IDPIZZA = " + seletor.getIdPizza();
+					sql += "IDPIZZA LIKE '" + seletor.getIdPizza() + "%'";
 					primeiro = false;
 				}
 
