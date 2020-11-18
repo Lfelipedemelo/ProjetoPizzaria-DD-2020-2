@@ -11,7 +11,9 @@ public class PizzaController {
 	private PizzaBO bo = new PizzaBO();
 
 	public String inserirPedido(PizzaVO pVo) {
-		if(pVo.getSabor1().isEmpty() || pVo.getSabor2().isEmpty() || pVo.getSabor3().isEmpty() || pVo.getTamanho().isEmpty()
+		if(isNullOrEmpty(pVo.getSabor1())
+			||isNullOrEmpty(pVo.getSabor2()) 
+			||isNullOrEmpty(pVo.getSabor3())||isNullOrEmpty(pVo.getTamanho())
 			|| pVo.getValor() == null || pVo.getTelefoneCliente().isEmpty()) {
 			return "Não foi possivel inserir o pedido";
 		}
@@ -29,4 +31,7 @@ public class PizzaController {
 		return bo.listarPedidos(seletor);
 	}
 
+	private boolean isNullOrEmpty (String s) {		
+		return s == null || s.isEmpty();
+	}
 }

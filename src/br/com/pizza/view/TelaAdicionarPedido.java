@@ -59,11 +59,9 @@ public class TelaAdicionarPedido extends JPanel {
 	private JRadioButton rdbtnTamanhoBroto;
 	private JRadioButton rdbtNsaboresDois;
 	private JRadioButton rdbtNsaboresTres;
-	private Component formattedTextFieldTelefone;
 	private JFormattedTextField txtTelefone;
 	private JTextArea txtObservacoes;
 	
-	private final String SELECIONE_SABOR = "Selecione um sabor";
 	private final double VALOR_BROTO = 32.90;
 	private final double VALOR_MEDIA = 46.90;
 	private final double VALOR_GRANDE = 52.90;
@@ -274,6 +272,7 @@ public class TelaAdicionarPedido extends JPanel {
 			txtTelefone = new JFormattedTextField(mascaraTelefone);
 			txtTelefone.setFont(new Font("Tahoma", Font.PLAIN, 18));
 			txtTelefone.setBounds(248, 369, 143, 28);
+			txtTelefone.setFocusLostBehavior(JFormattedTextField.PERSIST);
 			add(txtTelefone);
 		} catch (ParseException e1) {
 			JOptionPane.showMessageDialog(null, "Ocorreu um erro no sistema, entre em contato com o administrador.");
@@ -311,16 +310,13 @@ public class TelaAdicionarPedido extends JPanel {
 		btnFazerPedido.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ClienteController cController = new ClienteController();
-				ClienteVO cliente = new ClienteVO();
-				String telefone = new String();
-				
-				telefone = txtTelefone.getText().replace(")", "").replace("(", "").replace("-", "").replace(" ", "");			
-				cliente = cController.pesquisarPorTelefone(telefone);
+				ClienteVO cliente = new ClienteVO();		
+				cliente = cController.pesquisarPorTelefone(limparMascaraTelefone(txtTelefone.getText()));
 				if(cliente != null) {					
 					PizzaController pController = new PizzaController();
 					PizzaVO pVo = new PizzaVO();
 					pVo.setTamanho(btgpTamanho.getSelection().getActionCommand());
-					pVo.setTelefoneCliente(txtTelefone.getText().replace(")", "").replace("(", "").replace("-", "").replace(" ", ""));
+					pVo.setTelefoneCliente(limparMascaraTelefone(txtTelefone.getText()));
 					pVo.setObservacoes(txtObservacoes.getText());
 					pVo.setValor(valorFinal);
 					if(cbPrimeiroSabor.getSelectedIndex() == 0) {
@@ -364,14 +360,14 @@ public class TelaAdicionarPedido extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				ClienteController cController = new ClienteController();
 				ClienteVO cliente = new ClienteVO();
-				String telefone = new String();
-				
-				telefone = txtTelefone.getText().replace(")", "").replace("(", "").replace("-", "").replace(" ", "");			
-				cliente = cController.pesquisarPorTelefone(telefone);
+						
+				cliente = cController.pesquisarPorTelefone(limparMascaraTelefone(txtTelefone.getText()));
 				if(cliente != null) {
 					txtNomeCliente.setText(cliente.getNome());
 					txtEnderecoCliente.setText(cliente.getEndereco());
 					btnFazerPedido.setEnabled(true);
+				} else {
+					limparTela();
 				}
 			}
 		});
@@ -402,6 +398,10 @@ public class TelaAdicionarPedido extends JPanel {
 		});
 		
 		
+	}
+
+	protected String limparMascaraTelefone(String telefone) {
+		return telefone.replace(")", "").replace("(", "").replace("-", "").replace(" ", "");
 	}
 
 	public void isPizzaBroto(boolean b) {
