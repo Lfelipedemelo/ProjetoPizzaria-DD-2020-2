@@ -1,9 +1,13 @@
 package br.com.pizza.model.bo;
 
+import java.util.List;
+
 import javax.swing.JOptionPane;
 
 import br.com.pizza.model.dao.ClienteDAO;
+import br.com.pizza.model.vo.ClienteSeletor;
 import br.com.pizza.model.vo.ClienteVO;
+
 
 public class ClienteBO {
 
@@ -28,13 +32,12 @@ public class ClienteBO {
 			}}
 
 	public ClienteVO pesquisarPorTelefone(String telefone) {
-		ClienteDAO dao = new ClienteDAO();
 		if(telefone.length() == 11) {
-			if(dao.pesquisarPorTelefone(telefone) == null) {
+			if(clienteDAO.pesquisarPorTelefone(telefone) == null) {
 				JOptionPane.showMessageDialog(null, "Não existe nenhum cliente com este telefone cadastrado");		
 				return null;
 			} else {
-				return dao.pesquisarPorTelefone(telefone);
+				return clienteDAO.pesquisarPorTelefone(telefone);
 			}
 		} else {
 			JOptionPane.showMessageDialog(null, "Por favor digite um telefone valido");
@@ -42,4 +45,9 @@ public class ClienteBO {
 		}
 	}
 
+	public List<ClienteVO> listarClientes(ClienteSeletor seletor) {
+		return clienteDAO.listarComSeletor(seletor);
+	}
+	
+	
 }
