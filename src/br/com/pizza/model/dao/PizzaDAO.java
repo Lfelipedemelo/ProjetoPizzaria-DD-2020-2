@@ -199,7 +199,7 @@ public class PizzaDAO implements BaseDAO<PizzaVO>{
 					if (!primeiro) {
 						sql += " AND ";
 					}
-					sql += "TELEFONECLIENTE LIKE '%" + seletor.getTelefoneCliente() + "%'";
+					sql += "TELEFONECLIENTE LIKE '" + seletor.getTelefoneCliente() + "%'";
 					primeiro = false;
 				}
 				

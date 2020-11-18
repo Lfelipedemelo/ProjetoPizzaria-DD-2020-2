@@ -73,7 +73,8 @@ public class TelaConsultarPedido extends JPanel {
 		add(tblPedidos);
 		
 		lblPaginaAtual = new JLabel("New label");
-		lblPaginaAtual.setBounds(496, 652, 46, 14);
+		lblPaginaAtual.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblPaginaAtual.setBounds(481, 652, 45, 14);
 		add(lblPaginaAtual);
 		
 		JPanel panel = new JPanel();
@@ -117,6 +118,14 @@ public class TelaConsultarPedido extends JPanel {
 		lblPesquisarPorId.setBounds(10, 28, 196, 32);
 		panel.add(lblPesquisarPorId);
 		lblPesquisarPorId.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		
+		JButton btnProximaPagina = new JButton(">");
+		btnProximaPagina.setBounds(520, 652, 41, 17);
+		add(btnProximaPagina);
+		
+		JButton btnPaginaAnterior = new JButton("<");
+		btnPaginaAnterior.setBounds(408, 652, 41, 17);
+		add(btnPaginaAnterior);
 		
 		//LISTAR TODOS OS PEDIDOS
 		consultarPedidos();
