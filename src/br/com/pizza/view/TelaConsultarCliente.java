@@ -25,8 +25,12 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 
 import br.com.pizza.controller.ClienteController;
+import br.com.pizza.controller.PizzaController;
 import br.com.pizza.model.dao.ClienteDAO;
+import br.com.pizza.model.vo.ClienteSeletor;
 import br.com.pizza.model.vo.ClienteVO;
+import br.com.pizza.model.vo.PizzaSeletor;
+import br.com.pizza.model.vo.PizzaVO;
 
 import javax.swing.ListSelectionModel;
 import java.awt.event.ActionListener;
@@ -35,6 +39,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class TelaConsultarCliente extends JPanel {
 	private JTextField txtIdPesquisado;
@@ -42,6 +48,10 @@ public class TelaConsultarCliente extends JPanel {
 	private JTable tblClientes;
 	private JTextField txtTelefonePesquisado;
 	private JFormattedTextField formattedTextFieldTelefone;
+	private int paginaAtual = 1;
+	private List<ClienteVO> clientesConsultados;
+	private static final int TAMANHO_PAGINA = 15;
+	private JLabel lblPaginaAtual;
 
 	/**
 	 * Create the panel.
@@ -129,25 +139,10 @@ public class TelaConsultarCliente extends JPanel {
 		
 		JButton btnPesquisar = new JButton("Pesquisar");
 		btnPesquisar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				consultarClientes();
-				/*
-				ClienteController cController = new ClienteController();
-				ClienteVO cliente = new ClienteVO();
-				
-				String telefone = new String();
-				
-				telefone = formattedTextFieldTelefone.getText().replace(")", "").replace("(", "").replace("-", "").replace(" ", "");			
-				cliente = cController.pesquisarPorTelefone(telefone);
-				if(cliente != null) {
-					JOptionPane.showMessageDialog(null, telefone);
-					atualizarTabelaClientes(clientes);
-					List<ClienteVO> clientes = controlador.listarProdutos(cliente);
-					atualizarTabelaProdutos(clientes);
-				}*/
-				
+			public void actionPerformed(ActionEvent arg0) {				
 			}
 		});
+		
 		btnPesquisar.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnPesquisar.setBounds(332, 610, 140, 45);
 		add(btnPesquisar);
@@ -163,26 +158,49 @@ public class TelaConsultarCliente extends JPanel {
 			MaskFormatter mascaraTelefone = new MaskFormatter("(##)#####-####");
 		
 		formattedTextFieldTelefone = new JFormattedTextField(mascaraTelefone);
+		formattedTextFieldTelefone.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				consultarClientes();
+			}
+		});
 		formattedTextFieldTelefone.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		formattedTextFieldTelefone.setBounds(7, 276, 140, 31);
 		add(formattedTextFieldTelefone);
+		
+		JLabel lblPaginaAtual = new JLabel("1");
+		lblPaginaAtual.setBounds(7, 583, 46, 14);
+		add(lblPaginaAtual);
 	} catch (ParseException e) {
 		JOptionPane.showMessageDialog(null, "Ocorreu um erro no sistema, entre em contato com o administrador.");
 		System.out.println("Causa da exceção: " + e.getMessage());
 	}}
 		
-		protected void consultarClientes() {
+	protected void consultarClientes() {
+		//lblPaginaAtual.setText(paginaAtual + "");
 
-			ClienteDAO clienteDAO = new ClienteDAO();
-			List<ClienteVO> clientes = new ArrayList<ClienteVO>();
-			clientes = clienteDAO.pesquisarTodos();
-			atualizarTabelaClientes(clientes);
+		ClienteController controlador = new ClienteController();
+		ClienteSeletor seletor = new ClienteSeletor();
 
+		seletor.setPagina(paginaAtual);
+		seletor.setLimite(TAMANHO_PAGINA);
+
+		if (txtNomePesquisado.getText() != null && !txtNomePesquisado.getText().isEmpty()) {
+			seletor.setNome(txtNomePesquisado.getText());
 		}
+		if (formattedTextFieldTelefone.getText() != null && !formattedTextFieldTelefone.getText().isEmpty()) {
+			seletor.setTelefone(formattedTextFieldTelefone.getText());
+		}
+
+		//AQUI é feita a consulta dos produtos e atualização na tabela
+		List<ClienteVO> Clientes = controlador.listarClientes(seletor);
+		atualizarTabelaClientes(Clientes);
+	}
 
 		protected void atualizarTabelaClientes(List<ClienteVO> clientes) {
 			this.limparTabela();
-
+			clientesConsultados = clientes;
+			
 			DefaultTableModel modelo = (DefaultTableModel) tblClientes.getModel();
 
 			for (ClienteVO cliente : clientes) {
@@ -207,5 +225,4 @@ public class TelaConsultarCliente extends JPanel {
 					}
 				));
 		}
-		
 }

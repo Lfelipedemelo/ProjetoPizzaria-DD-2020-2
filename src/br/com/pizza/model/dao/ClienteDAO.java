@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.pizza.Banco;
+import br.com.pizza.model.vo.ClienteSeletor;
 import br.com.pizza.model.vo.ClienteVO;
+import br.com.pizza.model.vo.PizzaVO;
 
 public class ClienteDAO implements BaseDAO<ClienteVO> {
 
@@ -181,5 +183,58 @@ public class ClienteDAO implements BaseDAO<ClienteVO> {
 		}
 		return existe;
 	}
-	
+
+
+	public List<ClienteVO> listarComSeletor(ClienteSeletor seletor) {
+		String sql = " SELECT * FROM CLIENTE";
+
+		if (seletor.temFiltro()) {
+			sql = criarFiltros(seletor, sql);
+		}
+
+		if (seletor.temPaginacao()) {
+			sql += " LIMIT " + seletor.getLimite() + " OFFSET " + seletor.getOffset();
+		}
+		
+		Connection conexao = Banco.getConnection();
+		PreparedStatement prepStmt = Banco.getPreparedStatement(conexao, sql);
+		ArrayList<ClienteVO> clientes = new ArrayList<ClienteVO>();
+
+		try {
+			ResultSet result = prepStmt.executeQuery();
+
+			while (result.next()) {
+				ClienteVO c = construirDoResultSet(result);
+				clientes.add(c);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return clientes;
+	}
+
+
+	private String criarFiltros(ClienteSeletor seletor, String sql) {
+		// Tem pelo menos UM filtro
+		sql += " WHERE ";
+		boolean primeiro = true;
+
+		if ((seletor.getNome() != null) && (seletor.getNome().trim().length() > 0)) {
+			if (!primeiro) {
+				sql += " AND ";
+			}
+			sql += "NOME LIKE '" + seletor.getNome() + "%'";
+			primeiro = false;
+		}
+
+		if ((seletor.getTelefone() != null) && (seletor.getTelefone().trim().length() > 0)) {
+			if (!primeiro) {
+				sql += " AND ";
+			}
+			sql += "TELEFONE LIKE '" + seletor.getTelefone() + "%'";
+			primeiro = false;
+		}
+		
+		return sql;
+	}
 }
