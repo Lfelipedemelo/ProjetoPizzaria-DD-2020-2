@@ -1,17 +1,18 @@
 package br.com.pizza.view;
 
 import javax.swing.JPanel;
-import java.awt.FlowLayout;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.MaskFormatter;
 
 import br.com.pizza.controller.PizzaController;
 import br.com.pizza.model.vo.PizzaSeletor;
@@ -19,23 +20,26 @@ import br.com.pizza.model.vo.PizzaVO;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.border.LineBorder;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.text.ParseException;
+
 import javax.swing.border.TitledBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class TelaConsultarPedido extends JPanel {
 	private JTable tblPedidos;
-	private JTextField txtPesquisarPorId;
-	private JTextField txtPesquisarPorNumero;
 	private JLabel lblPaginaAtual;
-	private List<PizzaVO> pedidosConsultados;
 	
 	private int paginaAtual = 1;
+	private boolean limiteDePedidos = true;
+	private JFormattedTextField txtNumeroCliente;
+	private JFormattedTextField txtPesquisarPorId;
 	
-	private static final int TAMANHO_PAGINA = 15;
+	private static final int TAMANHO_PAGINA = 10;
 	/**
 	 * Create the panel.
 	 */
@@ -83,29 +87,24 @@ public class TelaConsultarPedido extends JPanel {
 		add(panel);
 		panel.setLayout(null);
 		
-		txtPesquisarPorId = new JTextField();
-		txtPesquisarPorId.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent arg0) {
-				consultarPedidos();
-			}
-		});
-		txtPesquisarPorId.setBounds(216, 32, 156, 28);
-		panel.add(txtPesquisarPorId);
-		txtPesquisarPorId.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		txtPesquisarPorId.setColumns(10);
-		
-		txtPesquisarPorNumero = new JTextField();
-		txtPesquisarPorNumero.setBounds(605, 33, 180, 25);
-		panel.add(txtPesquisarPorNumero);
-		txtPesquisarPorNumero.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				consultarPedidos();
-			}
-		});
-		txtPesquisarPorNumero.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		txtPesquisarPorNumero.setColumns(10);
+		try {
+			MaskFormatter mascaraTelefone = new MaskFormatter("(##)#####-####");
+			txtNumeroCliente = new JFormattedTextField(mascaraTelefone);
+			txtNumeroCliente.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyReleased(KeyEvent arg0) {
+					consultarPedidos();
+				}
+			});
+			
+			txtNumeroCliente.setFont(new Font("Tahoma", Font.PLAIN, 18));
+			txtNumeroCliente.setBounds(602, 32, 156, 28);
+			panel.add(txtNumeroCliente);
+			txtNumeroCliente.setFocusLostBehavior(JFormattedTextField.PERSIST);
+		} catch (ParseException e1) {
+			JOptionPane.showMessageDialog(null, "Ocorreu um erro no sistema, entre em contato com o administrador.");
+	        System.out.println("Causa da exceção: " + e1.getMessage());
+		}
 		
 		JLabel lblPesquisarPorNumero = new JLabel("Numero do cliente:");
 		lblPesquisarPorNumero.setBounds(404, 28, 191, 32);
@@ -119,11 +118,53 @@ public class TelaConsultarPedido extends JPanel {
 		panel.add(lblPesquisarPorId);
 		lblPesquisarPorId.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		
+		try {
+			MaskFormatter mascaraId = new MaskFormatter("#########");
+			txtPesquisarPorId = new JFormattedTextField(mascaraId);
+			txtPesquisarPorId.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyReleased(KeyEvent arg0) {
+					consultarPedidos();
+				}
+			});
+			txtPesquisarPorId.setFont(new Font("Tahoma", Font.PLAIN, 18));
+			txtPesquisarPorId.setBounds(216, 32, 156, 28);
+			panel.add(txtPesquisarPorId);	
+			txtPesquisarPorId.setFocusLostBehavior(JFormattedTextField.PERSIST);
+			
+		} catch (ParseException e1) {
+			JOptionPane.showMessageDialog(null, "Ocorreu um erro no sistema, entre em contato com o administrador.");
+	        System.out.println("Causa da exceção: " + e1.getMessage());
+		}
+		
+		
+		
+		
+		
 		JButton btnProximaPagina = new JButton(">");
+		btnProximaPagina.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(!limiteDePedidos) {
+					paginaAtual += 1;
+					consultarPedidos();
+				}
+			}
+		});
 		btnProximaPagina.setBounds(520, 652, 41, 17);
 		add(btnProximaPagina);
 		
 		JButton btnPaginaAnterior = new JButton("<");
+		btnPaginaAnterior.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				paginaAtual -= 1;
+				if(paginaAtual <= 0) {
+					paginaAtual = 1;
+					consultarPedidos();
+				} else {
+				consultarPedidos();
+				}
+			}
+		});
 		btnPaginaAnterior.setBounds(408, 652, 41, 17);
 		add(btnPaginaAnterior);
 		
@@ -141,11 +182,11 @@ public class TelaConsultarPedido extends JPanel {
 		seletor.setPagina(paginaAtual);
 		seletor.setLimite(TAMANHO_PAGINA);
 
-		if (txtPesquisarPorId.getText() != null && !txtPesquisarPorId.getText().isEmpty()) {
-			seletor.setIdPizza(Integer.parseInt(txtPesquisarPorId.getText()));
+		if (txtPesquisarPorId.getText().replace(" ", "") != null && !txtPesquisarPorId.getText().replace(" ", "").isEmpty()) {
+			seletor.setIdPizza(Integer.parseInt(txtPesquisarPorId.getText().replace(" ", "")));
 		}
-		if (txtPesquisarPorNumero.getText() != null && !txtPesquisarPorNumero.getText().isEmpty()) {
-			seletor.setTelefoneCliente(txtPesquisarPorNumero.getText());
+		if (limparMascaraTelefone(txtNumeroCliente.getText()) != null && !limparMascaraTelefone(txtNumeroCliente.getText()).isEmpty()) {
+			seletor.setTelefoneCliente(limparMascaraTelefone(txtNumeroCliente.getText()));
 		}
 
 		//AQUI é feita a consulta dos produtos e atualização na tabela
@@ -154,9 +195,7 @@ public class TelaConsultarPedido extends JPanel {
 	}
 
 	private void atualizarTabelaPedidos(List<PizzaVO> pedidos) {
-		// atualiza o atributo produtosConsultados
-		pedidosConsultados = pedidos;
-
+		
 		this.limparTabela();
 
 		DefaultTableModel modelo = (DefaultTableModel) tblPedidos.getModel();
@@ -177,7 +216,11 @@ public class TelaConsultarPedido extends JPanel {
 			};
 			modelo.addRow(novaLinha);
 		}
-
+		if(pedidos.size() < TAMANHO_PAGINA) {
+			limiteDePedidos = true;
+		} else {
+			limiteDePedidos = false;
+		}
 		
 	}
 
@@ -190,5 +233,9 @@ public class TelaConsultarPedido extends JPanel {
 					"N\u00BA Pedido", "Tamanho", "Sabor_1", "Sabor_2", "Sabor_3", "N\u00BA Cliente", "Observa\u00E7\u00F5es"
 				}
 			));
+	}
+	
+	protected String limparMascaraTelefone(String telefone) {
+		return telefone.replace(")", "").replace("(", "").replace("-", "").replace(" ", "");
 	}
 }
