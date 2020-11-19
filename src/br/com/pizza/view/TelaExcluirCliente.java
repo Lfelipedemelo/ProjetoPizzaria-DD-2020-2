@@ -20,6 +20,10 @@ import java.awt.Dimension;
 import javax.swing.border.LineBorder;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import br.com.pizza.controller.ClienteController;
+import br.com.pizza.model.vo.ClienteVO;
+
 import javax.swing.ListSelectionModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -61,6 +65,14 @@ public class TelaExcluirCliente extends JPanel {
 		txtIdExcluir.setColumns(10);
 		
 		JButton btnExcluir = new JButton("Excluir");
+		btnExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ClienteController clienteController = new ClienteController();
+				ClienteVO clienteVO = new ClienteVO();
+				clienteVO.setIdCliente(Integer.parseInt(txtIdExcluir.getText()));
+				clienteController.excluirCliente(clienteVO);
+			}
+		});
 		btnExcluir.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnExcluir.setBounds(368, 582, 140, 45);
 		add(btnExcluir);

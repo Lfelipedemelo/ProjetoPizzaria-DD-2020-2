@@ -27,5 +27,11 @@ public class ClienteController {
 		return clienteBO.listarClientes(seletor);
 	}
 
+	public boolean excluirCliente(ClienteVO clienteVO) {
+			return clienteBO.excluirCliente(clienteVO);
+		
+	}
+
+
 	
 }

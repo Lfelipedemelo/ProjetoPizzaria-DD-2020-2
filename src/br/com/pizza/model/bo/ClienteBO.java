@@ -48,6 +48,14 @@ public class ClienteBO {
 	public List<ClienteVO> listarClientes(ClienteSeletor seletor) {
 		return clienteDAO.listarComSeletor(seletor);
 	}
+
+	public boolean excluirCliente(ClienteVO clienteVO) {
+			boolean excluiu = clienteDAO.excluir(clienteVO.getIdCliente());
+			
+			return excluiu;
+	}
+	
+
 	
 	
 }

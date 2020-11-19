@@ -227,6 +227,14 @@ public class ClienteDAO implements BaseDAO<ClienteVO> {
 			primeiro = false;
 		}
 
+		if (seletor.getIdCliente() > 0) {
+			if (!primeiro) {
+				sql += " AND ";
+			}
+			sql += "IDCLIENTE LIKE '" + seletor.getIdCliente() + "%'";
+			primeiro = false;
+		}
+		
 		if ((seletor.getTelefone() != null) && (seletor.getTelefone().trim().length() > 0)) {
 			if (!primeiro) {
 				sql += " AND ";

@@ -11,24 +11,6 @@ public class ClienteSeletor {
 	private int limite;
 	private int pagina;
 	
-	
-
-	public ClienteSeletor(int idCliente, String nome, String telefone, String endereco, int limite, int pagina) {
-		super();
-		this.idCliente = idCliente;
-		this.nome = nome;
-		this.telefone = telefone;
-		this.endereco = endereco;
-		this.limite = limite;
-		this.pagina = pagina;
-	}
-	
-
-	public ClienteSeletor() {
-		super();
-	}
-
-
 
 	public void ProdutoSeletor() {
 		this.limite = 5;

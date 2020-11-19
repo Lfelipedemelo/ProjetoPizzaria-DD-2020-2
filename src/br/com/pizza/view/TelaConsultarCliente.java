@@ -139,7 +139,8 @@ public class TelaConsultarCliente extends JPanel {
 		
 		JButton btnPesquisar = new JButton("Pesquisar");
 		btnPesquisar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {				
+			public void actionPerformed(ActionEvent arg0) {	
+				consultarClientes();
 			}
 		});
 		
@@ -153,31 +154,28 @@ public class TelaConsultarCliente extends JPanel {
 		lblPesquisarPorTelefone.setBounds(7, 248, 311, 27);
 		add(lblPesquisarPorTelefone);
 		
+		lblPaginaAtual = new JLabel("1");
+		lblPaginaAtual.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblPaginaAtual.setBounds(7, 583, 46, 14);
+		add(lblPaginaAtual);
+		
 		
 		try {
 			MaskFormatter mascaraTelefone = new MaskFormatter("(##)#####-####");
 		
 		formattedTextFieldTelefone = new JFormattedTextField(mascaraTelefone);
-		formattedTextFieldTelefone.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent arg0) {
-				consultarClientes();
-			}
-		});
 		formattedTextFieldTelefone.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		formattedTextFieldTelefone.setBounds(7, 276, 140, 31);
+		formattedTextFieldTelefone.setFocusLostBehavior(JFormattedTextField.PERSIST);
 		add(formattedTextFieldTelefone);
 		
-		JLabel lblPaginaAtual = new JLabel("1");
-		lblPaginaAtual.setBounds(7, 583, 46, 14);
-		add(lblPaginaAtual);
 	} catch (ParseException e) {
 		JOptionPane.showMessageDialog(null, "Ocorreu um erro no sistema, entre em contato com o administrador.");
 		System.out.println("Causa da exceção: " + e.getMessage());
 	}}
 		
 	protected void consultarClientes() {
-		//lblPaginaAtual.setText(paginaAtual + "");
+		lblPaginaAtual.setText(paginaAtual + "");
 
 		ClienteController controlador = new ClienteController();
 		ClienteSeletor seletor = new ClienteSeletor();
@@ -188,8 +186,11 @@ public class TelaConsultarCliente extends JPanel {
 		if (txtNomePesquisado.getText() != null && !txtNomePesquisado.getText().isEmpty()) {
 			seletor.setNome(txtNomePesquisado.getText());
 		}
+		if (txtIdPesquisado.getText() != null && !txtIdPesquisado.getText().isEmpty()) {
+			seletor.setIdCliente(Integer.parseInt(txtIdPesquisado.getText()));
+		}
 		if (formattedTextFieldTelefone.getText() != null && !formattedTextFieldTelefone.getText().isEmpty()) {
-			seletor.setTelefone(formattedTextFieldTelefone.getText());
+			seletor.setTelefone(formattedTextFieldTelefone.getText().replace(")", "").replace("(", "").replace("-", "").replace(" ", ""));
 		}
 
 		//AQUI é feita a consulta dos produtos e atualização na tabela
