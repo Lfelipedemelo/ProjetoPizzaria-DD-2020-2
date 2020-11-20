@@ -22,4 +22,8 @@ public class PizzaBO {
 		return dao.listarComSeletor(seletor);
 	}
 
+	public boolean excluirPedido(int idPizza) {
+		return dao.excluir(idPizza);
+	}
+
 }

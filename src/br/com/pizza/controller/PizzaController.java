@@ -26,12 +26,15 @@ public class PizzaController {
 		return bo.inserirPedido(pVo);
 	}
 
-	public List<PizzaVO> listarPedidos(PizzaSeletor seletor) {
-		
+	public List<PizzaVO> listarPedidos(PizzaSeletor seletor) {	
 		return bo.listarPedidos(seletor);
 	}
 
 	private boolean isNullOrEmpty (String s) {		
 		return s == null || s.isEmpty();
+	}
+
+	public boolean excluirPedido(int idPizza) {		
+		return bo.excluirPedido(idPizza);
 	}
 }
