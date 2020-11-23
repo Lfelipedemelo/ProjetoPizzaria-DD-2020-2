@@ -6,6 +6,7 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.SwingConstants;
 import java.awt.Label;
@@ -22,16 +23,23 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import br.com.pizza.controller.ClienteController;
+import br.com.pizza.model.vo.ClienteSeletor;
 import br.com.pizza.model.vo.ClienteVO;
 
 import javax.swing.ListSelectionModel;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class TelaExcluirCliente extends JPanel {
 	private JTextField txtIdExcluir;
 	private JTextField txtNomePesquisado;
 	private JTable tblClientes;
+	private JFormattedTextField formattedTextFieldTelefone;
+	private int paginaAtual = 1;
+	private List<ClienteVO> clientesConsultados;
+	private static final int TAMANHO_PAGINA = 15;
+	private JLabel lblPaginaAtual;
 
 	/**
 	 * Create the panel.
@@ -82,6 +90,7 @@ public class TelaExcluirCliente extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				txtNomePesquisado.setText(null);
 				txtIdExcluir.setText(null);
+				limparTabela();
 			}
 		});
 		btnLimparExcluir.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -128,10 +137,72 @@ public class TelaExcluirCliente extends JPanel {
 		add(tblClientes);
 		
 		JButton btnPesquisar = new JButton("Pesquisar");
+		btnPesquisar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				consultarClientes();
+			}
+		});
+		
 		btnPesquisar.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnPesquisar.setBounds(148, 582, 140, 45);
 		add(btnPesquisar);
 		
-
+		lblPaginaAtual = new JLabel("1");
+		lblPaginaAtual.setBounds(486, 497, 46, 14);
+		add(lblPaginaAtual);
 	}
-}
+		
+		protected void consultarClientes() {
+			lblPaginaAtual.setText(paginaAtual + "");
+
+			ClienteController controlador = new ClienteController();
+			ClienteSeletor seletor = new ClienteSeletor();
+
+			seletor.setPagina(paginaAtual);
+			seletor.setLimite(TAMANHO_PAGINA);
+
+			if (txtNomePesquisado.getText() != null && !txtNomePesquisado.getText().isEmpty()) {
+				seletor.setNome(txtNomePesquisado.getText());
+			}
+			/*if (txtIdPesquisado.getText() != null && !txtIdPesquisado.getText().isEmpty()) {
+				seletor.setIdCliente(Integer.parseInt(txtIdPesquisado.getText()));
+			}
+			if (formattedTextFieldTelefone.getText() != null && !formattedTextFieldTelefone.getText().isEmpty()) {
+				seletor.setTelefone(formattedTextFieldTelefone.getText().replace(")", "").replace("(", "").replace("-", "").replace(" ", ""));
+			}*/
+
+			//AQUI é feita a consulta dos produtos e atualização na tabela
+			List<ClienteVO> Clientes = controlador.listarClientes(seletor);
+			atualizarTabelaClientes(Clientes);
+		}
+
+			protected void atualizarTabelaClientes(List<ClienteVO> clientes) {
+				this.limparTabela();
+				clientesConsultados = clientes;
+				
+				DefaultTableModel modelo = (DefaultTableModel) tblClientes.getModel();
+
+				for (ClienteVO cliente : clientes) {
+					String[] novaLinha = new String[] { 
+							cliente.getIdCliente() + "", 
+							cliente.getNome(), 
+							cliente.getTelefone() + "",
+							cliente.getEndereco() + "", 
+					};
+					modelo.addRow(novaLinha);
+				}
+
+			}
+
+			private void limparTabela() {
+				tblClientes.setModel(new DefaultTableModel(
+						new String[][] {
+							{"#ID", "Nome", "Telefone", "Endere\u00E7o"},
+						},
+						new String[] {
+							"#ID", "Nome", "Telefone", "Endere\u00E7o"
+						}
+					));
+			}
+	}
+

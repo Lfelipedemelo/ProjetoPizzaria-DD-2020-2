@@ -31,6 +31,20 @@ public class ClienteController {
 			return clienteBO.excluirCliente(clienteVO);
 		
 	}
+	
+	public String atualizar(ClienteVO clienteVO) {
+		String mensagem = "";
+		boolean atualizou = false;
+			atualizou = clienteBO.atualizar(clienteVO);
+		
+		if(atualizou) {
+			mensagem = "Cliente atualizado com sucesso!";
+		} else {
+			mensagem = "Erro ao atualizar cliente :(";
+		}
+		
+		return mensagem;
+	}
 
 
 	

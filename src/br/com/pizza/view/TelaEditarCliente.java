@@ -17,6 +17,10 @@ import java.awt.Font;
 import java.awt.Color;
 import javax.swing.border.MatteBorder;
 import javax.swing.text.MaskFormatter;
+
+import br.com.pizza.controller.ClienteController;
+import br.com.pizza.model.vo.ClienteVO;
+
 import javax.swing.border.BevelBorder;
 import javax.swing.border.CompoundBorder;
 import java.awt.Dimension;
@@ -32,7 +36,9 @@ public class TelaEditarCliente extends JPanel {
 	private JTextField txtTelefonePesquisado;
 	protected JFormattedTextField formattedTextFieldTelefonePesquisado;
 	protected JFormattedTextField formattedTextFieldTelefoneAtualizado;
-	
+	private JTextField txtNomeCliente;
+	private JTextField txtEnderecoCliente;
+	private int idClientePesquisado;
 
 	/**
 	 * Create the panel.
@@ -61,6 +67,7 @@ public class TelaEditarCliente extends JPanel {
 		add(lblNomeAtualizado);
 		
 		txtNomeAtualizado = new JTextField();
+		txtNomeAtualizado.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtNomeAtualizado.setBounds(7, 259, 501, 31);
 		add(txtNomeAtualizado);
 		txtNomeAtualizado.setColumns(10);
@@ -76,6 +83,7 @@ public class TelaEditarCliente extends JPanel {
 		add(lblEnderecoAtualizado);
 		
 		txtEnderecoAtualizado = new JTextField();
+		txtEnderecoAtualizado.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtEnderecoAtualizado.setBounds(9, 472, 501, 31);
 		txtEnderecoAtualizado.setColumns(10);
 		add(txtEnderecoAtualizado);
@@ -83,6 +91,16 @@ public class TelaEditarCliente extends JPanel {
 		JButton btnSalvarEditar = new JButton("Salvar");
 		btnSalvarEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
+				 ClienteController clienteController = new ClienteController();
+				 ClienteVO clienteAtualizadoVO = new ClienteVO();
+				 clienteAtualizadoVO.setIdCliente(idClientePesquisado);
+				 clienteAtualizadoVO.setNome(txtNomeAtualizado.getText() + "" + txtSobrenomeAtualizado.getText());
+				 clienteAtualizadoVO.setEndereco(txtEnderecoAtualizado.getText());
+				 clienteAtualizadoVO.setTelefone(limparMascaraTelefone(formattedTextFieldTelefoneAtualizado.getText()));
+				 clienteController.atualizar(clienteAtualizadoVO);
+				
+			
 			}
 		});
 		btnSalvarEditar.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -106,9 +124,24 @@ public class TelaEditarCliente extends JPanel {
 		add(lblSobrenomeAtualizado);
 		
 		txtSobrenomeAtualizado = new JTextField();
+		txtSobrenomeAtualizado.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtSobrenomeAtualizado.setBounds(8, 331, 501, 31);
 		txtSobrenomeAtualizado.setColumns(10);
 		add(txtSobrenomeAtualizado);
+		
+		txtNomeCliente = new JTextField();
+		txtNomeCliente.setEditable(false);
+		txtNomeCliente.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		txtNomeCliente.setBounds(7, 208, 215, 21);
+		add(txtNomeCliente);
+		txtNomeCliente.setColumns(10);
+		
+		txtEnderecoCliente = new JTextField();
+		txtEnderecoCliente.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		txtEnderecoCliente.setEditable(false);
+		txtEnderecoCliente.setBounds(232, 208, 276, 21);
+		add(txtEnderecoCliente);
+		txtEnderecoCliente.setColumns(10);
 		
 		JLabel lblImgForno = new JLabel("");
 		lblImgForno.setBounds(616, 139, 273, 399);
@@ -149,6 +182,22 @@ public class TelaEditarCliente extends JPanel {
 		formattedTextFieldTelefonePesquisado.setBounds(7, 170, 140, 31);
 		add(formattedTextFieldTelefonePesquisado);
 		
+		JButton btnPesquisar = new JButton("Pesquisar");
+		btnPesquisar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ClienteController clienteController = new ClienteController();
+				ClienteVO clienteVO = new ClienteVO();
+						
+				clienteVO = clienteController.pesquisarPorTelefone(limparMascaraTelefone(formattedTextFieldTelefonePesquisado.getText()));
+				idClientePesquisado = clienteVO.getIdCliente();
+				txtNomeCliente.setText(clienteVO.getNome());
+				txtEnderecoCliente.setText(clienteVO.getEndereco());
+				
+			}});
+		btnPesquisar.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnPesquisar.setBounds(157, 172, 140, 27);
+		add(btnPesquisar);
+		
 	} catch (ParseException e) {
 		JOptionPane.showMessageDialog(null, "Ocorreu um erro no campo Telefone, entre em contato com o administrador.");
 		System.out.println("Causa da exceção: " + e.getMessage());
@@ -158,6 +207,9 @@ public class TelaEditarCliente extends JPanel {
 		
 }
 
+	protected String limparMascaraTelefone(String telefone) {
+		return telefone.replace(")", "").replace("(", "").replace("-", "").replace(" ", "");
+	}
 
 	private void limparTela() {
 		formattedTextFieldTelefonePesquisado.setValue(null);
@@ -165,4 +217,5 @@ public class TelaEditarCliente extends JPanel {
 		formattedTextFieldTelefoneAtualizado.setValue(null);
 		txtNomeAtualizado.setText("");
 		txtSobrenomeAtualizado.setText("");
-	}}
+	}	
+}

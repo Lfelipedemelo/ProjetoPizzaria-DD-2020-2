@@ -55,6 +55,10 @@ public class ClienteBO {
 			return excluiu;
 	}
 	
+	public boolean atualizar (ClienteVO clienteVO){
+		return this.clienteDAO.alterar(clienteVO);
+	}
+	
 
 	
 	
