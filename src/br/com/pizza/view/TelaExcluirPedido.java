@@ -40,7 +40,7 @@ public class TelaExcluirPedido extends JPanel {
 	private JTextField txtPedidoSelecionado;
 	private JTextField txtPesquisarPorId;
 	private static final int TAMANHO_PAGINA = 10;
-	
+
 	private int paginaAtual = 1;
 	private boolean limiteDePedidos = true;
 	private int pedidoSelecionadoTabela;
@@ -50,30 +50,30 @@ public class TelaExcluirPedido extends JPanel {
 	private PizzaController controlador;
 	private PizzaSeletor seletor;
 	private JButton btnExcluir;
-	
+
 	/**
 	 * Create the panel.
 	 */
 	public TelaExcluirPedido() {
 		setLayout(null);
-		
+
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(Color.LIGHT_GRAY);
 		panel_2.setBounds(10, 11, 980, 140);
 		add(panel_2);
-		
+
 		JLabel lblConsultarPedido = new JLabel("Excluir Pedido");
 		lblConsultarPedido.setIcon(new ImageIcon(TelaExcluirPedido.class.getResource("/br/com/pizza/icons/pizza.png")));
 		lblConsultarPedido.setHorizontalAlignment(SwingConstants.CENTER);
 		lblConsultarPedido.setFont(new Font("Tahoma", Font.PLAIN, 72));
 		panel_2.add(lblConsultarPedido);
-		
+
 		tblPedidos = new JTable();
 		tblPedidos.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				pedidoSelecionadoTabela = tblPedidos.getSelectedRow() - 1;
-				if(pedidoSelecionadoTabela >= 0) {
+				if (pedidoSelecionadoTabela >= 0) {
 					pedidoSelecionado = consultarPedidos().get(pedidoSelecionadoTabela);
 					txtPedidoSelecionado.setText(String.valueOf(pedidoSelecionado.getIdPizza()));
 					btnExcluir.setEnabled(true);
@@ -82,27 +82,23 @@ public class TelaExcluirPedido extends JPanel {
 		});
 		tblPedidos.setBorder(new LineBorder(new Color(0, 0, 0)));
 		tblPedidos.setModel(new DefaultTableModel(
-				new Object[][] {
-					{"n\u00BA Pedido", "Tamanho", "Sabor_1", "Sabor_2", "Sabor_3", "N\u00BA Cliente"},
-				},
-				new String[] {
-					"N\u00BA Pedido", "Tamanho", "Sabor_1", "Sabor_2", "Sabor_3", "N\u00BA Cliente"
-				}
-			));
+				new Object[][] { { "n\u00BA Pedido", "Tamanho", "Sabor_1", "Sabor_2", "Sabor_3", "N\u00BA Cliente" }, },
+				new String[] { "N\u00BA Pedido", "Tamanho", "Sabor_1", "Sabor_2", "Sabor_3", "N\u00BA Cliente" }));
 		tblPedidos.setBounds(10, 162, 602, 450);
 		add(tblPedidos);
-		
+
 		JPanel panel = new JPanel();
-		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Filtrar", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Filtrar", TitledBorder.LEADING,
+				TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel.setBounds(622, 162, 368, 111);
 		add(panel);
 		panel.setLayout(null);
-		
+
 		JLabel lblNPedido = new JLabel("N\u00BA Pedido:");
 		lblNPedido.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		lblNPedido.setBounds(10, 25, 108, 27);
 		panel.add(lblNPedido);
-		
+
 		txtPesquisarPorId = new JTextField();
 		txtPesquisarPorId.addKeyListener(new KeyAdapter() {
 			@Override
@@ -114,12 +110,12 @@ public class TelaExcluirPedido extends JPanel {
 		txtPesquisarPorId.setBounds(128, 25, 230, 27);
 		panel.add(txtPesquisarPorId);
 		txtPesquisarPorId.setColumns(10);
-		
+
 		JLabel lblNCliente = new JLabel("N\u00BA Cliente:");
 		lblNCliente.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		lblNCliente.setBounds(10, 67, 108, 27);
 		panel.add(lblNCliente);
-		
+
 		JButton btnLimpar = new JButton("Limpar");
 		btnLimpar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -129,7 +125,7 @@ public class TelaExcluirPedido extends JPanel {
 		btnLimpar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnLimpar.setBounds(283, 63, 75, 28);
 		panel.add(btnLimpar);
-		
+
 		try {
 			MaskFormatter mascaraTelefone = new MaskFormatter("(##)#####-####");
 			txtNumeroCliente = new JFormattedTextField(mascaraTelefone);
@@ -141,27 +137,26 @@ public class TelaExcluirPedido extends JPanel {
 					consultarPedidos();
 				}
 			});
-			
+
 			txtNumeroCliente.setFont(new Font("Tahoma", Font.PLAIN, 18));
 			panel.add(txtNumeroCliente);
 			txtNumeroCliente.setFocusLostBehavior(JFormattedTextField.PERSIST);
 		} catch (ParseException e1) {
 			JOptionPane.showMessageDialog(null, "Ocorreu um erro no sistema, entre em contato com o administrador.");
-	        System.out.println("Causa da exceÃ§Ã£o: " + e1.getMessage());
+			System.out.println("Causa da exceÃ§Ã£o: " + e1.getMessage());
 		}
-		
-		
+
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		panel_1.setBounds(622, 284, 368, 167);
 		add(panel_1);
 		panel_1.setLayout(null);
-		
+
 		JLabel lblPedidoSelecionado_1 = new JLabel("Pedido selecionado");
 		lblPedidoSelecionado_1.setBounds(87, 11, 206, 25);
 		panel_1.add(lblPedidoSelecionado_1);
 		lblPedidoSelecionado_1.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		
+
 		txtPedidoSelecionado = new JTextField();
 		txtPedidoSelecionado.setHorizontalAlignment(SwingConstants.CENTER);
 		txtPedidoSelecionado.setBounds(87, 47, 187, 37);
@@ -169,13 +164,14 @@ public class TelaExcluirPedido extends JPanel {
 		txtPedidoSelecionado.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		txtPedidoSelecionado.setEditable(false);
 		txtPedidoSelecionado.setColumns(10);
-		
+
 		btnExcluir = new JButton("Excluir pedido");
 		btnExcluir.setEnabled(false);
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(JOptionPane.showConfirmDialog(null, "Você tem certeza que deseja Excluir o pedido " + pedidoSelecionado.getIdPizza() + "\nEsta operação é irreversivel!") == 0) {
-					if(controlador.excluirPedido(pedidoSelecionado.getIdPizza())) {
+				if (JOptionPane.showConfirmDialog(null, "Você tem certeza que deseja Excluir o pedido "
+						+ pedidoSelecionado.getIdPizza() + "\nEsta operação é irreversivel!") == 0) {
+					if (controlador.excluirPedido(pedidoSelecionado.getIdPizza())) {
 						JOptionPane.showMessageDialog(null, "Pedido excluido com sucesso!");
 						consultarPedidos();
 					}
@@ -186,16 +182,16 @@ public class TelaExcluirPedido extends JPanel {
 		panel_1.add(btnExcluir);
 		btnExcluir.setIcon(new ImageIcon(TelaExcluirPedido.class.getResource("/br/com/pizza/icons/delete.png")));
 		btnExcluir.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		
+
 		lblPaginaAtual = new JLabel("1");
-		lblPaginaAtual.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblPaginaAtual.setBounds(296, 621, 30, 23);
+		lblPaginaAtual.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblPaginaAtual.setBounds(298, 621, 24, 23);
 		add(lblPaginaAtual);
-		
+
 		JButton btnProximaPagina = new JButton(">");
 		btnProximaPagina.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(!limiteDePedidos) {
+				if (!limiteDePedidos) {
 					paginaAtual += 1;
 					consultarPedidos();
 				}
@@ -203,26 +199,26 @@ public class TelaExcluirPedido extends JPanel {
 		});
 		btnProximaPagina.setBounds(325, 621, 51, 23);
 		add(btnProximaPagina);
-		
+
 		JButton btnPaginaAnterior = new JButton("<");
 		btnPaginaAnterior.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				paginaAtual -= 1;
-				if(paginaAtual <= 0) {
+				if (paginaAtual <= 0) {
 					paginaAtual = 1;
 					consultarPedidos();
 				} else {
-				consultarPedidos();
+					consultarPedidos();
 				}
 			}
 		});
 		btnPaginaAnterior.setBounds(235, 621, 51, 23);
 		add(btnPaginaAnterior);
-		
+
 		consultarPedidos();
 
 	}
-	
+
 	protected void limparTela() {
 		txtNumeroCliente.setText("");
 		txtPesquisarPorId.setText("");
@@ -240,56 +236,46 @@ public class TelaExcluirPedido extends JPanel {
 		seletor.setPagina(paginaAtual);
 		seletor.setLimite(TAMANHO_PAGINA);
 
-		if (txtPesquisarPorId.getText().replace(" ", "") != null && !txtPesquisarPorId.getText().replace(" ", "").isEmpty()) {
+		if (txtPesquisarPorId.getText().replace(" ", "") != null
+				&& !txtPesquisarPorId.getText().replace(" ", "").isEmpty()) {
 			seletor.setIdPizza(Integer.parseInt(txtPesquisarPorId.getText().replace(" ", "")));
 		}
-		if (limparMascaraTelefone(txtNumeroCliente.getText()) != null && !limparMascaraTelefone(txtNumeroCliente.getText()).isEmpty()) {
+		if (limparMascaraTelefone(txtNumeroCliente.getText()) != null
+				&& !limparMascaraTelefone(txtNumeroCliente.getText()).isEmpty()) {
 			seletor.setTelefoneCliente(limparMascaraTelefone(txtNumeroCliente.getText()));
 		}
 
-		//AQUI Ã© feita a consulta dos produtos e atualizaÃ§Ã£o na tabela
+		// AQUI Ã© feita a consulta dos produtos e atualizaÃ§Ã£o na tabela
 		List<PizzaVO> pedidos = controlador.listarPedidos(seletor);
 		atualizarTabelaPedidos(pedidos);
 		return pedidos;
 	}
 
 	private void atualizarTabelaPedidos(List<PizzaVO> pedidos) {
-		
+
 		this.limparTabela();
 
 		DefaultTableModel modelo = (DefaultTableModel) tblPedidos.getModel();
 
 		for (PizzaVO pedido : pedidos) {
-			String[] novaLinha = new String[] { 
-					pedido.getIdPizza() + "", 
-					pedido.getTamanho(), 
-					pedido.getSabor1(),
-					pedido.getSabor2(), 
-					pedido.getSabor3(),
-					pedido.getTelefoneCliente(),
-					pedido.getObservacoes()
-			};
+			String[] novaLinha = new String[] { pedido.getIdPizza() + "", pedido.getTamanho(), pedido.getSabor1(),
+					pedido.getSabor2(), pedido.getSabor3(), pedido.getTelefoneCliente(), pedido.getObservacoes() };
 			modelo.addRow(novaLinha);
 		}
-		if(pedidos.size() < TAMANHO_PAGINA) {
+		if (pedidos.size() < TAMANHO_PAGINA) {
 			limiteDePedidos = true;
 		} else {
 			limiteDePedidos = false;
 		}
-		
+
 	}
 
 	private void limparTabela() {
 		tblPedidos.setModel(new DefaultTableModel(
-				new String[][] {
-					{"n\u00BA Pedido", "Tamanho", "Sabor_1", "Sabor_2", "Sabor_3", "N\u00BA Cliente"},
-				},
-				new String[] {
-					"N\u00BA Pedido", "Tamanho", "Sabor_1", "Sabor_2", "Sabor_3", "N\u00BA Cliente"
-				}
-			));
+				new String[][] { { "n\u00BA Pedido", "Tamanho", "Sabor_1", "Sabor_2", "Sabor_3", "N\u00BA Cliente" }, },
+				new String[] { "N\u00BA Pedido", "Tamanho", "Sabor_1", "Sabor_2", "Sabor_3", "N\u00BA Cliente" }));
 	}
-	
+
 	protected String limparMascaraTelefone(String telefone) {
 		return telefone.replace(")", "").replace("(", "").replace("-", "").replace(" ", "");
 	}

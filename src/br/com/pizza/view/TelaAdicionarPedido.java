@@ -45,6 +45,7 @@ import javax.swing.JProgressBar;
 import javax.swing.JSeparator;
 
 public class TelaAdicionarPedido extends JPanel {
+	
 	private JTextField txtNomeCliente;
 	private JTextField txtEnderecoCliente;
 	private JLabel lblSegundoSabor;
