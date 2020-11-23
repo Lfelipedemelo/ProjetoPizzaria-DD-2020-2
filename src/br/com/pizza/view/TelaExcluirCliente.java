@@ -148,6 +148,7 @@ public class TelaExcluirCliente extends JPanel {
 		add(btnPesquisar);
 		
 		lblPaginaAtual = new JLabel("1");
+		lblPaginaAtual.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblPaginaAtual.setBounds(486, 497, 46, 14);
 		add(lblPaginaAtual);
 	}
