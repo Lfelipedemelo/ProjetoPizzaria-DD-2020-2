@@ -40,6 +40,7 @@ public class TelaExcluirCliente extends JPanel {
 	private List<ClienteVO> clientesConsultados;
 	private static final int TAMANHO_PAGINA = 15;
 	private JLabel lblPaginaAtual;
+	private boolean limiteDeClientes = true;
 
 	/**
 	 * Create the panel.
@@ -149,8 +150,38 @@ public class TelaExcluirCliente extends JPanel {
 		
 		lblPaginaAtual = new JLabel("1");
 		lblPaginaAtual.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblPaginaAtual.setBounds(486, 497, 46, 14);
+		lblPaginaAtual.setBounds(430, 499, 46, 14);
 		add(lblPaginaAtual);
+		
+		JButton btnVoltarPagina = new JButton("\u2190");
+		btnVoltarPagina.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				paginaAtual -= 1;
+				if (paginaAtual <= 0) {
+					paginaAtual = 1;
+					consultarClientes();
+				} else {
+					consultarClientes();
+				}
+			}
+		});
+		btnVoltarPagina.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnVoltarPagina.setBounds(359, 495, 53, 23);
+		add(btnVoltarPagina);
+
+		JButton btnAvancarPagina = new JButton("\u2192");
+		btnAvancarPagina.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (!limiteDeClientes) {
+					paginaAtual += 1;
+					consultarClientes();
+				}
+			}
+		});
+		btnAvancarPagina.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnAvancarPagina.setBounds(455, 495, 53, 23);
+		add(btnAvancarPagina);
+		
 	}
 		
 		protected void consultarClientes() {
@@ -191,6 +222,11 @@ public class TelaExcluirCliente extends JPanel {
 							cliente.getEndereco() + "", 
 					};
 					modelo.addRow(novaLinha);
+				}
+				if (clientes.size() < TAMANHO_PAGINA) {
+					limiteDeClientes  = true;
+				} else {
+					limiteDeClientes = false;
 				}
 
 			}

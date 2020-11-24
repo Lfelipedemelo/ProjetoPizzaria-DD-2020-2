@@ -189,11 +189,14 @@ public class TelaEditarCliente extends JPanel {
 				ClienteVO clienteVO = new ClienteVO();
 						
 				clienteVO = clienteController.pesquisarPorTelefone(limparMascaraTelefone(formattedTextFieldTelefonePesquisado.getText()));
-				idClientePesquisado = clienteVO.getIdCliente();
-				txtNomeCliente.setText(clienteVO.getNome());
-				txtEnderecoCliente.setText(clienteVO.getEndereco());
+				if(clienteVO != null) {
+					idClientePesquisado = clienteVO.getIdCliente();
+					txtNomeCliente.setText(clienteVO.getNome());
+					txtEnderecoCliente.setText(clienteVO.getEndereco());
+				} else {
+					limparTela();
 				
-			}});
+				}}});
 		btnPesquisar.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnPesquisar.setBounds(157, 172, 140, 27);
 		add(btnPesquisar);
