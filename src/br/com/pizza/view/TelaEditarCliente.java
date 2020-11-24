@@ -95,10 +95,10 @@ public class TelaEditarCliente extends JPanel {
 				 ClienteController clienteController = new ClienteController();
 				 ClienteVO clienteAtualizadoVO = new ClienteVO();
 				 clienteAtualizadoVO.setIdCliente(idClientePesquisado);
-				 clienteAtualizadoVO.setNome(txtNomeAtualizado.getText() + "" + txtSobrenomeAtualizado.getText());
+				 clienteAtualizadoVO.setNome(txtNomeAtualizado.getText() + " " + txtSobrenomeAtualizado.getText());
 				 clienteAtualizadoVO.setEndereco(txtEnderecoAtualizado.getText());
 				 clienteAtualizadoVO.setTelefone(limparMascaraTelefone(formattedTextFieldTelefoneAtualizado.getText()));
-				 clienteController.atualizar(clienteAtualizadoVO);
+				 JOptionPane.showMessageDialog(null, clienteController.atualizar(clienteAtualizadoVO));
 				
 			
 			}

@@ -51,15 +51,25 @@ public class ClienteBO {
 
 	public boolean excluirCliente(ClienteVO clienteVO) {
 			boolean excluiu = clienteDAO.excluir(clienteVO.getIdCliente());
-			
 			return excluiu;
 	}
+
 	
-	public boolean atualizar (ClienteVO clienteVO){
-		return this.clienteDAO.alterar(clienteVO);
+		public String atualizar (ClienteVO clienteVO){
+			if (clienteVO.getNome() == null || clienteVO.getNome() == "" || clienteVO.getNome().isEmpty() || clienteVO.getNome().length() <3) {
+				return "Digite um nome válido!";
+			} else if (clienteVO.getEndereco() == null || clienteVO.getEndereco() == "" || clienteVO.getEndereco().isEmpty() || clienteVO.getEndereco().length() <3) {
+				return "Digite um Endereço válido!";			
+			} else if (clienteVO.getTelefone() == null || clienteVO.getTelefone() == "" || clienteVO.getTelefone().isEmpty() || clienteVO.getTelefone().length() <11) {
+				return "Digite um Telefone válido!";
+			} else {
+					clienteDAO.alterar(clienteVO);
+					return "Cliente cadastrado com sucesso!";
+		
+		
 	}
 	
 
 	
 	
-}
+}}
