@@ -33,6 +33,9 @@ import java.awt.event.MouseEvent;
 
 public class TelaPrincipal extends JFrame {
 
+	private TelaEditarPedido editarPedido;
+	private TelaAtualizarPedido atualizarPedido;
+
 	private JPanel contentPane;
 
 	/**
@@ -64,26 +67,27 @@ public class TelaPrincipal extends JFrame {
 		setPreferredSize(new Dimension(1024, 800));
 		setMinimumSize(new Dimension(1024, 800));
 		setMaximumSize(new Dimension(1024, 800));
-		
+
 		setTitle("Pizzaria Pizza e Pizza");
-		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaPrincipal.class.getResource("/br/com/pizza/icons/pizzaLogo.png")));
+		setIconImage(Toolkit.getDefaultToolkit()
+				.getImage(TelaPrincipal.class.getResource("/br/com/pizza/icons/pizzaLogo.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 478, 768);
-		
+
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBorderPainted(false);
 		setJMenuBar(menuBar);
-		
+
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/br/com/pizza/icons/pizzaLogo64px.png")));
 		menuBar.add(lblNewLabel);
-		
+
 		JMenu mnPedidos = new JMenu("Pedidos");
 		mnPedidos.setFont(new Font("Segoe UI", Font.PLAIN, 30));
 		mnPedidos.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/br/com/pizza/icons/fazerPedido.png")));
 		menuBar.add(mnPedidos);
-		
+
 		JMenuItem mntmPedidosAdicionar = new JMenuItem("Adicionar");
 		mntmPedidosAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -96,8 +100,9 @@ public class TelaPrincipal extends JFrame {
 		mntmPedidosAdicionar.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		mntmPedidosAdicionar.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/br/com/pizza/icons/add.png")));
 		mnPedidos.add(mntmPedidosAdicionar);
-		
+
 		JMenuItem mntmPedidosConsultar = new JMenuItem("Consultar");
+
 		mntmPedidosConsultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				TelaConsultarPedido consultarPedido = new TelaConsultarPedido();
@@ -109,11 +114,20 @@ public class TelaPrincipal extends JFrame {
 		mntmPedidosConsultar.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		mntmPedidosConsultar.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/br/com/pizza/icons/lupa.png")));
 		mnPedidos.add(mntmPedidosConsultar);
-		
+
 		JMenuItem mntmNewMenuItem = new JMenuItem("Editar");
 		mntmNewMenuItem.addActionListener(new ActionListener() {
+
 			public void actionPerformed(ActionEvent arg0) {
-				TelaEditarPedido editarPedido = new TelaEditarPedido();
+				editarPedido = new TelaEditarPedido();
+				editarPedido.getBtnEditar().addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						TelaAtualizarPedido atualizar = new TelaAtualizarPedido();
+						atualizar.setPedidoSelecionado(editarPedido.getPedidoSelecionado());
+						setContentPane(atualizar);
+						revalidate();
+					}
+				});
 				setContentPane(editarPedido);
 				revalidate();
 			}
@@ -121,7 +135,7 @@ public class TelaPrincipal extends JFrame {
 		mntmNewMenuItem.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/br/com/pizza/icons/edit.png")));
 		mntmNewMenuItem.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		mnPedidos.add(mntmNewMenuItem);
-		
+
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Excluir");
 		mntmNewMenuItem_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -132,12 +146,12 @@ public class TelaPrincipal extends JFrame {
 		mntmNewMenuItem_1.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/br/com/pizza/icons/delete.png")));
 		mntmNewMenuItem_1.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		mnPedidos.add(mntmNewMenuItem_1);
-		
+
 		JMenu mnClientes = new JMenu("Clientes");
 		mnClientes.setFont(new Font("Segoe UI", Font.PLAIN, 30));
 		mnClientes.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/br/com/pizza/icons/cliente.png")));
 		menuBar.add(mnClientes);
-		
+
 		JMenuItem mntmClientesAdicionar = new JMenuItem("Adicionar");
 		mntmClientesAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -153,7 +167,7 @@ public class TelaPrincipal extends JFrame {
 		mntmClientesAdicionar.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		mntmClientesAdicionar.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/br/com/pizza/icons/add.png")));
 		mnClientes.add(mntmClientesAdicionar);
-		
+
 		JMenuItem mntmClientesConsultar = new JMenuItem("Consultar");
 		mntmClientesConsultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -167,7 +181,7 @@ public class TelaPrincipal extends JFrame {
 		mntmClientesConsultar.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		mntmClientesConsultar.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/br/com/pizza/icons/lupa.png")));
 		mnClientes.add(mntmClientesConsultar);
-		
+
 		JMenuItem mntmClientesEditar = new JMenuItem("Editar");
 		mntmClientesEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -181,7 +195,7 @@ public class TelaPrincipal extends JFrame {
 		mntmClientesEditar.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		mntmClientesEditar.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/br/com/pizza/icons/edit.png")));
 		mnClientes.add(mntmClientesEditar);
-		
+
 		JMenuItem mntmClientesExcluir = new JMenuItem("Excluir");
 		mntmClientesExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -195,13 +209,15 @@ public class TelaPrincipal extends JFrame {
 		mntmClientesExcluir.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		mntmClientesExcluir.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/br/com/pizza/icons/delete.png")));
 		mnClientes.add(mntmClientesExcluir);
-		
+
 		JMenu mnSobre = new JMenu("Sobre");
 		mnSobre.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/br/com/pizza/icons/informacoes.png")));
 		mnSobre.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				JOptionPane.showMessageDialog(null, "SOFTWARE CRIADO POR:" + "\nBryan Richard Lohn e Luis Felipe de Melo", "Sobre", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null,
+						"SOFTWARE CRIADO POR:" + "\nBryan Richard Lohn e Luis Felipe de Melo", "Sobre",
+						JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		mnSobre.setFont(new Font("Segoe UI", Font.PLAIN, 30));
@@ -210,7 +226,9 @@ public class TelaPrincipal extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{mnPedidos, mntmPedidosAdicionar, mntmPedidosConsultar, mnClientes, mntmClientesAdicionar, mntmClientesConsultar, mntmClientesEditar, mntmClientesExcluir, contentPane, menuBar}));
+		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { mnPedidos, mntmPedidosAdicionar,
+				mntmPedidosConsultar, mnClientes, mntmClientesAdicionar, mntmClientesConsultar, mntmClientesEditar,
+				mntmClientesExcluir, contentPane, menuBar }));
 	}
 
 }

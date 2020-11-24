@@ -26,4 +26,8 @@ public class PizzaBO {
 		return dao.excluir(idPizza);
 	}
 
+	public boolean atualizarPedido(PizzaVO pVo) {
+		return dao.alterar(pVo);
+	}
+
 }

@@ -1,10 +1,6 @@
 package br.com.pizza.view;
 
-import javax.swing.JPanel;
 import java.awt.Color;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,9 +11,18 @@ import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import java.util.List;
 
-import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.border.LineBorder;
+import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
@@ -26,14 +31,6 @@ import br.com.pizza.controller.PizzaController;
 import br.com.pizza.model.vo.PizzaSeletor;
 import br.com.pizza.model.vo.PizzaVO;
 
-import javax.swing.UIManager;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JFormattedTextField;
-import javax.swing.border.MatteBorder;
-import javax.swing.border.LineBorder;
-
 public class TelaEditarPedido extends JPanel {
 	private static final int TAMANHO_PAGINA = 10;
 	private int paginaAtual = 1;
@@ -41,7 +38,7 @@ public class TelaEditarPedido extends JPanel {
 	private int pedidoSelecionadoTabela;
 	private PizzaVO pedidoSelecionado;
 	private JTable tblPedidos;
-	private JTextField txtPesquisarPorId;
+	private JFormattedTextField txtPesquisarPorId;
 	private JTextField txtPedidoSelecionado;
 	private JFormattedTextField txtNumeroCliente;
 	private PizzaController controlador;
@@ -49,12 +46,20 @@ public class TelaEditarPedido extends JPanel {
 	private JLabel lblPaginaAtual;
 	private JButton btnEditar;
 
+	public JButton getBtnEditar() {
+		return btnEditar;
+	}
+
+	public PizzaVO getPedidoSelecionado() {
+		return pedidoSelecionado;
+	}
+
 	/**
 	 * Create the panel.
 	 */
 	public TelaEditarPedido() {
 		setLayout(null);
-
+	
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(Color.LIGHT_GRAY);
 		panel_2.setBounds(10, 11, 980, 140);
@@ -97,16 +102,24 @@ public class TelaEditarPedido extends JPanel {
 		lblNPedido.setBounds(10, 25, 108, 27);
 		panel.add(lblNPedido);
 
-		txtPesquisarPorId = new JTextField();
-		txtPesquisarPorId.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent arg0) {
-				consultarPedidos();
-			}
-		});
-		txtPesquisarPorId.setColumns(10);
-		txtPesquisarPorId.setBounds(128, 25, 230, 27);
-		panel.add(txtPesquisarPorId);
+		try {
+			MaskFormatter mascaraId = new MaskFormatter("#########");
+			txtPesquisarPorId = new JFormattedTextField(mascaraId);
+			txtPesquisarPorId.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyReleased(KeyEvent arg0) {
+					consultarPedidos();
+				}
+			});
+			txtPesquisarPorId.setFont(new Font("Tahoma", Font.PLAIN, 18));
+			txtPesquisarPorId.setBounds(128, 25, 230, 27);
+			panel.add(txtPesquisarPorId);
+			txtPesquisarPorId.setFocusLostBehavior(JFormattedTextField.PERSIST);
+
+		} catch (ParseException e1) {
+			JOptionPane.showMessageDialog(null, "Ocorreu um erro no sistema, entre em contato com o administrador.");
+			System.out.println("Causa da exceção: " + e1.getMessage());
+		}
 
 		try {
 			MaskFormatter mascaraTelefone = new MaskFormatter("(##)#####-####");
@@ -162,6 +175,8 @@ public class TelaEditarPedido extends JPanel {
 		panel_1.add(txtPedidoSelecionado);
 
 		btnEditar = new JButton("Editar Pedido");
+		
+
 		btnEditar.setEnabled(false);
 		btnEditar.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnEditar.setIcon(new ImageIcon(TelaEditarPedido.class.getResource("/br/com/pizza/icons/edit.png")));
@@ -169,10 +184,11 @@ public class TelaEditarPedido extends JPanel {
 		panel_1.add(btnEditar);
 
 		lblPaginaAtual = new JLabel("New label");
+		lblPaginaAtual.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPaginaAtual.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblPaginaAtual.setBounds(301, 625, 23, 21);
+		lblPaginaAtual.setBounds(10, 621, 602, 22);
 		add(lblPaginaAtual);
-		
+
 		JButton btnProximaPagina = new JButton(">");
 		btnProximaPagina.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -182,7 +198,7 @@ public class TelaEditarPedido extends JPanel {
 				}
 			}
 		});
-		btnProximaPagina.setBounds(322, 623, 51, 23);
+		btnProximaPagina.setBounds(336, 623, 51, 22);
 		add(btnProximaPagina);
 
 		JButton btnPaginaAnterior = new JButton("<");
@@ -197,11 +213,12 @@ public class TelaEditarPedido extends JPanel {
 				}
 			}
 		});
-		btnPaginaAnterior.setBounds(235, 623, 51, 23);
+		btnPaginaAnterior.setBounds(235, 623, 51, 22);
 		add(btnPaginaAnterior);
 
 		consultarPedidos();
 	}
+
 
 	protected void limparTela() {
 		txtNumeroCliente.setText("");
