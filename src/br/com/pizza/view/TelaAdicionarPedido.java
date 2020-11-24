@@ -336,10 +336,12 @@ public class TelaAdicionarPedido extends JPanel {
 						pVo.setSabor1(cbPrimeiroSabor.getSelectedItem().toString().toUpperCase());
 						pVo.setSabor2(cbSegundoSabor.getSelectedItem().toString().toUpperCase());
 						pVo.setSabor3(cbTerceiroSabor.getSelectedItem().toString().toUpperCase());
+						pController.inserirPedido(pVo);
+						limparTela();
+						TelaGerarNotaFiscal nf = new TelaGerarNotaFiscal(pVo, cliente);
+						nf.setLocationRelativeTo(null);
+						nf.setVisible(true);
 					}
-					
-					JOptionPane.showMessageDialog(null, pController.inserirPedido(pVo));
-					limparTela();
 				}
 			}
 		});

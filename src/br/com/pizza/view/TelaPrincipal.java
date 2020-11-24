@@ -68,7 +68,7 @@ public class TelaPrincipal extends JFrame {
 		setMinimumSize(new Dimension(1024, 800));
 		setMaximumSize(new Dimension(1024, 800));
 
-		setTitle("Pizzaria Pizza e Pizza");
+		setTitle("Pizzaria Dale Pizza");
 		setIconImage(Toolkit.getDefaultToolkit()
 				.getImage(TelaPrincipal.class.getResource("/br/com/pizza/icons/pizzaLogo.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
