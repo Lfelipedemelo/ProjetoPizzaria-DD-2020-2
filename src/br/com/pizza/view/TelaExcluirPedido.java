@@ -38,7 +38,7 @@ import java.awt.event.MouseEvent;
 public class TelaExcluirPedido extends JPanel {
 	private JTable tblPedidos;
 	private JTextField txtPedidoSelecionado;
-	private JTextField txtPesquisarPorId;
+	private JFormattedTextField txtPesquisarPorId;
 	private static final int TAMANHO_PAGINA = 10;
 
 	private int paginaAtual = 1;
@@ -99,17 +99,24 @@ public class TelaExcluirPedido extends JPanel {
 		lblNPedido.setBounds(10, 25, 108, 27);
 		panel.add(lblNPedido);
 
-		txtPesquisarPorId = new JTextField();
-		txtPesquisarPorId.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent arg0) {
-				consultarPedidos();
-			}
-		});
-		txtPesquisarPorId.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		txtPesquisarPorId.setBounds(128, 25, 230, 27);
-		panel.add(txtPesquisarPorId);
-		txtPesquisarPorId.setColumns(10);
+		try {
+			MaskFormatter mascaraId = new MaskFormatter("#########");
+			txtPesquisarPorId = new JFormattedTextField(mascaraId);
+			txtPesquisarPorId.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyReleased(KeyEvent arg0) {
+					consultarPedidos();
+				}
+			});
+			txtPesquisarPorId.setFont(new Font("Tahoma", Font.PLAIN, 18));
+			txtPesquisarPorId.setBounds(128, 25, 230, 27);
+			panel.add(txtPesquisarPorId);
+			txtPesquisarPorId.setFocusLostBehavior(JFormattedTextField.PERSIST);
+
+		} catch (ParseException e1) {
+			JOptionPane.showMessageDialog(null, "Ocorreu um erro no sistema, entre em contato com o administrador.");
+			System.out.println("Causa da exceção: " + e1.getMessage());
+		}
 
 		JLabel lblNCliente = new JLabel("N\u00BA Cliente:");
 		lblNCliente.setFont(new Font("Tahoma", Font.PLAIN, 22));
@@ -184,8 +191,9 @@ public class TelaExcluirPedido extends JPanel {
 		btnExcluir.setFont(new Font("Tahoma", Font.PLAIN, 18));
 
 		lblPaginaAtual = new JLabel("1");
+		lblPaginaAtual.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPaginaAtual.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblPaginaAtual.setBounds(298, 621, 24, 23);
+		lblPaginaAtual.setBounds(10, 621, 602, 22);
 		add(lblPaginaAtual);
 
 		JButton btnProximaPagina = new JButton(">");
@@ -197,7 +205,7 @@ public class TelaExcluirPedido extends JPanel {
 				}
 			}
 		});
-		btnProximaPagina.setBounds(325, 621, 51, 23);
+		btnProximaPagina.setBounds(332, 621, 51, 22);
 		add(btnProximaPagina);
 
 		JButton btnPaginaAnterior = new JButton("<");
@@ -212,7 +220,7 @@ public class TelaExcluirPedido extends JPanel {
 				}
 			}
 		});
-		btnPaginaAnterior.setBounds(235, 621, 51, 23);
+		btnPaginaAnterior.setBounds(235, 621, 51, 22);
 		add(btnPaginaAnterior);
 
 		consultarPedidos();

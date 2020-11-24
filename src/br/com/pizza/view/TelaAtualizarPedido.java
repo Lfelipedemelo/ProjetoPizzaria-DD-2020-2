@@ -7,11 +7,11 @@ import javax.swing.text.MaskFormatter;
 
 import br.com.pizza.controller.ClienteController;
 import br.com.pizza.controller.PizzaController;
+import br.com.pizza.model.dao.ClienteDAO;
 import br.com.pizza.model.vo.ClienteVO;
 import br.com.pizza.model.vo.PizzaVO;
 
 import java.awt.Color;
-import java.awt.Component;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -21,36 +21,20 @@ import java.awt.Font;
 import javax.swing.JRadioButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
-
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
-import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import java.awt.Dimension;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import javax.swing.DropMode;
 import javax.swing.JTextArea;
-import javax.swing.border.TitledBorder;
-import javax.swing.JScrollBar;
-import javax.swing.JSlider;
-import javax.swing.JProgressBar;
 import javax.swing.JSeparator;
 
-public class TelaAdicionarPedido extends JPanel {
-	
-	private PizzaVO pizza;
-	
-	public TelaAdicionarPedido(PizzaVO pizza) {
-		this.pizza = pizza;
-	}
+public class TelaAtualizarPedido extends JPanel {
 	
 	private JTextField txtNomeCliente;
 	private JTextField txtEnderecoCliente;
@@ -76,11 +60,27 @@ public class TelaAdicionarPedido extends JPanel {
 	private JRadioButton rdbtnTamanhoMedia;
 	private JRadioButton rdbtnTamanhoGrande;
 	private JRadioButton rdbtnTamanhoGigante;
-	
-	double valorFinal = 52.90;
+	private PizzaVO pedidoSelecionado;
+	private ClienteVO cliente;
 	private JButton btnFazerPedido;
 
-	public TelaAdicionarPedido() {
+	public JButton getBtnFazerPedido() {
+		return btnFazerPedido;
+	}
+
+	public void setPedidoSelecionado(PizzaVO pedidoSelecionado) {
+		this.pedidoSelecionado = pedidoSelecionado;
+		txtTelefone.setText(pedidoSelecionado.getTelefoneCliente());
+		ClienteController cController = new ClienteController();
+		cliente = cController.pesquisarPorTelefone(pedidoSelecionado.getTelefoneCliente());
+		txtEnderecoCliente.setText(cliente.getEndereco());
+		txtNomeCliente.setText(cliente.getNome());
+}
+
+
+	double valorFinal = 52.90;
+
+	public TelaAtualizarPedido() {
 		setMaximumSize(new Dimension(1000, 700));
 		setMinimumSize(new Dimension(1000, 700));
 		setPreferredSize(new Dimension(1000, 700));
@@ -258,11 +258,11 @@ public class TelaAdicionarPedido extends JPanel {
 		panel_2.setBackground(Color.LIGHT_GRAY);
 		add(panel_2);
 		
-		JLabel lblAdicionarPeedido = new JLabel("Adicionar Pedido");
+		JLabel lblAdicionarPeedido = new JLabel("Atualizar Pedido");
 		panel_2.add(lblAdicionarPeedido);
 		lblAdicionarPeedido.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAdicionarPeedido.setFont(new Font("Tahoma", Font.PLAIN, 72));
-		lblAdicionarPeedido.setIcon(new ImageIcon(TelaAdicionarPedido.class.getResource("/br/com/pizza/icons/pizza.png")));
+		lblAdicionarPeedido.setIcon(new ImageIcon(TelaAtualizarPedido.class.getResource("/br/com/pizza/icons/pizza.png")));
 		
 		final JLabel lblValorTotal = new JLabel("Valor Total: R$");
 		lblValorTotal.setFont(new Font("Tahoma", Font.PLAIN, 22));
@@ -277,6 +277,7 @@ public class TelaAdicionarPedido extends JPanel {
 		try {
 			MaskFormatter mascaraTelefone = new MaskFormatter("(##)#####-####");
 			txtTelefone = new JFormattedTextField(mascaraTelefone);
+			txtTelefone.setEnabled(false);
 			txtTelefone.setFont(new Font("Tahoma", Font.PLAIN, 18));
 			txtTelefone.setBounds(248, 369, 143, 28);
 			txtTelefone.setFocusLostBehavior(JFormattedTextField.PERSIST);
@@ -306,9 +307,8 @@ public class TelaAdicionarPedido extends JPanel {
 		lblValorNumerico.setBounds(183, 628, 90, 21);
 		add(lblValorNumerico);
 		
-		btnFazerPedido = new JButton("Confirmar Pedido");
-		btnFazerPedido.setEnabled(false);
-		btnFazerPedido.setIcon(new ImageIcon(TelaAdicionarPedido.class.getResource("/br/com/pizza/icons/add.png")));
+		btnFazerPedido = new JButton("Atualizar Pedido");
+		btnFazerPedido.setIcon(new ImageIcon(TelaAtualizarPedido.class.getResource("/br/com/pizza/icons/add.png")));
 		btnFazerPedido.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnFazerPedido.setForeground(Color.BLACK);
 		btnFazerPedido.setBounds(440, 616, 237, 43);
@@ -316,9 +316,7 @@ public class TelaAdicionarPedido extends JPanel {
 		
 		btnFazerPedido.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ClienteController cController = new ClienteController();
 				ClienteVO cliente = new ClienteVO();		
-				cliente = cController.pesquisarPorTelefone(limparMascaraTelefone(txtTelefone.getText()));
 				if(cliente != null) {					
 					PizzaController pController = new PizzaController();
 					PizzaVO pVo = new PizzaVO();
@@ -326,6 +324,7 @@ public class TelaAdicionarPedido extends JPanel {
 					pVo.setTelefoneCliente(limparMascaraTelefone(txtTelefone.getText()));
 					pVo.setObservacoes(txtObservacoes.getText());
 					pVo.setValor(valorFinal);
+					pVo.setIdPizza(pedidoSelecionado.getIdPizza());
 					if(cbPrimeiroSabor.getSelectedIndex() == 0) {
 						JOptionPane.showMessageDialog(null, "Selecione um sabor");
 					} else if (cbSegundoSabor.getSelectedIndex() == 0 && rdbtNsaboresUnico.isSelected() == false){
@@ -336,10 +335,14 @@ public class TelaAdicionarPedido extends JPanel {
 						pVo.setSabor1(cbPrimeiroSabor.getSelectedItem().toString().toUpperCase());
 						pVo.setSabor2(cbSegundoSabor.getSelectedItem().toString().toUpperCase());
 						pVo.setSabor3(cbTerceiroSabor.getSelectedItem().toString().toUpperCase());
+						if (pController.atualizarPedido(pVo)) {
+							JOptionPane.showMessageDialog(null, "Pedido atualizado com sucesso");
+							limparTela();
+							pVo = null;
+						} else {
+							JOptionPane.showMessageDialog(null,"Erro ao cadastrar pedido");
+						}
 					}
-					
-					JOptionPane.showMessageDialog(null, pController.inserirPedido(pVo));
-					limparTela();
 				}
 			}
 		});
@@ -347,7 +350,7 @@ public class TelaAdicionarPedido extends JPanel {
 		
 		
 		JButton btnCancelar = new JButton("Limpar");
-		btnCancelar.setIcon(new ImageIcon(TelaAdicionarPedido.class.getResource("/br/com/pizza/icons/borracha.png")));
+		btnCancelar.setIcon(new ImageIcon(TelaAtualizarPedido.class.getResource("/br/com/pizza/icons/borracha.png")));
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				limparTela();
@@ -361,26 +364,6 @@ public class TelaAdicionarPedido extends JPanel {
 		lblObservacoes.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		lblObservacoes.setBounds(31, 454, 138, 28);
 		add(lblObservacoes);
-		
-		JButton btnPesquisar = new JButton("Pesquisar");
-		btnPesquisar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				ClienteController cController = new ClienteController();
-				ClienteVO cliente = new ClienteVO();
-						
-				cliente = cController.pesquisarPorTelefone(limparMascaraTelefone(txtTelefone.getText()));
-				if(cliente != null) {
-					txtNomeCliente.setText(cliente.getNome());
-					txtEnderecoCliente.setText(cliente.getEndereco());
-					btnFazerPedido.setEnabled(true);
-				} else {
-					limparTela();
-				}
-			}
-		});
-		btnPesquisar.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnPesquisar.setBounds(401, 368, 90, 34);
-		add(btnPesquisar);
 		
 		txtObservacoes = new JTextArea();
 		txtObservacoes.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -435,5 +418,5 @@ public class TelaAdicionarPedido extends JPanel {
 		txtEnderecoCliente.setText(null);
 		txtObservacoes.setText(null);
 		btnFazerPedido.setEnabled(false);
-	}
+	}	
 }

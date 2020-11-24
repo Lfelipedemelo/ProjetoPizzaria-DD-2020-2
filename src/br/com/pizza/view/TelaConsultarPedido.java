@@ -29,6 +29,8 @@ import java.text.ParseException;
 import javax.swing.border.TitledBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class TelaConsultarPedido extends JPanel {
 	private JTable tblPedidos;
@@ -38,12 +40,12 @@ public class TelaConsultarPedido extends JPanel {
 	private boolean limiteDePedidos = true;
 	private JFormattedTextField txtNumeroCliente;
 	private JFormattedTextField txtPesquisarPorId;
+	private JComboBox cbTamanho;
+	private String tamanhoPesquisa;
 
 	private static final int TAMANHO_PAGINA = 10;
 
-	/**
-	 * Create the panel.
-	 */
+
 	public TelaConsultarPedido() {
 		setLayout(null);
 
@@ -60,7 +62,7 @@ public class TelaConsultarPedido extends JPanel {
 		panel_2.add(lblConsultarPedido);
 
 		tblPedidos = new JTable();
-		tblPedidos.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		tblPedidos.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		tblPedidos.setBorder(new LineBorder(new Color(0, 0, 0)));
 		tblPedidos.setModel(new DefaultTableModel(
 				new Object[][] { { "n\u00BA Pedido", "Tamanho", "Sabor_1", "Sabor_2", "Sabor_3", "N\u00BA Cliente",
@@ -76,13 +78,14 @@ public class TelaConsultarPedido extends JPanel {
 		add(tblPedidos);
 
 		lblPaginaAtual = new JLabel("New label");
+		lblPaginaAtual.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPaginaAtual.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblPaginaAtual.setBounds(481, 652, 45, 14);
+		lblPaginaAtual.setBounds(10, 636, 980, 22);
 		add(lblPaginaAtual);
 
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "Filtrar", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(108, 162, 809, 84);
+		panel.setBounds(10, 162, 980, 84);
 		add(panel);
 		panel.setLayout(null);
 
@@ -97,7 +100,7 @@ public class TelaConsultarPedido extends JPanel {
 			});
 
 			txtNumeroCliente.setFont(new Font("Tahoma", Font.PLAIN, 18));
-			txtNumeroCliente.setBounds(602, 32, 156, 28);
+			txtNumeroCliente.setBounds(559, 32, 156, 28);
 			panel.add(txtNumeroCliente);
 			txtNumeroCliente.setFocusLostBehavior(JFormattedTextField.PERSIST);
 		} catch (ParseException e1) {
@@ -106,7 +109,7 @@ public class TelaConsultarPedido extends JPanel {
 		}
 
 		JLabel lblPesquisarPorNumero = new JLabel("Numero do cliente:");
-		lblPesquisarPorNumero.setBounds(404, 28, 191, 32);
+		lblPesquisarPorNumero.setBounds(367, 28, 191, 32);
 		panel.add(lblPesquisarPorNumero);
 		lblPesquisarPorNumero.setFont(new Font("Tahoma", Font.PLAIN, 22));
 
@@ -125,9 +128,40 @@ public class TelaConsultarPedido extends JPanel {
 				}
 			});
 			txtPesquisarPorId.setFont(new Font("Tahoma", Font.PLAIN, 18));
-			txtPesquisarPorId.setBounds(216, 32, 156, 28);
+			txtPesquisarPorId.setBounds(201, 32, 156, 28);
 			panel.add(txtPesquisarPorId);
 			txtPesquisarPorId.setFocusLostBehavior(JFormattedTextField.PERSIST);
+			
+			JLabel lbltamanho = new JLabel("Tamanho:");
+			lbltamanho.setFont(new Font("Tahoma", Font.PLAIN, 22));
+			lbltamanho.setBounds(725, 28, 110, 32);
+			panel.add(lbltamanho);
+			
+			cbTamanho = new JComboBox();
+			cbTamanho.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					if(cbTamanho.getSelectedIndex() == 0) {
+						tamanhoPesquisa = null;
+					} else if(cbTamanho.getSelectedIndex() == 1) {
+						tamanhoPesquisa = "BROTO";
+						consultarPedidos();
+					} else if(cbTamanho.getSelectedIndex() == 2) {
+						tamanhoPesquisa = "MEDIA";
+						consultarPedidos();
+					} else if(cbTamanho.getSelectedIndex() == 3) {
+						tamanhoPesquisa = "GRANDE";
+						consultarPedidos();
+					} else if(cbTamanho.getSelectedIndex() == 4) {
+						tamanhoPesquisa = "GIGANTE";
+						consultarPedidos();
+					}
+					JOptionPane.showMessageDialog(null, tamanhoPesquisa);
+				}
+			});
+			cbTamanho.setFont(new Font("Tahoma", Font.PLAIN, 18));
+			cbTamanho.setModel(new DefaultComboBoxModel(new String[] {"", "Broto", "Media", "Grande", "Gigante"}));
+			cbTamanho.setBounds(829, 32, 131, 28);
+			panel.add(cbTamanho);
 
 		} catch (ParseException e1) {
 			JOptionPane.showMessageDialog(null, "Ocorreu um erro no sistema, entre em contato com o administrador.");
@@ -143,7 +177,7 @@ public class TelaConsultarPedido extends JPanel {
 				}
 			}
 		});
-		btnProximaPagina.setBounds(520, 652, 41, 17);
+		btnProximaPagina.setBounds(519, 636, 41, 22);
 		add(btnProximaPagina);
 
 		JButton btnPaginaAnterior = new JButton("<");
@@ -158,7 +192,7 @@ public class TelaConsultarPedido extends JPanel {
 				}
 			}
 		});
-		btnPaginaAnterior.setBounds(408, 652, 41, 17);
+		btnPaginaAnterior.setBounds(437, 636, 41, 22);
 		add(btnPaginaAnterior);
 
 		// LISTAR TODOS OS PEDIDOS

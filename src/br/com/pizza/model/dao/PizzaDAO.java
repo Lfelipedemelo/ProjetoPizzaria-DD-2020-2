@@ -67,7 +67,7 @@ public class PizzaDAO implements BaseDAO<PizzaVO> {
 	}
 
 	public boolean alterar(PizzaVO pizzaVO) {
-		String sql = " UPDATE PIZZA " + " SET SABOR1=?, SABOR2=?, SABOR3=?, TAMANHO=?, VALOR=? " + " WHERE IDPIZZA=? ";
+		String sql = " UPDATE PIZZA " + " SET SABOR1=?, SABOR2=?, SABOR3=?, TAMANHO=?, VALOR=?, OBSERVACOES=? " + " WHERE IDPIZZA=? ";
 
 		boolean alterou = false;
 
@@ -79,7 +79,8 @@ public class PizzaDAO implements BaseDAO<PizzaVO> {
 			query.setString(3, pizzaVO.getSabor3());
 			query.setString(4, pizzaVO.getTamanho());
 			query.setDouble(5, pizzaVO.getValor());
-			query.setInt(6, pizzaVO.getIdPizza());
+			query.setString(6, pizzaVO.getObservacoes());
+			query.setInt(7, pizzaVO.getIdPizza());
 
 			int codigoRetorno = query.executeUpdate();
 			alterou = (codigoRetorno == Banco.CODIGO_RETORNO_SUCESSO);
