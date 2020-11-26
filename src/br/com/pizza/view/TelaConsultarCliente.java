@@ -43,10 +43,10 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class TelaConsultarCliente extends JPanel {
-	private JTextField txtIdPesquisado;
 	private JTextField txtNomePesquisado;
 	private JTable tblClientes;
 	private JTextField txtTelefonePesquisado;
+	private JFormattedTextField txtIdPesquisado;
 	private JFormattedTextField formattedTextFieldTelefone;
 	private int paginaAtual = 1;
 	private List<ClienteVO> clientesConsultados;
@@ -81,12 +81,8 @@ public class TelaConsultarCliente extends JPanel {
 		lblIdPesquisado.setHorizontalAlignment(SwingConstants.LEFT);
 		add(lblIdPesquisado);
 
-		txtIdPesquisado = new JTextField();
-		txtIdPesquisado.setBounds(7, 221, 501, 22);
-		add(txtIdPesquisado);
-		txtIdPesquisado.setColumns(10);
 
-		JButton btnLimparExcluir = new JButton("Limpar");
+		JButton btnLimparExcluir = new JButton("Limpar os campos");
 		btnLimparExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				txtNomePesquisado.setText(null);
@@ -96,7 +92,7 @@ public class TelaConsultarCliente extends JPanel {
 		});
 
 		btnLimparExcluir.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnLimparExcluir.setBounds(816, 608, 140, 45);
+		btnLimparExcluir.setBounds(644, 563, 210, 45);
 		add(btnLimparExcluir);
 
 		JLabel lblImgForno = new JLabel("");
@@ -116,6 +112,12 @@ public class TelaConsultarCliente extends JPanel {
 		add(lblNomePesquisado);
 
 		txtNomePesquisado = new JTextField();
+		txtNomePesquisado.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				consultarClientes();
+			}
+		});
 		txtNomePesquisado.setColumns(10);
 		txtNomePesquisado.setBounds(7, 161, 501, 22);
 		add(txtNomePesquisado);
@@ -132,17 +134,6 @@ public class TelaConsultarCliente extends JPanel {
 		tblClientes.setBounds(7, 314, 501, 266);
 		add(tblClientes);
 
-		JButton btnPesquisar = new JButton("Pesquisar");
-		btnPesquisar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				consultarClientes();
-			}
-		});
-
-		btnPesquisar.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnPesquisar.setBounds(574, 608, 140, 45);
-		add(btnPesquisar);
-
 		JLabel lblPesquisarPorTelefone = new JLabel("Pesquisar por Telefone: ");
 		lblPesquisarPorTelefone.setHorizontalAlignment(SwingConstants.LEFT);
 		lblPesquisarPorTelefone.setFont(new Font("Tahoma", Font.PLAIN, 22));
@@ -157,13 +148,33 @@ public class TelaConsultarCliente extends JPanel {
 
 		try {
 			MaskFormatter mascaraTelefone = new MaskFormatter("(##)#####-####");
-
+			MaskFormatter mascaraId = new MaskFormatter("#########");
+			txtIdPesquisado = new JFormattedTextField(mascaraId);
 			formattedTextFieldTelefone = new JFormattedTextField(mascaraTelefone);
+			formattedTextFieldTelefone.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyReleased(KeyEvent e) {
+					consultarClientes();
+				}
+			});
 			formattedTextFieldTelefone.setFont(new Font("Tahoma", Font.PLAIN, 16));
 			formattedTextFieldTelefone.setBounds(7, 276, 140, 31);
 			formattedTextFieldTelefone.setFocusLostBehavior(JFormattedTextField.PERSIST);
 			add(formattedTextFieldTelefone);
 
+			txtIdPesquisado = new JFormattedTextField(mascaraId);
+			txtIdPesquisado.setFont(new Font("Tahoma", Font.PLAIN, 18));
+			txtIdPesquisado.setBounds(7, 221, 501, 22);
+			add(txtIdPesquisado);
+			txtIdPesquisado.setFocusLostBehavior(JFormattedTextField.PERSIST);
+			
+			txtIdPesquisado.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyReleased(KeyEvent arg0) {
+					consultarClientes();
+				}
+			});
+			
 		} catch (ParseException e) {
 			JOptionPane.showMessageDialog(null, "Ocorreu um erro no sistema, entre em contato com o administrador.");
 			System.out.println("Causa da exceção: " + e.getMessage());
@@ -214,8 +225,8 @@ public class TelaConsultarCliente extends JPanel {
 		if (txtNomePesquisado.getText() != null && !txtNomePesquisado.getText().isEmpty()) {
 			seletor.setNome(txtNomePesquisado.getText());
 		}
-		if (txtIdPesquisado.getText() != null && !txtIdPesquisado.getText().isEmpty()) {
-			seletor.setIdCliente(Integer.parseInt(txtIdPesquisado.getText()));
+		if (txtIdPesquisado.getText().replace(" ", "") != null && !txtIdPesquisado.getText().replace(" ", "").isEmpty()) {
+			seletor.setIdCliente(Integer.parseInt(txtIdPesquisado.getText().replace(" ", "")));
 		}
 		if (formattedTextFieldTelefone.getText() != null && !formattedTextFieldTelefone.getText().isEmpty()) {
 			seletor.setTelefone(formattedTextFieldTelefone.getText().replace(")", "").replace("(", "").replace("-", "")

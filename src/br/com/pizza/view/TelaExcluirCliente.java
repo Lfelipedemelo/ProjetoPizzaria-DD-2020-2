@@ -22,6 +22,7 @@ import java.awt.Dimension;
 import javax.swing.border.LineBorder;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.MaskFormatter;
 
 import br.com.pizza.controller.ClienteController;
 import br.com.pizza.model.vo.ClienteSeletor;
@@ -33,9 +34,12 @@ import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.text.ParseException;
 
 public class TelaExcluirCliente extends JPanel {
-	private JTextField txtIdExcluir;
+	private JFormattedTextField txtIdExcluir;
 	private JTextField txtNomePesquisado;
 	private JTable tblClientes;
 	private JFormattedTextField formattedTextFieldTelefone;
@@ -44,7 +48,13 @@ public class TelaExcluirCliente extends JPanel {
 	private static final int TAMANHO_PAGINA = 15;
 	private JLabel lblPaginaAtual;
 	private boolean limiteDeClientes = true;
+	private int clienteSelecionadoTabela;
+	private ClienteVO clienteSelecionado;
 
+	public ClienteVO getClienteSelecionado() {
+		return clienteSelecionado;
+	}
+	
 	/**
 	 * Create the panel.
 	 */
@@ -72,20 +82,16 @@ public class TelaExcluirCliente extends JPanel {
 		lblIdExcluir.setHorizontalAlignment(SwingConstants.LEFT);
 		add(lblIdExcluir);
 
-		txtIdExcluir = new JTextField();
-		txtIdExcluir.setBounds(7, 522, 501, 31);
-		add(txtIdExcluir);
-		txtIdExcluir.setColumns(10);
 
 		JButton btnExcluir = new JButton("Excluir");
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ClienteController clienteController = new ClienteController();
 				ClienteVO clienteVO = new ClienteVO();
-				if (txtIdExcluir.getText().isEmpty() ) {
+				if (txtIdExcluir.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Insira um id para excluir!");
 				} else {
-					clienteVO.setIdCliente(Integer.parseInt(txtIdExcluir.getText()));
+					clienteVO.setIdCliente(Integer.parseInt(txtIdExcluir.getText().replace(" ", "")));
 					if (clienteController.excluirCliente(clienteVO)) {
 						JOptionPane.showMessageDialog(null, "Exclu�do com sucesso!");
 						ClienteController controlador = new ClienteController();
@@ -141,6 +147,18 @@ public class TelaExcluirCliente extends JPanel {
 		add(txtNomePesquisado);
 
 		tblClientes = new JTable();
+		tblClientes.addMouseListener(new MouseAdapter() {
+
+
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				clienteSelecionadoTabela = tblClientes.getSelectedRow() - 1;
+				if (clienteSelecionadoTabela >= 0) {
+					clienteSelecionado = consultarClientes().get(clienteSelecionadoTabela);
+					txtIdExcluir.setText(String.valueOf(clienteSelecionado.getIdCliente()));
+				} 
+			}
+		});
 		tblClientes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tblClientes.setModel(new DefaultTableModel(new Object[][] { { "#ID", "Nome", "Telefone", "Endere\u00E7o" }, },
 				new String[] { "#ID", "Nome", "Telefone", "Endere\u00E7o" }));
@@ -186,11 +204,26 @@ public class TelaExcluirCliente extends JPanel {
 		btnAvancarPagina.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnAvancarPagina.setBounds(455, 495, 53, 23);
 		add(btnAvancarPagina);
+		
+		try {
+			MaskFormatter mascaraId = new MaskFormatter("#########");
+			txtIdExcluir = new JFormattedTextField(mascaraId);
+
+			txtIdExcluir = new JFormattedTextField(mascaraId);
+			txtIdExcluir.setFont(new Font("Tahoma", Font.PLAIN, 18));
+			txtIdExcluir.setBounds(7, 522, 501, 31);
+			add(txtIdExcluir);
+			txtIdExcluir.setFocusLostBehavior(JFormattedTextField.PERSIST);
+			
+		} catch (ParseException e) {
+			JOptionPane.showMessageDialog(null, "Ocorreu um erro no sistema, entre em contato com o administrador.");
+			System.out.println("Causa da exceção: " + e.getMessage());
+		}
 
 		consultarClientes();
 	}
 
-	protected void consultarClientes() {
+	protected List<ClienteVO> consultarClientes() {
 		lblPaginaAtual.setText(paginaAtual + "");
 
 		ClienteController controlador = new ClienteController();
@@ -202,11 +235,11 @@ public class TelaExcluirCliente extends JPanel {
 		if (txtNomePesquisado.getText() != null && !txtNomePesquisado.getText().isEmpty()) {
 			seletor.setNome(txtNomePesquisado.getText());
 		}
-		
 
 		// AQUI é feita a consulta dos produtos e atualização na tabela
-		List<ClienteVO> Clientes = controlador.listarClientes(seletor);
-		atualizarTabelaClientes(Clientes);
+		List<ClienteVO> clientes = controlador.listarClientes(seletor);
+		atualizarTabelaClientes(clientes);
+		return clientes;
 	}
 
 	protected void atualizarTabelaClientes(List<ClienteVO> clientes) {

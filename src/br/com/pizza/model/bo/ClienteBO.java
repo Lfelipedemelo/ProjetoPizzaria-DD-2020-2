@@ -64,7 +64,7 @@ public class ClienteBO {
 				return "Digite um Telefone válido!";
 			} else {
 					clienteDAO.alterar(clienteVO);
-					return "Cliente cadastrado com sucesso!";
+					return "Cliente editado com sucesso!";
 		
 		
 	}
