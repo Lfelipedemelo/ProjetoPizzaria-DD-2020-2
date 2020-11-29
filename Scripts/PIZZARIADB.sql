@@ -48,6 +48,7 @@ insert into PIZZA (sabor1, sabor2, sabor3, tamanho, valor, observacoes, telefone
 insert into PIZZA (sabor1, sabor2, sabor3, tamanho, valor, observacoes, telefonecliente) values ('LOMBINHO', 'MARGUERITA', 'MUSSARELA', 'MEDIA', 46.90, '', '48984554422');
 
 
+
 SELECT * FROM CLIENTE;
 insert into CLIENTE VALUES (1, 'Bryan Richard Lohn', 48999216672, 'servidão são Lázaro');
 insert into CLIENTE VALUES (2, 'Luis Felipe', 48999970889, 'servidão seu zico');
