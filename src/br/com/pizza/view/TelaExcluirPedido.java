@@ -39,7 +39,7 @@ public class TelaExcluirPedido extends JPanel {
 	private JTable tblPedidos;
 	private JTextField txtPedidoSelecionado;
 	private JFormattedTextField txtPesquisarPorId;
-	private static final int TAMANHO_PAGINA = 10;
+	private static final int TAMANHO_PAGINA = 25;
 
 	private int paginaAtual = 1;
 	private boolean limiteDePedidos = true;
@@ -84,7 +84,7 @@ public class TelaExcluirPedido extends JPanel {
 		tblPedidos.setModel(new DefaultTableModel(
 				new Object[][] { { "n\u00BA Pedido", "Tamanho", "Sabor_1", "Sabor_2", "Sabor_3", "N\u00BA Cliente" }, },
 				new String[] { "N\u00BA Pedido", "Tamanho", "Sabor_1", "Sabor_2", "Sabor_3", "N\u00BA Cliente" }));
-		tblPedidos.setBounds(10, 162, 602, 450);
+		tblPedidos.setBounds(10, 162, 602, 416);
 		add(tblPedidos);
 
 		JPanel panel = new JPanel();
@@ -193,7 +193,7 @@ public class TelaExcluirPedido extends JPanel {
 		lblPaginaAtual = new JLabel("1");
 		lblPaginaAtual.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPaginaAtual.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblPaginaAtual.setBounds(10, 621, 602, 22);
+		lblPaginaAtual.setBounds(10, 603, 602, 22);
 		add(lblPaginaAtual);
 
 		JButton btnProximaPagina = new JButton(">");
@@ -205,7 +205,7 @@ public class TelaExcluirPedido extends JPanel {
 				}
 			}
 		});
-		btnProximaPagina.setBounds(332, 621, 51, 22);
+		btnProximaPagina.setBounds(329, 603, 51, 22);
 		add(btnProximaPagina);
 
 		JButton btnPaginaAnterior = new JButton("<");
@@ -220,7 +220,7 @@ public class TelaExcluirPedido extends JPanel {
 				}
 			}
 		});
-		btnPaginaAnterior.setBounds(235, 621, 51, 22);
+		btnPaginaAnterior.setBounds(232, 603, 51, 22);
 		add(btnPaginaAnterior);
 
 		consultarPedidos();

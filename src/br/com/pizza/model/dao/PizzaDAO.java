@@ -194,6 +194,14 @@ public class PizzaDAO implements BaseDAO<PizzaVO> {
 			sql += "TELEFONECLIENTE LIKE '" + seletor.getTelefoneCliente() + "%'";
 			primeiro = false;
 		}
+		
+		if (seletor.getTamanho() != null && seletor.getTamanho().trim().length() > 0) {
+			if (!primeiro) {
+				sql += " AND ";
+			}
+			sql += "TAMANHO = '" + seletor.getTamanho()+ "'";
+			primeiro = false;
+		}
 
 		return sql;
 	}

@@ -29,6 +29,9 @@ public class PizzaSeletor {
 		if ((this.telefoneCliente != null) && (this.telefoneCliente.trim().length() > 0)) {
 			return true;
 		}
+		if (this.tamanho != null && this.tamanho.trim().length() > 0) {
+			return true;
+		}
 		return false;
 	}
 	

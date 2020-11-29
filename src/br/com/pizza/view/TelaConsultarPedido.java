@@ -31,6 +31,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class TelaConsultarPedido extends JPanel {
 	private JTable tblPedidos;
@@ -43,7 +49,7 @@ public class TelaConsultarPedido extends JPanel {
 	private JComboBox cbTamanho;
 	private String tamanhoPesquisa;
 
-	private static final int TAMANHO_PAGINA = 10;
+	private static final int TAMANHO_PAGINA = 22;
 
 
 	public TelaConsultarPedido() {
@@ -143,19 +149,15 @@ public class TelaConsultarPedido extends JPanel {
 					if(cbTamanho.getSelectedIndex() == 0) {
 						tamanhoPesquisa = null;
 					} else if(cbTamanho.getSelectedIndex() == 1) {
-						tamanhoPesquisa = "BROTO";
-						consultarPedidos();
+						tamanhoPesquisa = "BROTO";			
 					} else if(cbTamanho.getSelectedIndex() == 2) {
-						tamanhoPesquisa = "MEDIA";
-						consultarPedidos();
+						tamanhoPesquisa = "MEDIA";					
 					} else if(cbTamanho.getSelectedIndex() == 3) {
-						tamanhoPesquisa = "GRANDE";
-						consultarPedidos();
+						tamanhoPesquisa = "GRANDE";				
 					} else if(cbTamanho.getSelectedIndex() == 4) {
 						tamanhoPesquisa = "GIGANTE";
-						consultarPedidos();
 					}
-					JOptionPane.showMessageDialog(null, tamanhoPesquisa);
+					consultarPedidos();
 				}
 			});
 			cbTamanho.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -217,7 +219,9 @@ public class TelaConsultarPedido extends JPanel {
 				&& !limparMascaraTelefone(txtNumeroCliente.getText()).isEmpty()) {
 			seletor.setTelefoneCliente(limparMascaraTelefone(txtNumeroCliente.getText()));
 		}
-
+		if (cbTamanho.getSelectedIndex() != 0) {
+			seletor.setTamanho(tamanhoPesquisa);
+		}
 		// AQUI é feita a consulta dos produtos e atualização na tabela
 		List<PizzaVO> pedidos = controlador.listarPedidos(seletor);
 		atualizarTabelaPedidos(pedidos);
