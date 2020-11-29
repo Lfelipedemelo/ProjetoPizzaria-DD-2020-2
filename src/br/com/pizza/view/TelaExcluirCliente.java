@@ -88,7 +88,7 @@ public class TelaExcluirCliente extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				ClienteController clienteController = new ClienteController();
 				ClienteVO clienteVO = new ClienteVO();
-				if (txtIdExcluir.getText().isEmpty()) {
+				if (txtIdExcluir.getText().replace(" ",	"").isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Insira um id para excluir!");
 				} else {
 					clienteVO.setIdCliente(Integer.parseInt(txtIdExcluir.getText().replace(" ", "")));

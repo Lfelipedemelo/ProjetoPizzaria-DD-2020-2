@@ -180,6 +180,8 @@ public class TelaExcluirPedido extends JPanel {
 						+ pedidoSelecionado.getIdPizza() + "\nEsta operação é irreversivel!") == 0) {
 					if (controlador.excluirPedido(pedidoSelecionado.getIdPizza())) {
 						JOptionPane.showMessageDialog(null, "Pedido excluido com sucesso!");
+						txtPedidoSelecionado.setText("");
+						btnExcluir.setEnabled(false);
 						consultarPedidos();
 					}
 				}
