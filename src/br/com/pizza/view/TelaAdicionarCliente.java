@@ -28,6 +28,8 @@ import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.awt.event.ActionEvent;
 import javax.swing.JFormattedTextField;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class TelaAdicionarCliente extends JPanel {
 	private JTextField txtNome;
@@ -77,6 +79,15 @@ public class TelaAdicionarCliente extends JPanel {
 		add(lblEndereo);
 		
 		txtEndereco = new JTextField();
+		txtEndereco.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				if(txtEndereco.getText().length() == 250 || txtEndereco.getText().length() > 250 )
+	            {
+	                arg0.consume();
+	            }
+			}
+		});
 		txtEndereco.setBounds(7, 444, 501, 31);
 		txtEndereco.setColumns(10);
 		add(txtEndereco);
