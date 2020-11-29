@@ -88,9 +88,8 @@ public class TelaAdicionarCliente extends JPanel {
 				ClienteVO clienteVO = new ClienteVO();
 				String telefone = new String();
 				clienteVO.setNome(txtNome.getText() + " " + txtSobrenome.getText());
-				clienteVO.setTelefone(formattedTextFieldTelefone.getText().replace("(","").replace(")", "").replace("-", ""));
-				clienteVO.setEndereco(txtEndereco.getText());	
-				
+				clienteVO.setTelefone(formattedTextFieldTelefone.getText().replace("(","").replace(")", "").replace("-", "").replace(" ", ""));	
+				clienteVO.setEndereco(txtEndereco.getText());
 				JOptionPane.showMessageDialog(null, clienteController.cadastrarCliente(clienteVO));
 			}
 		});
@@ -138,6 +137,7 @@ public class TelaAdicionarCliente extends JPanel {
 		formattedTextFieldTelefone = new JFormattedTextField(mascaraTelefone);
 		formattedTextFieldTelefone.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		formattedTextFieldTelefone.setBounds(7, 376, 140, 31);
+		formattedTextFieldTelefone.setFocusLostBehavior(JFormattedTextField.PERSIST);
 		add(formattedTextFieldTelefone);
 	} catch (ParseException e) {
 		JOptionPane.showMessageDialog(null, "Ocorreu um erro no campo Telefone, entre em contato com o administrador.");
