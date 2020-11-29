@@ -82,7 +82,7 @@ public class TelaAdicionarCliente extends JPanel {
 		txtEndereco.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent arg0) {
-				if(txtEndereco.getText().length() == 250 || txtEndereco.getText().length() > 250 )
+				if(txtEndereco.getText().length() == 150 || txtEndereco.getText().length() > 150 )
 	            {
 	                arg0.consume();
 	            }
