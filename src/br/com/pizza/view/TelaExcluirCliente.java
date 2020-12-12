@@ -92,6 +92,8 @@ public class TelaExcluirCliente extends JPanel {
 					JOptionPane.showMessageDialog(null, "Insira um id para excluir!");
 				} else {
 					clienteVO.setIdCliente(Integer.parseInt(txtIdExcluir.getText().replace(" ", "")));
+					if (JOptionPane.showConfirmDialog(null, "Deseja excluir o cliente de id:      "
+							+ txtIdExcluir.getText() + "?") == 0) {
 					if (clienteController.excluirCliente(clienteVO)) {
 						JOptionPane.showMessageDialog(null, "Excluído com sucesso!");
 						ClienteController controlador = new ClienteController();
@@ -101,7 +103,7 @@ public class TelaExcluirCliente extends JPanel {
 				} else {
 					JOptionPane.showMessageDialog(null, "Erro ao tentar Excluir um cliente!");
 				}
-				}}}
+				}}}}
 		);
 		btnExcluir.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnExcluir.setBounds(368, 582, 140, 45);

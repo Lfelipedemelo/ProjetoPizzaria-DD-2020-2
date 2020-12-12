@@ -36,7 +36,8 @@ public class TelaAdicionarCliente extends JPanel {
 	private JTextField txtEndereco;
 	private JTextField txtSobrenome;
 	private JFormattedTextField formattedTextFieldTelefone;
-	String primeiroNome;
+	String Nome;
+	String Sobrenome;
 
 	/**
 	 * Create the panel.
@@ -96,9 +97,10 @@ public class TelaAdicionarCliente extends JPanel {
 		JButton btnSalvarAdicionar = new JButton("Salvar");
 		btnSalvarAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				primeiroNome = txtNome.getText();
-				if(!primeiroNome.substring(0, 1).equals(primeiroNome.substring(0, 1).toUpperCase())) {
-					JOptionPane.showMessageDialog(null, "O nome deve iniciar com uma letra maiuscula");
+				Nome = txtNome.getText();
+				Sobrenome = txtSobrenome.getText();
+				if(!Nome.substring(0, 1).equals(Nome.substring(0, 1).toUpperCase()) || !Sobrenome.substring(0, 1).equals(Sobrenome.substring(0, 1).toUpperCase())) {
+					JOptionPane.showMessageDialog(null, "Os nomes devem ser iniciados com letra maiúscula.");
 				} else {
 					ClienteController clienteController = new ClienteController();
 					ClienteVO clienteVO = new ClienteVO();
@@ -109,7 +111,7 @@ public class TelaAdicionarCliente extends JPanel {
 					JOptionPane.showMessageDialog(null, clienteController.cadastrarCliente(clienteVO));
 				}
 			}
-		});
+			});
 		btnSalvarAdicionar.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnSalvarAdicionar.setBounds(204, 577, 140, 45);
 		add(btnSalvarAdicionar);
