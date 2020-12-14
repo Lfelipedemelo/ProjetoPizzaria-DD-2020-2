@@ -223,7 +223,7 @@ public class ClienteDAO implements BaseDAO<ClienteVO> {
 			if (!primeiro) {
 				sql += " AND ";
 			}
-			sql += "NOME LIKE '" + seletor.getNome() + "%'";
+			sql += "NOME LIKE '%" + seletor.getNome() + "%'";
 			primeiro = false;
 		}
 

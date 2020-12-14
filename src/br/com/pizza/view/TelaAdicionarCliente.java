@@ -45,77 +45,79 @@ public class TelaAdicionarCliente extends JPanel {
 	public TelaAdicionarCliente() {
 		setBorder(UIManager.getBorder("Menu.border"));
 		setLayout(null);
-		
+
 		JPanel panel_Titulo = new JPanel();
 		panel_Titulo.setBounds(7, 7, 985, 118);
 		panel_Titulo.setBackground(Color.LIGHT_GRAY);
 		add(panel_Titulo);
 		panel_Titulo.setLayout(null);
-		
+
 		JLabel lblImgTitulo = new JLabel("Cadastro de Cliente");
 		lblImgTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblImgTitulo.setFont(new Font("Tahoma", Font.PLAIN, 72));
-		lblImgTitulo.setIcon(new ImageIcon(TelaAdicionarCliente.class.getResource("/br/com/pizza/icons/cliente-titulo.png")));
+		lblImgTitulo.setIcon(
+				new ImageIcon(TelaAdicionarCliente.class.getResource("/br/com/pizza/icons/cliente-titulo.png")));
 		lblImgTitulo.setBounds(0, 0, 985, 118);
 		panel_Titulo.add(lblImgTitulo);
-		
+
 		JLabel lblNome = new JLabel("Nome: ");
 		lblNome.setBounds(5, 200, 72, 27);
 		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		lblNome.setHorizontalAlignment(SwingConstants.LEFT);
 		add(lblNome);
-		
+
 		txtNome = new JTextField();
 		txtNome.setBounds(5, 231, 501, 31);
 		add(txtNome);
 		txtNome.setColumns(10);
-		
+
 		JLabel lblTelefone = new JLabel("Telefone: ");
 		lblTelefone.setBounds(7, 339, 157, 31);
 		lblTelefone.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		add(lblTelefone);
-		
+
 		JLabel lblEndereo = new JLabel("Endere\u00E7o: ");
 		lblEndereo.setBounds(7, 409, 157, 31);
 		lblEndereo.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		add(lblEndereo);
-		
+
 		txtEndereco = new JTextField();
 		txtEndereco.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent arg0) {
-				if(txtEndereco.getText().length() == 150 || txtEndereco.getText().length() > 150 )
-	            {
-	                arg0.consume();
-	            }
+				if (txtEndereco.getText().length() == 150 || txtEndereco.getText().length() > 150) {
+					arg0.consume();
+				}
 			}
 		});
 		txtEndereco.setBounds(7, 444, 501, 31);
 		txtEndereco.setColumns(10);
 		add(txtEndereco);
-		
+
 		JButton btnSalvarAdicionar = new JButton("Salvar");
 		btnSalvarAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Nome = txtNome.getText();
 				Sobrenome = txtSobrenome.getText();
-				if(!Nome.substring(0, 1).equals(Nome.substring(0, 1).toUpperCase()) || !Sobrenome.substring(0, 1).equals(Sobrenome.substring(0, 1).toUpperCase())) {
+				if (!Nome.substring(0, 1).equals(Nome.substring(0, 1).toUpperCase())
+						|| !Sobrenome.substring(0, 1).equals(Sobrenome.substring(0, 1).toUpperCase())) {
 					JOptionPane.showMessageDialog(null, "Os nomes devem ser iniciados com letra mai�scula.");
 				} else {
 					ClienteController clienteController = new ClienteController();
 					ClienteVO clienteVO = new ClienteVO();
 					String telefone = new String();
-					clienteVO.setNome(txtNome.getText() + " " + txtSobrenome.getText());
-					clienteVO.setTelefone(formattedTextFieldTelefone.getText().replace("(","").replace(")", "").replace("-", "").replace(" ", ""));	
-					clienteVO.setEndereco(txtEndereco.getText());
+					clienteVO.setNome(formatarPalavras(txtNome.getText() + " " + txtSobrenome.getText()));
+					clienteVO.setTelefone(formattedTextFieldTelefone.getText().replace("(", "").replace(")", "")
+							.replace("-", "").replace(" ", ""));
+					clienteVO.setEndereco(formatarPalavras(txtEndereco.getText()));
 					JOptionPane.showMessageDialog(null, clienteController.cadastrarCliente(clienteVO));
 				}
 			}
-			});
+		});
 		btnSalvarAdicionar.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnSalvarAdicionar.setBounds(204, 577, 140, 45);
 		add(btnSalvarAdicionar);
-		
+
 		JButton btnLimparAdicionar = new JButton("Limpar");
 		btnLimparAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -128,38 +130,54 @@ public class TelaAdicionarCliente extends JPanel {
 		btnLimparAdicionar.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnLimparAdicionar.setBounds(583, 582, 140, 45);
 		add(btnLimparAdicionar);
-		
+
 		JLabel lblSobrenome = new JLabel("Sobrenome: ");
 		lblSobrenome.setBounds(6, 272, 163, 27);
 		lblSobrenome.setHorizontalAlignment(SwingConstants.LEFT);
 		lblSobrenome.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		add(lblSobrenome);
-		
+
 		txtSobrenome = new JTextField();
 		txtSobrenome.setBounds(6, 303, 501, 31);
 		txtSobrenome.setColumns(10);
 		add(txtSobrenome);
-		
+
 		JLabel lblImgForno = new JLabel("");
 		lblImgForno.setBounds(616, 139, 273, 399);
 		lblImgForno.setIcon(new ImageIcon(TelaAdicionarCliente.class.getResource("/br/com/pizza/icons/forno.png")));
 		add(lblImgForno);
-		
+
 		JPanel panel_BordaForno = new JPanel();
 		panel_BordaForno.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		panel_BordaForno.setBounds(574, 192, 349, 311);
 		add(panel_BordaForno);
-		
+
 		try {
 			MaskFormatter mascaraTelefone = new MaskFormatter("(##)#####-####");
-		
-		formattedTextFieldTelefone = new JFormattedTextField(mascaraTelefone);
-		formattedTextFieldTelefone.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		formattedTextFieldTelefone.setBounds(7, 376, 140, 31);
-		formattedTextFieldTelefone.setFocusLostBehavior(JFormattedTextField.PERSIST);
-		add(formattedTextFieldTelefone);
-	} catch (ParseException e) {
-		JOptionPane.showMessageDialog(null, "Ocorreu um erro no campo Telefone, entre em contato com o administrador.");
-		System.out.println("Causa da exceção: " + e.getMessage());
-		
-}}}
+
+			formattedTextFieldTelefone = new JFormattedTextField(mascaraTelefone);
+			formattedTextFieldTelefone.setFont(new Font("Tahoma", Font.PLAIN, 16));
+			formattedTextFieldTelefone.setBounds(7, 376, 140, 31);
+			formattedTextFieldTelefone.setFocusLostBehavior(JFormattedTextField.PERSIST);
+			add(formattedTextFieldTelefone);
+		} catch (ParseException e) {
+			JOptionPane.showMessageDialog(null,
+					"Ocorreu um erro no campo Telefone, entre em contato com o administrador.");
+			System.out.println("Causa da exceção: " + e.getMessage());
+
+		}
+
+	}
+
+	private String formatarPalavras(String str) {
+		String[] array = str.split(" ");
+		String nome = "";
+		for (int i = 0; i < str.split(" ").length; i++) {
+			nome += array[i].substring(0, 1).toUpperCase() + array[i].substring(1).toLowerCase();
+			if (i < str.split(" ").length - 1) {
+				nome += " ";
+			}
+		}
+		return nome;
+	}
+}
