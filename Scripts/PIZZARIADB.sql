@@ -111,4 +111,5 @@ insert into CLIENTE VALUES (58, 'Rúbeo Hagrid', 48991234568, 'Rua do Bagre');
 
 SELECT * FROM PIZZA;
 
+select * from cliente where NOME like '%SILVA%'; 
 
