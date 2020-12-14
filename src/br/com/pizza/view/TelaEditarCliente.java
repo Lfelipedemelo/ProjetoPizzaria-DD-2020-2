@@ -95,8 +95,8 @@ public class TelaEditarCliente extends JPanel {
 				 ClienteController clienteController = new ClienteController();
 				 ClienteVO clienteAtualizadoVO = new ClienteVO();
 				 clienteAtualizadoVO.setIdCliente(idClientePesquisado);
-				 clienteAtualizadoVO.setNome(txtNomeAtualizado.getText() + " " + txtSobrenomeAtualizado.getText());
-				 clienteAtualizadoVO.setEndereco(txtEnderecoAtualizado.getText());
+				 clienteAtualizadoVO.setNome(formatarPalavras(txtNomeAtualizado.getText() + " " + txtSobrenomeAtualizado.getText()));
+				 clienteAtualizadoVO.setEndereco(formatarPalavras(txtEnderecoAtualizado.getText()));
 				 clienteAtualizadoVO.setTelefone(limparMascaraTelefone(formattedTextFieldTelefoneAtualizado.getText()));
 				 JOptionPane.showMessageDialog(null, clienteController.atualizar(clienteAtualizadoVO));
 				
@@ -220,5 +220,18 @@ public class TelaEditarCliente extends JPanel {
 		formattedTextFieldTelefoneAtualizado.setValue(null);
 		txtNomeAtualizado.setText("");
 		txtSobrenomeAtualizado.setText("");
-	}	
+	}
+	
+	private String formatarPalavras(String str) {
+		String[] array = str.split(" ");
+		String nome = "";
+		for (int i = 0; i < str.split(" ").length; i++) {
+			nome += array[i].substring(0, 1).toUpperCase() + array[i].substring(1).toLowerCase();
+			if (i < str.split(" ").length - 1) {
+				nome += " ";
+			}
+		}
+		return nome;
+	}
+	
 }
