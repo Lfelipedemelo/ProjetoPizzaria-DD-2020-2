@@ -269,7 +269,7 @@ public class TelaExcluirPedido extends JPanel {
 
 		for (PizzaVO pedido : pedidos) {
 			String[] novaLinha = new String[] { pedido.getIdPizza() + "", pedido.getTamanho(), pedido.getSabor1(),
-					pedido.getSabor2(), pedido.getSabor3(), pedido.getTelefoneCliente(), pedido.getObservacoes() };
+					pedido.getSabor2(), pedido.getSabor3(), adicionarMascara(pedido.getTelefoneCliente()), pedido.getObservacoes() };
 			modelo.addRow(novaLinha);
 		}
 		if (pedidos.size() < TAMANHO_PAGINA) {
@@ -288,5 +288,20 @@ public class TelaExcluirPedido extends JPanel {
 
 	protected String limparMascaraTelefone(String telefone) {
 		return telefone.replace(")", "").replace("(", "").replace("-", "").replace(" ", "");
+	}
+	
+	private String adicionarMascara(String str) {
+		String novaString = new String();
+		for(int i = 0; i < str.length(); i++) {
+			if(i == 0) {
+				novaString += "(";
+			} else if(i == 2) {
+				novaString += ")";
+			} else if(i == 7) {
+				novaString += "-";
+			}
+			novaString += str.charAt(i);
+		}
+		return novaString;
 	}
 }

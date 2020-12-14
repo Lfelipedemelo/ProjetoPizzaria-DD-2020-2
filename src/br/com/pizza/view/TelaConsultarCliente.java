@@ -246,7 +246,7 @@ public class TelaConsultarCliente extends JPanel {
 
 		for (ClienteVO cliente : clientes) {
 			String[] novaLinha = new String[] { cliente.getIdCliente() + "", cliente.getNome(),
-					cliente.getTelefone() + "", cliente.getEndereco() + "", };
+					adicionarMascara(cliente.getTelefone()) + "", cliente.getEndereco() + "", };
 			modelo.addRow(novaLinha);
 		}
 		if (clientes.size() < TAMANHO_PAGINA) {
@@ -260,5 +260,20 @@ public class TelaConsultarCliente extends JPanel {
 	private void limparTabela() {
 		tblClientes.setModel(new DefaultTableModel(new String[][] { { "#ID", "Nome", "Telefone", "Endere\u00E7o" }, },
 				new String[] { "#ID", "Nome", "Telefone", "Endere\u00E7o" }));
+	}
+	
+	private String adicionarMascara(String str) {
+		String novaString = new String();
+		for(int i = 0; i < str.length(); i++) {
+			if(i == 0) {
+				novaString += "(";
+			} else if(i == 2) {
+				novaString += ")";
+			} else if(i == 7) {
+				novaString += "-";
+			}
+			novaString += str.charAt(i);
+		}
+		return novaString;
 	}
 }
