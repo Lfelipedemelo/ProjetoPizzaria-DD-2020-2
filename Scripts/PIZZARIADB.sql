@@ -24,28 +24,28 @@ create table Cliente (
     , primary key(IdCliente)
 );
 
-insert into PIZZA (sabor1, sabor2, sabor3, tamanho, valor, observacoes, telefonecliente) values ('ALHO E ÓLEO', 'BACON', 'BOLONHESA', 'GIGANTE', 56.90, '', '48999216672');
-insert into PIZZA (sabor1, sabor2, sabor3, tamanho, valor, observacoes, telefonecliente) values ('BRÓCOLIS', 'CALABRESA', 'FRANGO', 'GRANDE', 52.90, '', '48999970889');
-insert into PIZZA (sabor1, sabor2, sabor3, tamanho, valor, observacoes, telefonecliente) values ('LOMBINHO', 'MARGUERITA', 'MUSSARELA', 'MEDIA', 46.90, '', '48984583128');
-insert into PIZZA (sabor1, sabor2, tamanho, valor, observacoes, telefonecliente) values ('PORTUGUESA', 'QUATRO QUEIJOS', 'MEDIA', 46.90, '', '49998801520');
-insert into PIZZA (sabor1, sabor2, sabor3, tamanho, valor, observacoes, telefonecliente) values ('ALHO E ÓLEO', 'BACON', 'BOLONHESA', 'GIGANTE', 56.90, '', '48999216672');
-insert into PIZZA (sabor1, sabor2, sabor3, tamanho, valor, observacoes, telefonecliente) values ('BRÓCOLIS', 'CALABRESA', 'FRANGO', 'GRANDE', 52.90, '', '48996543211');
-insert into PIZZA (sabor1, sabor2, sabor3, tamanho, valor, observacoes, telefonecliente) values ('LOMBINHO', 'MARGUERITA', 'MUSSARELA', 'MEDIA', 46.90, '', '48938797001');
-insert into PIZZA (sabor1, tamanho, valor, observacoes, telefonecliente) values ('PORTUGUESA', 'BROTO', 32.90, '', '49998801520');
-insert into PIZZA (sabor1, sabor2, sabor3, tamanho, valor, observacoes, telefonecliente) values ('ALHO E ÓLEO', 'BACON', 'BOLONHESA', 'GIGANTE', 56.90, '', '48999216672');
-insert into PIZZA (sabor1, sabor2, sabor3, tamanho, valor, observacoes, telefonecliente) values ('BRÓCOLIS', 'CALABRESA', 'FRANGO', 'GRANDE', 52.90, '', '47985283020');
-insert into PIZZA (sabor1, sabor2, sabor3, tamanho, valor, observacoes, telefonecliente) values ('LOMBINHO', 'MARGUERITA', 'MUSSARELA', 'MEDIA', 46.90, '', '48984554422');
-insert into PIZZA (sabor1, sabor2, sabor3, tamanho, valor, observacoes, telefonecliente) values ('ALHO E ÓLEO', 'BACON', 'BOLONHESA', 'GIGANTE', 56.90, '', '48999216672');
-insert into PIZZA (sabor1, sabor2, sabor3, tamanho, valor, observacoes, telefonecliente) values ('BRÓCOLIS', 'CALABRESA', 'FRANGO', 'GRANDE', 52.90, '', '48999999999');
-insert into PIZZA (sabor1, sabor2, sabor3, tamanho, valor, observacoes, telefonecliente) values ('LOMBINHO', 'MARGUERITA', 'MUSSARELA', 'MEDIA', 46.90, '', '48984583128');
-insert into PIZZA (sabor1, sabor2, tamanho, valor, observacoes, telefonecliente) values ('PORTUGUESA', 'QUATRO QUEIJOS', 'MEDIA', 46.90, '', '49998801520');
-insert into PIZZA (sabor1, sabor2, sabor3, tamanho, valor, observacoes, telefonecliente) values ('ALHO E ÓLEO', 'BACON', 'BOLONHESA', 'GIGANTE', 56.90, '', '48998805020');
-insert into PIZZA (sabor1, sabor2, sabor3, tamanho, valor, observacoes, telefonecliente) values ('BRÓCOLIS', 'CALABRESA', 'FRANGO', 'GRANDE', 52.90, '', '48996609787');
-insert into PIZZA (sabor1, sabor2, sabor3, tamanho, valor, observacoes, telefonecliente) values ('LOMBINHO', 'MARGUERITA', 'MUSSARELA', 'MEDIA', 46.90, '', '48938797001');
-insert into PIZZA (sabor1, tamanho, valor, observacoes, telefonecliente) values ('PORTUGUESA', 'BROTO', 32.90, '', '48991162738');
-insert into PIZZA (sabor1, sabor2, sabor3, tamanho, valor, observacoes, telefonecliente) values ('ALHO E ÓLEO', 'BACON', 'BOLONHESA', 'GIGANTE', 56.90, '', '48991415161');
-insert into PIZZA (sabor1, sabor2, sabor3, tamanho, valor, observacoes, telefonecliente) values ('BRÓCOLIS', 'CALABRESA', 'FRANGO', 'GRANDE', 52.90, '', '48933044144');
-insert into PIZZA (sabor1, sabor2, sabor3, tamanho, valor, observacoes, telefonecliente) values ('LOMBINHO', 'MARGUERITA', 'MUSSARELA', 'MEDIA', 46.90, '', '48984554422');
+insert into PIZZA (sabor1, sabor2, sabor3, tamanho, valor, observacoes, telefonecliente) values ('Alho e Óleo', 'Bacon', 'Bolonhesa', 'Gigante', 56.90, '', '48999216672');
+insert into PIZZA (sabor1, sabor2, sabor3, tamanho, valor, observacoes, telefonecliente) values ('Brócolis', 'Calabresa', 'Frango', 'Grande', 52.90, '', '48999970889');
+insert into PIZZA (sabor1, sabor2, sabor3, tamanho, valor, observacoes, telefonecliente) values ('Lombinho', 'Portuguesa', 'Mussarela', 'Média', 46.90, '', '48984583128');
+insert into PIZZA (sabor1, sabor2, tamanho, valor, observacoes, telefonecliente) values ('Portuguesa', 'Quatro Queijos', 'Média', 46.90, '', '49998801520');
+insert into PIZZA (sabor1, sabor2, sabor3, tamanho, valor, observacoes, telefonecliente) values ('Alho e Óleo', 'Bacon', 'Bolonhesa', 'Gigante', 56.90, '', '48999216672');
+insert into PIZZA (sabor1, sabor2, sabor3, tamanho, valor, observacoes, telefonecliente) values ('Brócolis', 'Calabresa', 'Frango', 'Grande', 52.90, '', '48996543211');
+insert into PIZZA (sabor1, sabor2, sabor3, tamanho, valor, observacoes, telefonecliente) values ('Lombinho', 'Portuguesa', 'Mussarela', 'Média', 46.90, '', '48938797001');
+insert into PIZZA (sabor1, tamanho, valor, observacoes, telefonecliente) values ('Portuguesa', 'Broto', 32.90, '', '49998801520');
+insert into PIZZA (sabor1, sabor2, sabor3, tamanho, valor, observacoes, telefonecliente) values ('Alho e Óleo', 'Bacon', 'Bolonhesa', 'Gigante', 56.90, '', '48999216672');
+insert into PIZZA (sabor1, sabor2, sabor3, tamanho, valor, observacoes, telefonecliente) values ('Brócolis', 'Calabresa', 'Frango', 'Grande', 52.90, '', '47985283020');
+insert into PIZZA (sabor1, sabor2, sabor3, tamanho, valor, observacoes, telefonecliente) values ('Lombinho', 'Portuguesa', 'Mussarela', 'Média', 46.90, '', '48984554422');
+insert into PIZZA (sabor1, sabor2, sabor3, tamanho, valor, observacoes, telefonecliente) values ('Alho e Óleo', 'Bacon', 'Bolonhesa', 'Gigante', 56.90, '', '48999216672');
+insert into PIZZA (sabor1, sabor2, sabor3, tamanho, valor, observacoes, telefonecliente) values ('Brócolis', 'Calabresa', 'Frango', 'Grande', 52.90, '', '48999999999');
+insert into PIZZA (sabor1, sabor2, sabor3, tamanho, valor, observacoes, telefonecliente) values ('Lombinho', 'Portuguesa', 'Mussarela', 'Média', 46.90, '', '48984583128');
+insert into PIZZA (sabor1, sabor2, tamanho, valor, observacoes, telefonecliente) values ('Portuguesa', 'Quatro Queijos', 'Média', 46.90, '', '49998801520');
+insert into PIZZA (sabor1, sabor2, sabor3, tamanho, valor, observacoes, telefonecliente) values ('Alho e Óleo', 'Bacon', 'Bolonhesa', 'Gigante', 56.90, '', '48998805020');
+insert into PIZZA (sabor1, sabor2, sabor3, tamanho, valor, observacoes, telefonecliente) values ('Brócolis', 'Calabresa', 'Frango', 'Grande', 52.90, '', '48996609787');
+insert into PIZZA (sabor1, sabor2, sabor3, tamanho, valor, observacoes, telefonecliente) values ('Lombinho', 'Portuguesa', 'Mussarela', 'Média', 46.90, '', '48938797001');
+insert into PIZZA (sabor1, tamanho, valor, observacoes, telefonecliente) values ('Portuguesa', 'Broto', 32.90, '', '48991162738');
+insert into PIZZA (sabor1, sabor2, sabor3, tamanho, valor, observacoes, telefonecliente) values ('Alho e Óleo', 'Bacon', 'Bolonhesa', 'Gigante', 56.90, '', '48991415161');
+insert into PIZZA (sabor1, sabor2, sabor3, tamanho, valor, observacoes, telefonecliente) values ('Brócolis', 'Calabresa', 'Frango', 'Grande', 52.90, '', '48933044144');
+insert into PIZZA (sabor1, sabor2, sabor3, tamanho, valor, observacoes, telefonecliente) values ('Lombinho', 'Portuguesa', 'Mussarela', 'Média', 46.90, '', '48984554422');
 
 
 
