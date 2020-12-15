@@ -17,10 +17,10 @@ public class PizzaController {
 				|| isNullOrEmpty(pVo.getTamanho()) || pVo.getValor() == null || pVo.getTelefoneCliente().isEmpty()) {
 			return "Não foi possivel inserir o pedido";
 		}
-		if (pVo.getSabor2().equals("SELECIONE UM SABOR")) {
+		if (pVo.getSabor2().equals("Selecione um sabor")) {
 			pVo.setSabor2("");
 		}
-		if (pVo.getSabor3().equals("SELECIONE UM SABOR")) {
+		if (pVo.getSabor3().equals("Selecione um sabor")) {
 			pVo.setSabor3("");
 		}
 		return bo.inserirPedido(pVo);

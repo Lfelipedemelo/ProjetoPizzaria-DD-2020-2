@@ -97,7 +97,7 @@ public class TelaAdicionarPedido extends JPanel {
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		
 		rdbtnTamanhoBroto = new JRadioButton("Broto");
-		rdbtnTamanhoBroto.setActionCommand("BROTO");
+		rdbtnTamanhoBroto.setActionCommand("Broto");
 		rdbtnTamanhoBroto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String valor = String.valueOf(VALOR_BROTO + "0");
@@ -110,8 +110,8 @@ public class TelaAdicionarPedido extends JPanel {
 		panelTamanho.add(rdbtnTamanhoBroto, "flowx,cell 0 1");
 		
 		
-		rdbtnTamanhoMedia = new JRadioButton("M\u00E9dia");
-		rdbtnTamanhoMedia.setActionCommand("MEDIA");
+		rdbtnTamanhoMedia = new JRadioButton("Média");
+		rdbtnTamanhoMedia.setActionCommand("Média");
 		rdbtnTamanhoMedia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String valor = String.valueOf(VALOR_MEDIA + "0");
@@ -124,7 +124,7 @@ public class TelaAdicionarPedido extends JPanel {
 		panelTamanho.add(rdbtnTamanhoMedia, "cell 0 1");
 		
 		rdbtnTamanhoGrande = new JRadioButton("Grande");
-		rdbtnTamanhoGrande.setActionCommand("GRANDE");
+		rdbtnTamanhoGrande.setActionCommand("Grande");
 		rdbtnTamanhoGrande.setSelected(true);
 		rdbtnTamanhoGrande.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -138,7 +138,7 @@ public class TelaAdicionarPedido extends JPanel {
 		panelTamanho.add(rdbtnTamanhoGrande, "cell 0 1");
 		
 		rdbtnTamanhoGigante = new JRadioButton("Gigante");
-		rdbtnTamanhoGigante.setActionCommand("GIGANTE");
+		rdbtnTamanhoGigante.setActionCommand("Gigante");
 		rdbtnTamanhoGigante.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String valor = String.valueOf(VALOR_GIGANTE + "0");
@@ -333,9 +333,9 @@ public class TelaAdicionarPedido extends JPanel {
 					} else if(cbTerceiroSabor.getSelectedIndex() == 0 && !rdbtNsaboresTres.isSelected() == false){
 						JOptionPane.showMessageDialog(null, "Selecione um sabor");
 					} else {
-						pVo.setSabor1(cbPrimeiroSabor.getSelectedItem().toString().toUpperCase());
-						pVo.setSabor2(cbSegundoSabor.getSelectedItem().toString().toUpperCase());
-						pVo.setSabor3(cbTerceiroSabor.getSelectedItem().toString().toUpperCase());
+						pVo.setSabor1(cbPrimeiroSabor.getSelectedItem().toString());
+						pVo.setSabor2(cbSegundoSabor.getSelectedItem().toString());
+						pVo.setSabor3(cbTerceiroSabor.getSelectedItem().toString());
 						pController.inserirPedido(pVo);
 						limparTela();
 						TelaGerarNotaFiscal nf = new TelaGerarNotaFiscal(pVo, cliente);
